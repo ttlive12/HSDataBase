@@ -1,0 +1,4 @@
+<navigation-bar />
+<scroll-view class="scrollarea" scroll-y type="list">
+
+</scroll-view>

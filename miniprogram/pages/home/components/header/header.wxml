@@ -1,0 +1,13 @@
+<!--pages/home/components/header/header.wxml-->
+<view class="home-head">
+  <view class="home-head-intro">
+    <view>
+      <text>{{currentMouth}}月{{currentDay}}日</text>
+    </view>
+    <view>
+      <text>第{{currentSeason}}赛季</text>
+      <text class="home-head-intro-subtitle"> -天马年</text>
+    </view>
+  </view>
+  <van-progress class="home-progress" percentage="{{monthProgress}}" pivot-text="{{monthProgress + '%'}}" pivot-color="#2db98d" color="linear-gradient(to right, #36ffc0, #2db98d)" />
+</view>

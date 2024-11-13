@@ -1,0 +1,27 @@
+<!--pages/home/components/rank/rank.wxml-->
+<view class="container">
+  <!-- 排名类型选择 -->
+  <scroll-view scroll-x class="type">
+    <view style="display: inline-block; width: 30rpx" />
+    <view wx:for="{{dataTypes}}" wx:key="id" class="type-item {{item.id === currentType ? 'type-item-current' : ''}}" data-type="{{item.id}}" bind:tap="handleSwitch">
+      <view class="type-item-inner">
+        <image class="type-item-inner-img" src="{{ item.url }}" />
+        <text>{{ item.name }}</text>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="rank">
+    <view class="rank-item">
+      <text class="rank-item-text">卡组</text>
+      <text class="rank-item-text">热度</text>
+      <text class="rank-item-text">胜率</text>
+      <text class="rank-item-text">上分速度/时</text>
+    </view>
+    <view class="rank-item" wx:for="{{ rankData[currentType] }}" wx:key="_id">
+      <text class="rank-item-text">{{ item.zhName }}</text>
+      <text class="rank-item-text">{{ item.popularityPercent }}%</text>
+      <text class="rank-item-text">{{ item.winrate }}%</text>
+      <text class="rank-item-text">{{ item.ClimbingSpeed }}</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,13 @@
+<view class="weui-navigation-bar {{extClass}}">
+  <view class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}}" style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}">
+
+    <!-- 标题 -->
+    <view class='weui-navigation-bar__center'>
+      <view class="hs-icon" />
+      <view class="title">
+        <text class="main">HS</text>
+        <text class="sub">数据库</text>
+      </view>
+    </view>
+  </view>
+</view>
