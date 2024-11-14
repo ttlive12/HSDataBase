@@ -5,23 +5,104 @@
     <view style="display: inline-block; width: 30rpx" />
     <view wx:for="{{dataTypes}}" wx:key="id" class="type-item {{item.id === currentType ? 'type-item-current' : ''}}" data-type="{{item.id}}" bind:tap="handleSwitch">
       <view class="type-item-inner">
-        <image class="type-item-inner-img" src="{{ item.url }}" />
+        <image class="type-item-inner-img image" src="{{ item.url }}" />
         <text>{{ item.name }}</text>
       </view>
     </view>
   </scroll-view>
   <view class="rank">
-    <view class="rank-item">
-      <text class="rank-item-text">卡组</text>
-      <text class="rank-item-text">热度</text>
-      <text class="rank-item-text">胜率</text>
-      <text class="rank-item-text">上分速度/时</text>
+    <view class="rank-top">
+      <view class="rank-top-item {{firstDeckData.class}}">
+        <view class="rank-top-item-header">
+          <view class="rank-top-item-header-left">
+            <image class="image" src="{{class2Img[firstDeckData.class]}}" />
+            <text>{{firstDeckData.zhName}}</text>
+          </view>
+          <image class="image" src="{{images.No1}}" />
+        </view>
+        <view class="rank-top-item-body">
+          <view class="rank-top-item-body-left">
+            <view class="rank-top-item-body-left-item">
+              <view class="svg_icon">
+                <image class="svg_icon-inner image" src="/assets/hand.svg" />
+              </view>
+              <view class="col">
+                <text class="light">选取率</text>
+                <text>{{firstDeckData.popularityPercent}}%</text>
+              </view>
+            </view>
+            <view class="rank-top-item-body-left-item">
+              <view class="svg_icon">
+                <image class="svg_icon-inner image" src="/assets/up.svg" />
+              </view>
+              <view>
+                <text class="light">上分速度</text>
+                <text>{{firstDeckData.ClimbingSpeed}}⭐</text>
+              </view>
+            </view>
+
+          </view>
+          <view class="rank-top-item-body-right">
+            <view>
+              <view style="display: flex;align-items: center;gap:10rpx;">
+                <image class="image" src="{{images.win}}" />
+                <text class="light">胜率</text>
+              </view>
+              <text>{{firstDeckData.winrate}}%</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="rank-top-item {{secondDeckData.class}}">
+        <view class="rank-top-item-header">
+          <view class="rank-top-item-header-left">
+            <image class="image" src="{{class2Img[secondDeckData.class]}}" />
+            <text>{{secondDeckData.zhName}}</text>
+          </view>
+          <image class="image" src="{{images.No2}}" />
+        </view>
+        <view class="rank-top-item-body">
+          <view class="rank-top-item-body-left">
+            <view class="rank-top-item-body-left-item">
+              <view class="svg_icon">
+                <image class="svg_icon-inner image" src="/assets/hand.svg" />
+              </view>
+              <view class="col">
+                <text class="light">选取率</text>
+                <text>{{secondDeckData.popularityPercent}}%</text>
+              </view>
+            </view>
+            <view class="rank-top-item-body-left-item">
+              <view class="svg_icon">
+                <image class="svg_icon-inner image" src="/assets/up.svg" />
+              </view>
+              <view>
+                <text class="light">上分速度</text>
+                <text>{{secondDeckData.ClimbingSpeed}}⭐</text>
+              </view>
+            </view>
+
+          </view>
+          <view class="rank-top-item-body-right">
+            <view>
+              <view style="display: flex;align-items: center;gap:10rpx;">
+                <image class="image" src="{{images.win}}" />
+                <text class="light">胜率</text>
+              </view>
+              <text>{{secondDeckData.winrate}}%</text>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="rank-item" wx:for="{{ rankData[currentType] }}" wx:key="_id">
-      <text class="rank-item-text">{{ item.zhName }}</text>
-      <text class="rank-item-text">{{ item.popularityPercent }}%</text>
-      <text class="rank-item-text">{{ item.winrate }}%</text>
-      <text class="rank-item-text">{{ item.ClimbingSpeed }}</text>
+    <view wx:for="{{ rankData[currentType] }}" wx:key="_id">
+      <view wx:if="{{index >= 2}}" class="rank-item">
+        <text class="rank-item-index">{{ index + 1 }}</text>
+        <text class="rank-item-text {{ item.class }}">{{ item.zhName === '无' ? item.enName : item.zhName }}</text>
+        <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%</text>
+        <text class="rank-item-text {{item.popularityPercent < 1 ? 'gray' : ''}}">{{ item.popularityPercent }}%</text>
+        <text class="rank-item-text {{item.ClimbingSpeed < 0 ? 'gray' : ''}}">{{ item.ClimbingSpeed }}⭐</text>
+      </view>
     </view>
   </view>
 </view>

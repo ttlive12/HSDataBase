@@ -1,7 +1,7 @@
 import { RequestOption } from "./type";
 
 const request = <T>(options: RequestOption): Promise<T> => {
-  if (options?.showLoading) {
+  if (options && options.showLoading) {
     wx.showLoading({
       title: "加载中",
     });
@@ -17,16 +17,16 @@ const request = <T>(options: RequestOption): Promise<T> => {
         resolve(res.data as T);
       },
       fail(err) {
-        if (options?.showError) {
+        if (options && options.showError) {
           wx.showToast({
-            title: err.errMsg ?? "系统错误",
+            title: (err.errMsg !== null && err.errMsg !== undefined) ? err.errMsg : "系统错误",
             duration: 2000,
           });
         }
         reject(err);
       },
       complete() {
-        if (options?.showLoading) {
+        if (options && options.showLoading) {
           wx.hideLoading();
         }
       },

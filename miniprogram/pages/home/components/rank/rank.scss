@@ -1,4 +1,53 @@
 @import "../../../../common.scss";
+
+.svg_icon {
+  display: inline-flex;
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+}
+
+.svg_icon-inner {
+  width: 1em;
+  height: 1em;
+  transform: translateY(-1em);
+  filter: drop-shadow(0 1em 0 currentColor);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// 定义颜色变量
+$shaman: #0070de;
+$priest: #ffffff;
+$hunter: #abd473;
+$rogue: #fff569;
+$warlock: #9482c9;
+$mage: #69ccf0;
+$warrior: #c79c6e;
+$druid: #ff7d0a;
+$paladin: #f58cba;
+$deathknight: #c41f3b;
+$demonhunter: #a330c9;
+
+// 创建一个 map，将类名与颜色变量关联
+$classColors: (
+  "shaman": $shaman,
+  "priest": $priest,
+  "hunter": $hunter,
+  "rogue": $rogue,
+  "warlock": $warlock,
+  "mage": $mage,
+  "warrior": $warrior,
+  "druid": $druid,
+  "paladin": $paladin,
+  "deathknight": $deathknight,
+  "demonhunter": $demonhunter,
+);
+
 .container {
   display: flex;
   flex-direction: column;
@@ -33,16 +82,109 @@
   flex-direction: column;
   margin: 40rpx 30rpx;
   gap: 20rpx;
+  .image {
+    width: 50rpx;
+    height: 50rpx;
+  }
   &-item {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10rpx 20rpx;
-    background-color: rgba($white,0.6);
+    background-color: rgba($white, 0.6);
     border-radius: 20rpx;
+    @each $class, $color in $classColors {
+      .#{$class} {
+        color: mix(black, $color, 30%);
+      }
+    }
+    .gray {
+      color: $gray-6;
+    }
+    &-index {
+      font-size: 28rpx;
+      text-align: center;
+      width: 40rpx;
+      height: 40rpx;
+      margin-right: 20rpx;
+      background-color: $orange;
+      color: white;
+      border-radius: 50%;
+    }
     &-text {
       text-align: center;
       flex: 1;
+    }
+  }
+  &-top {
+    display: flex;
+    gap: 40rpx;
+    @each $class, $color in $classColors {
+      .#{$class} {
+        background: $color;
+        color: contrast-color($color);
+      }
+    }
+    &-item {
+      flex: 1;
+      height: 220rpx;
+      padding: 10rpx 20rpx;
+      border-radius: 20rpx;
+      display: flex;
+      flex-direction: column;
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        &-left {
+          display: flex;
+          align-items: center;
+          gap: 10rpx;
+        }
+      }
+      &-body {
+        display: flex;
+        justify-content: space-between;
+        &-left {
+          flex: 1;
+          .image {
+            width: 40rpx;
+            height: 40rpx;
+          }
+          font-size: 36rpx;
+          display: flex;
+          flex-direction: column;
+          .light {
+            font-size: 20rpx;
+            font-weight: 300;
+          }
+          &-item {
+            display: flex;
+            align-items: center;
+            gap: 15rpx;
+            :nth-child(1) {
+              flex: 2;
+            }
+            :nth-child(2) {
+              flex: 7;
+            }
+          }
+        }
+        &-right {
+          font-size: 50rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 1;
+          .image {
+            width: 35rpx;
+            height: 35rpx;
+          }
+          .light {
+            font-size: 30rpx;
+            font-weight: 300;
+          }
+        }
+      }
     }
   }
 }

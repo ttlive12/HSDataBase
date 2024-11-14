@@ -10,8 +10,8 @@ $gray-6: #969799;
 $gray-7: #646566;
 $gray-8: #323233;
 $red: #ee0a24;
-$blue: #3ACCFF;
-$orange: #FF9C00;
+$blue: #3accff;
+$orange: #ff9c00;
 $orange-dark: #ed6a0c;
 $orange-light: #fffbe8;
 $green: #07c160;
@@ -21,4 +21,37 @@ $green: #07c160;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@function luminance($color) {
+  $r: red($color) / 255;
+  $g: green($color) / 255;
+  $b: blue($color) / 255;
+
+  $r: if(
+    $r <= 0.03928,
+    $r / 12.92,
+    (($r + 0.055) / 1.055) * (($r + 0.055) / 1.055) * (($r + 0.055) / 1.055) *
+      (($r + 0.055) / 1.055) * (($r + 0.055) / 1.055) * (($r + 0.055) / 1.055)
+  );
+  $g: if(
+    $g <= 0.03928,
+    $g / 12.92,
+    (($g + 0.055) / 1.055) * (($g + 0.055) / 1.055) * (($g + 0.055) / 1.055) *
+      (($g + 0.055) / 1.055) * (($g + 0.055) / 1.055) * (($g + 0.055) / 1.055)
+  );
+  $b: if(
+    $b <= 0.03928,
+    $b / 12.92,
+    (($b + 0.055) / 1.055) * (($b + 0.055) / 1.055) * (($b + 0.055) / 1.055) *
+      (($b + 0.055) / 1.055) * (($b + 0.055) / 1.055) * (($b + 0.055) / 1.055)
+  );
+
+  @return 0.2126 * $r + 0.7152 * $g + 0.0722 * $b;
+}
+
+@function contrast-color($color) {
+  $darkText: #333333; // 深灰色
+  $lightText: #f0f0f0; // 浅灰色
+  @return if(luminance($color) > 0.5, $darkText, $lightText);
 }

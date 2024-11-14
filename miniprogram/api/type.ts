@@ -1,4 +1,4 @@
-export type classTypes =
+export type ClassTypes =
   | "shaman"
   | "priest"
   | "hunter"
@@ -34,11 +34,11 @@ export interface RankDataResponse {
 export type RankDatas = Record<rankType, DeckData[]>;
 
 export interface DeckData {
-  ClimbingSpeed: String;
-  class: classTypes;
+  ClimbingSpeed: Number;
+  class: ClassTypes;
   enName: String;
   popularityNum: Number;
   popularityPercent: Number;
-  winrate: String;
+  winrate: Number;
   zhName: String;
 }
