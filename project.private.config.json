@@ -3,6 +3,7 @@
   "projectname": "HSData",
   "setting": {
     "compileHotReLoad": true,
-    "urlCheck": false
+    "urlCheck": false,
+    "skylineRenderEnable": true
   }
 }

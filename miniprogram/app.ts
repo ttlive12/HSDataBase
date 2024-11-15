@@ -1,10 +1,12 @@
-// app.ts
+import { IAppOption } from "typings";
+import { getCardDatas } from "./api/index";
+
 App<IAppOption>({
-  globalData: {},
-  onLaunch() {
-    // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+  globalData: {
+    cardDatas: [],
   },
-})
+  async onLaunch() {
+    const ans = await getCardDatas();
+    this.globalData.cardDatas = ans;
+  },
+});

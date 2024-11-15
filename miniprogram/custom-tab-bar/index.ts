@@ -4,11 +4,11 @@ Component({
     list: [
       {
         pagePath: "/pages/home/home",
-        text: "首页",
+        text: "排行",
       },
       {
-        pagePath: "/pages/my/my",
-        text: "我的",
+        pagePath: "/pages/deck/deck",
+        text: "卡组",
       },
     ],
   },

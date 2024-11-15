@@ -1,4 +1,4 @@
-import { getRankData } from "@/api/index";
+import { getRankDatas } from "@/api/index";
 import { DeckData, RankDatas, rankType } from "@/api/type";
 import { dataTypes, class2Img } from "@/constants";
 import { No1, No2, up, win, hand } from "@/assets/index";
@@ -22,29 +22,57 @@ Component({
   },
   lifetimes: {
     async attached() {
-      const data = await getRankData();
+      const rankBar = this.selectComponent("#rankBar");
+      const data = await getRankDatas();
       // 更新 RankData 和 UpdateTime
       this.setData(
         {
           ...data,
+          currentType: rankBar.getCurrentType(),
         },
         this.onUpdateData
       );
     },
   },
   methods: {
-    handleSwitch(e: WechatMiniprogram.TouchEvent) {
+    onShow() {
+      wx.nextTick(() => {
+        const rankBar = this.selectComponent("#rankBar");
+        if (rankBar.getCurrentType() === this.data.currentType) return;
+        this.setData(
+          {
+            currentType: rankBar.getCurrentType(),
+          },
+          this.onUpdateData
+        );
+      });
+    },
+    handleRankChange(e: WechatMiniprogram.CustomEvent) {
       this.setData(
         {
-          currentType: e.currentTarget.dataset.type,
+          currentType: e.detail.currentType,
         },
         this.onUpdateData
       );
     },
     onUpdateData() {
-      this.setData({
-        firstDeckData: this.data.rankData[this.data.currentType][0],
-        secondDeckData: this.data.rankData[this.data.currentType][1],
+      const rankBar = this.selectComponent("#rankBar");
+      this.setData(
+        {
+          firstDeckData: this.data.rankData[this.data.currentType][0],
+          secondDeckData: this.data.rankData[this.data.currentType][1],
+        },
+        () => {
+          if (rankBar) {
+            rankBar.onShow();
+          }
+        }
+      );
+    },
+    handleJump(e: WechatMiniprogram.TouchEvent) {
+      const id = e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: `/pages/deck-detail/deck-detail?id=${id}`,
       });
     },
   },

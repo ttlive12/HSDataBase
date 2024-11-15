@@ -1,18 +1,10 @@
 <!--pages/home/components/rank/rank.wxml-->
 <view class="container">
   <!-- 排名类型选择 -->
-  <scroll-view scroll-x class="type">
-    <view style="display: inline-block; width: 30rpx" />
-    <view wx:for="{{dataTypes}}" wx:key="id" class="type-item {{item.id === currentType ? 'type-item-current' : ''}}" data-type="{{item.id}}" bind:tap="handleSwitch">
-      <view class="type-item-inner">
-        <image class="type-item-inner-img image" src="{{ item.url }}" />
-        <text>{{ item.name }}</text>
-      </view>
-    </view>
-  </scroll-view>
+  <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="rank">
     <view class="rank-top">
-      <view class="rank-top-item {{firstDeckData.class}}">
+      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-id="{{firstDeckData.enName}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[firstDeckData.class]}}" />
@@ -53,7 +45,7 @@
           </view>
         </view>
       </view>
-      <view class="rank-top-item {{secondDeckData.class}}">
+      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-id="{{secondDeckData.enName}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[secondDeckData.class]}}" />
@@ -96,7 +88,7 @@
       </view>
     </view>
     <view wx:for="{{ rankData[currentType] }}" wx:key="_id">
-      <view wx:if="{{index >= 2}}" class="rank-item">
+      <view wx:if="{{index >= 2}}" class="rank-item" bind:tap="handleJump" data-id="{{item.enName}}">
         <text class="rank-item-index">{{ index + 1 }}</text>
         <text class="rank-item-text {{ item.class }}">{{ item.zhName === '无' ? item.enName : item.zhName }}</text>
         <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%</text>

@@ -1,0 +1,35 @@
+<navigation-bar />
+<scroll-view class="scrollarea" scroll-y>
+  <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
+
+  <view class="deck">
+    <view wx:if="{{cardDatas.length}}" class="card">
+      <view class="card-frame-title">
+        相关卡牌
+      </view>
+      <view class="card-data">
+        <text class="card-data-title">携带影响</text>
+        <text class="card-data-title">抽到影响</text>
+        <text class="card-data-title">保留影响</text>
+      </view>
+    </view>
+    <view wx:else style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
+      暂无数据
+    </view>
+    <view wx:for="{{cardDatas}}" wx:key="id" class="card">
+      <view class="card-name">
+        <text>{{item.name}}</text>
+      </view>
+      <view class="card-frame">
+        <view class="card-frame-countbox" />
+        <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
+      </view>
+      <view class="card-data">
+        <text class="card-data-text" style="color: {{item.mulliganImpactColor}}">{{item.mulliganImpact}}</text>
+        <text class="card-data-text" style="color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
+        <text class="card-data-text" style="color: {{item.keptImpactColor}}">{{item.keptImpact}}</text>
+      </view>
+    </view>
+  </view>
+  <view style="height: 100rpx;" />
+</scroll-view>

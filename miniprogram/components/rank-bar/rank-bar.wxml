@@ -1,0 +1,9 @@
+<scroll-view scroll-x class="type">
+  <view style="display: inline-block; width: 30rpx" />
+  <view wx:for="{{dataTypes}}" wx:key="id" class="type-item {{item.id === currentType ? 'type-item-current' : ''}}" data-type="{{item.id}}" bind:tap="handleSwitch">
+    <view class="type-item-inner">
+      <image class="type-item-inner-img image" src="{{ item.url }}" />
+      <text>{{ item.name }}</text>
+    </view>
+  </view>
+</scroll-view>
