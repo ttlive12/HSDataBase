@@ -18,6 +18,7 @@
     </view>
     <view wx:for="{{cardDatas}}" wx:key="id" class="card">
       <view class="card-name">
+        <text>{{item.cost}}</text>
         <text>{{item.name}}</text>
       </view>
       <view class="card-frame">

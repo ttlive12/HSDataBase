@@ -20,34 +20,6 @@
   justify-content: center;
 }
 
-// 定义颜色变量
-$shaman: #0070de;
-$priest: #ffffff;
-$hunter: #abd473;
-$rogue: #fff569;
-$warlock: #9482c9;
-$mage: #69ccf0;
-$warrior: #c79c6e;
-$druid: #ff7d0a;
-$paladin: #f58cba;
-$deathknight: #c41f3b;
-$demonhunter: #a330c9;
-
-// 创建一个 map，将类名与颜色变量关联
-$classColors: (
-  "shaman": $shaman,
-  "priest": $priest,
-  "hunter": $hunter,
-  "rogue": $rogue,
-  "warlock": $warlock,
-  "mage": $mage,
-  "warrior": $warrior,
-  "druid": $druid,
-  "paladin": $paladin,
-  "deathknight": $deathknight,
-  "demonhunter": $demonhunter,
-);
-
 .container {
   display: flex;
   flex-direction: column;
@@ -95,6 +67,7 @@ $classColors: (
   }
   &-top {
     display: flex;
+    justify-content: space-between;
     gap: 40rpx;
     @each $class, $color in $classColors {
       .#{$class} {
@@ -103,8 +76,6 @@ $classColors: (
       }
     }
     &-item {
-      flex: 1;
-      height: 220rpx;
       padding: 10rpx 20rpx;
       border-radius: 20rpx;
       display: flex;
@@ -127,7 +98,7 @@ $classColors: (
             width: 40rpx;
             height: 40rpx;
           }
-          font-size: 36rpx;
+          font-size: 32rpx;
           display: flex;
           flex-direction: column;
           .light {
@@ -137,6 +108,7 @@ $classColors: (
           &-item {
             display: flex;
             align-items: center;
+            margin-top: 10rpx;
             gap: 15rpx;
             :nth-child(1) {
               flex: 2;
@@ -147,7 +119,7 @@ $classColors: (
           }
         }
         &-right {
-          font-size: 50rpx;
+          font-size: 45rpx;
           display: flex;
           align-items: center;
           justify-content: center;

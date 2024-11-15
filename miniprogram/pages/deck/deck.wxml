@@ -1,7 +1,31 @@
 <navigation-bar />
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    <rank-bar id="rankBar" />
+    <rank-bar id="rankBar" bind:rankChange="handleRankChange"/>
   </view>
-
+  <view class="waterfall">
+    <view wx:for="{{deckDatas}}" wx:key="id" class="waterfall-item-container">
+      <view class="waterfall-item  {{item.class}}">
+        <view class="waterfall-item-header">
+          <image class="image" src="{{class2Img[item.class]}}" />
+          <text>大法术法</text>
+          <!-- <text>{{item.name}}</text> -->
+        </view>
+        <view class="waterfall-item-body">
+          <text>{{item.winrate}}%</text>
+          <text>{{item.games}}场</text>
+        </view>
+        <view wx:for="{{item.cards}}" wx:key="id" wx:for-item="card" class="card">
+          <view class="card-name">
+            <text>{{card.cost}}</text>
+            <text>{{card.name}}</text>
+          </view>
+          <view class="card-frame">
+            <view class="card-frame-countbox" />
+            <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{card.id}}.webp" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
 </scroll-view>

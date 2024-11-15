@@ -1,10 +1,26 @@
 import { getDecksData } from "@/api/index";
 import { rankType } from "@/api/type";
-import { getDeckStatsDivs, parseDeckStatsHtml } from "./tools";
-
+import { parseData, IDecksData } from "./tools";
+import { class2Img } from "@/constants";
 Page({
   data: {
     currentType: "top_legend" as rankType,
+    deckDatas: [] as IDecksData[],
+    class2Img
+  },
+  onLoad() {
+    const rankBar = this.selectComponent("#rankBar")
+    this.setData(
+      {
+        currentType: rankBar.getCurrentType(),
+      },
+      () => {
+        if (rankBar) {
+          rankBar.onShow();
+        }
+        this.getData();
+      }
+    );
   },
   onShow() {
     if (typeof this.getTabBar === "function" && this.getTabBar()) {
@@ -30,7 +46,16 @@ Page({
     const data = await getDecksData({
       rank: this.data.currentType,
     });
-    const temp = getDeckStatsDivs(data);
-    console.log(parseDeckStatsHtml(temp[1]));
+    this.setData({
+      deckDatas: parseData(data)
+    })
+  },
+  handleRankChange(e: WechatMiniprogram.CustomEvent) {
+    this.setData(
+      {
+        currentType: e.detail.currentType,
+      },
+      this.getData
+    );
   },
 });
