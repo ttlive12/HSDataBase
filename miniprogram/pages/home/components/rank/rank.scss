@@ -31,10 +31,12 @@
   flex-direction: column;
   margin: 40rpx 30rpx;
   gap: 20rpx;
+
   .image {
     width: 50rpx;
     height: 50rpx;
   }
+
   &-item {
     display: flex;
     align-items: center;
@@ -42,92 +44,115 @@
     padding: 10rpx 20rpx;
     background-color: rgba($white, 0.6);
     border-radius: 20rpx;
-    @each $class, $color in $classColors {
+
+    @each $class,
+    $color in $classColors {
       .#{$class} {
         color: mix(black, $color, 30%);
       }
     }
+
     .gray {
       color: $gray-6;
     }
+
     &-index {
       font-size: 28rpx;
       text-align: center;
       width: 40rpx;
       height: 40rpx;
+      line-height: 40rpx;
       margin-right: 20rpx;
       background-color: $orange;
       color: white;
       border-radius: 50%;
     }
+
     &-text {
       text-align: center;
       flex: 1;
     }
   }
+
   &-top {
     display: flex;
     justify-content: space-between;
     gap: 40rpx;
-    @each $class, $color in $classColors {
+
+    @each $class,
+    $color in $classColors {
       .#{$class} {
         background: $color;
         color: contrast-color($color);
       }
     }
+
     &-item {
       padding: 10rpx 20rpx;
       border-radius: 20rpx;
       display: flex;
       flex-direction: column;
+
       &-header {
         display: flex;
         justify-content: space-between;
+
         &-left {
           display: flex;
           align-items: center;
           gap: 10rpx;
         }
       }
+
       &-body {
         display: flex;
         justify-content: space-between;
+
         &-left {
           flex: 1;
+
           .image {
             width: 40rpx;
             height: 40rpx;
           }
+
           font-size: 32rpx;
           display: flex;
           flex-direction: column;
+
           .light {
             font-size: 20rpx;
             font-weight: 300;
           }
+
           &-item {
             display: flex;
             align-items: center;
             margin-top: 10rpx;
             gap: 15rpx;
+
             :nth-child(1) {
               flex: 2;
             }
+
             :nth-child(2) {
               flex: 7;
             }
           }
         }
+
         &-right {
           font-size: 45rpx;
           display: flex;
           align-items: center;
           justify-content: center;
           flex: 1;
+
           .image {
             width: 35rpx;
             height: 35rpx;
           }
+
           .light {
             font-size: 30rpx;
             font-weight: 300;

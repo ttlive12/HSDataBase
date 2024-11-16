@@ -10,7 +10,6 @@ Page({
   data: {
     cardDatas: [] as CardInfoShow[],
     id: "",
-    arr: [1, 2, 3, 45],
     currentType: "top_legend" as rankType,
   },
 
