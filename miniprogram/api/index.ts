@@ -1,26 +1,15 @@
 import request from "./request";
-import { RankDataResponse, CardData, rankType } from "./type";
+import { IGetDeckCardStatsData } from "../modal/deckCardStats";
+import { IGetDecksData } from "../modal/decksData";
+import { IGetRanksData } from "../modal/rankData";
 
 /***
  * 获取排行数据
  * @returns RankDataResponse
  */
 export const getRankDatas = async () => {
-  return await request<RankDataResponse>({
-    url: "https://ilw6383kw0.hzh.sealos.run/getRankData",
-    method: "GET",
-    showLoading: true,
-  });
-};
-
-/***
- * 获取卡牌数据
- * @returns RankDataResponse
- */
-export const getCardDatas = async () => {
-  return await request<CardData[]>({
-    url:
-      "https://api.hearthstonejson.com/v1/latest/zhCN/cards.collectible.json",
+  return await request<IGetRanksData>({
+    url: "https://zzyixzgjmqpx.sealoshzh.site/getRanksData",
     method: "GET",
     showLoading: true,
   });
@@ -29,12 +18,9 @@ export const getCardDatas = async () => {
 /**
  * 获取具体卡组数据
  */
-export const getDeckDataDetail = async ({ DeckName, rank }: {
-  DeckName: String,
-  rank: rankType
-}) => {
-  return await request<string>({
-    url: `https://www.hsguru.com/card-stats?archetype=${DeckName}&rank=${rank}`,
+export const getDeckCardStatsData = async (deckName: string) => {
+  return await request<IGetDeckCardStatsData>({
+    url: `https://zzyixzgjmqpx.sealoshzh.site/getDeckCardStats?deckName=${deckName}`,
     method: "GET",
     showLoading: true,
   });
@@ -43,11 +29,9 @@ export const getDeckDataDetail = async ({ DeckName, rank }: {
 /**
  * 获取推荐卡组数据
  */
-export const getDecksData = async ({ rank }: {
-  rank: rankType
-}) => {
-  return await request<string>({
-    url: `https://www.hsguru.com/decks/?format=2&rank=${rank}`,
+export const getDecksData = async () => {
+  return await request<IGetDecksData>({
+    url: `https://zzyixzgjmqpx.sealoshzh.site/getDecksData`,
     method: "GET",
     showLoading: true,
   });

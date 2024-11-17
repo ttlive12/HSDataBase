@@ -1,6 +1,6 @@
-import { getDeckDataDetail } from "@/api/index";
+import { getDeckCardStatsData } from "@/api/index";
 import { rankType } from "@/api/type";
-import { CardInfoShow, combineCardData, parseHtml } from "./util";
+import { CardInfo } from "@/modal/deckCardStats";
 
 // pages/deckDetail/deck-detail.ts
 Page({
@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    cardDatas: [] as CardInfoShow[],
+    data: {} as Record<rankType, CardInfo[]>,
     id: "",
     currentType: "top_legend" as rankType,
   },
@@ -17,29 +17,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   async onLoad(options: Record<string, string>) {
-    const id = options.id ? options.id : "Elemental+Mage";
+    const data = await getDeckCardStatsData(options.id);
+    this.setData({ data: data.data });
     const rankBar = this.selectComponent("#rankBar");
-    this.setData(
-      {
-        id,
-        currentType: rankBar.getCurrentType(),
-      },
-      this.getData
-    );
-  },
-  async getData() {
-    const html = await getDeckDataDetail({
-      DeckName: this.data.id,
-      rank: this.data.currentType,
+    this.setData({
+      currentType: rankBar.getCurrentType(),
     });
-    this.setData({ cardDatas: combineCardData(parseHtml(html)) });
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
-    this.setData(
-      {
-        currentType: e.detail.currentType,
-      },
-      this.getData
-    );
+    this.setData({
+      currentType: e.detail.currentType,
+    });
   },
 });

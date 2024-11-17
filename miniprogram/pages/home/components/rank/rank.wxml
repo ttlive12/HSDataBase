@@ -4,7 +4,7 @@
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="rank">
     <view class="rank-top">
-      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-id="{{firstDeckData.enName}}">
+      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-id="{{firstDeckData.name}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[firstDeckData.class]}}" />
@@ -45,7 +45,7 @@
           </view>
         </view>
       </view>
-      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-id="{{secondDeckData.enName}}">
+      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-id="{{secondDeckData.name}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[secondDeckData.class]}}" />
@@ -88,9 +88,9 @@
       </view>
     </view>
     <view wx:for="{{ rankData[currentType] }}" wx:key="_id">
-      <view wx:if="{{index >= 2}}" class="rank-item" bind:tap="handleJump" data-id="{{item.enName}}">
+      <view wx:if="{{index >= 2}}" class="rank-item" bind:tap="handleJump" data-id="{{item.name}}">
         <text class="rank-item-index">{{ index + 1 }}</text>
-        <text class="rank-item-text {{ item.class }}">{{ item.zhName === '无' ? item.enName : item.zhName }}</text>
+        <text class="rank-item-text {{ item.class }}">{{ item.zhName }}</text>
         <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%</text>
         <text class="rank-item-text {{item.popularityPercent < 1 ? 'gray' : ''}}">{{ item.popularityPercent }}%</text>
         <text class="rank-item-text {{item.ClimbingSpeed < 0 ? 'gray' : ''}}">{{ item.ClimbingSpeed }}⭐</text>

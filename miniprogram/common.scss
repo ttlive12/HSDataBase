@@ -1,4 +1,3 @@
-// 颜色
 $black: #000;
 $white: #fff;
 $gray-1: #f7f8fa;
@@ -15,14 +14,27 @@ $orange: #ff9c00;
 $orange-dark: #ed6a0c;
 $orange-light: #fffbe8;
 $green: #07c160;
+$shaman: #0070de;
+$priest: #ffffff;
+$hunter: #abd473;
+$rogue: #fff569;
+$warlock: #9482c9;
+$mage: #69ccf0;
+$warrior: #c79c6e;
+$druid: #ff7d0a;
+$paladin: #f58cba;
+$deathknight: #c41f3b;
+$demonhunter: #a330c9;
+$legendary: #ff8000;
+$dark-legendary: #63441b;
 
-// 居中
 @mixin flex-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+// 颜色深浅判断
 @function luminance($color) {
   $r: red($color) / 255;
   $g: green($color) / 255;
@@ -41,26 +53,14 @@ $green: #07c160;
   @return 0.2126 * $r+0.7152 * $g+0.0722 * $b;
 }
 
+// 生成适应背景色的文字颜色
 @function contrast-color($color) {
   $darkText: #333333; // 深灰色
   $lightText: #f0f0f0; // 浅灰色
   @return if(luminance($color) > 0.5, $darkText, $lightText);
 }
 
-// 定义颜色变量
-$shaman: #0070de;
-$priest: #ffffff;
-$hunter: #abd473;
-$rogue: #fff569;
-$warlock: #9482c9;
-$mage: #69ccf0;
-$warrior: #c79c6e;
-$druid: #ff7d0a;
-$paladin: #f58cba;
-$deathknight: #c41f3b;
-$demonhunter: #a330c9;
 
-// 创建一个 map，将类名与颜色变量关联
 $classColors: ("shaman": $shaman,
   "priest": $priest,
   "hunter": $hunter,
@@ -73,6 +73,3 @@ $classColors: ("shaman": $shaman,
   "deathknight": $deathknight,
   "demonhunter": $demonhunter,
 );
-
-$legendary: #ff8000;
-$dark-legendary: #63441b;

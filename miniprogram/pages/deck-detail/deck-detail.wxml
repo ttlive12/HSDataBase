@@ -3,7 +3,7 @@
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
 
   <view class="deck">
-    <view wx:if="{{cardDatas.length}}" class="card">
+    <view wx:if="{{data[currentType].length}}" class="card">
       <view class="card-frame-title">
         相关卡牌
       </view>
@@ -16,7 +16,7 @@
     <view wx:else style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
       暂无数据
     </view>
-    <view wx:for="{{cardDatas}}" wx:key="id" class="card">
+    <view wx:for="{{data[currentType]}}" wx:key="id" class="card">
       <view class="card-name">
         <text>{{item.cost}}</text>
         <text>{{item.name}}</text>

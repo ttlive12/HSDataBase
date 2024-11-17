@@ -1,16 +1,16 @@
 import { getRankDatas } from "@/api/index";
-import { DeckData, RankDatas, rankType } from "@/api/type";
+import { rankType } from "@/api/type";
 import { dataTypes, class2Img } from "@/constants";
 import { No1, No2, up, win, hand } from "@/assets/index";
+import { Rank, RankData } from "@/modal/rankData";
 
 Component({
   data: {
     dataTypes: dataTypes,
     currentType: "top_legend" as rankType,
-    rankData: {} as RankDatas,
-    updateTime: "",
-    firstDeckData: {} as DeckData,
-    secondDeckData: {} as DeckData,
+    rankData: {} as RankData,
+    firstDeckData: {} as Rank,
+    secondDeckData: {} as Rank,
     class2Img,
     images: {
       No1,
@@ -24,10 +24,9 @@ Component({
     async attached() {
       const rankBar = this.selectComponent("#rankBar");
       const data = await getRankDatas();
-      // 更新 RankData 和 UpdateTime
       this.setData(
         {
-          ...data,
+          rankData: data.data,
           currentType: rankBar.getCurrentType(),
         },
         this.onUpdateData
