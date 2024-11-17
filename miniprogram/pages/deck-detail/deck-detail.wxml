@@ -1,36 +1,37 @@
 <navigation-bar />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
+  <view class="container">
+    <view class="deck">
+      <view wx:for="{{deckData.cards}}" wx:key="id" class="card">
+        <view class="card-name">
+          <text>{{item.cost}}</text>
+          <text>{{item.name}}</text>
+          <text class="card-name-back">{{item.back}}</text>
+        </view>
+        <view class="card-frame">
+          <view class="card-frame-countbox" />
+          <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
+        </view>
+      </view>
 
-  <view class="deck">
-    <view wx:if="{{data[currentType].length}}" class="card">
-      <view class="card-frame-title">
-        相关卡牌
-      </view>
-      <view class="card-data">
-        <text class="card-data-title">携带影响</text>
-        <text class="card-data-title">抽到影响</text>
-        <text class="card-data-title">保留影响</text>
-      </view>
     </view>
-    <view wx:else style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
-      暂无数据
-    </view>
-    <view wx:for="{{data[currentType]}}" wx:key="id" class="card">
-      <view class="card-name">
-        <text>{{item.cost}}</text>
-        <text>{{item.name}}</text>
+    <view class="details">
+      <view wx:if="{{deckDetails[currentType].length === 0}}" style="text-align: center;margin-top: 25vh;">
+        暂无数据
       </view>
-      <view class="card-frame">
-        <view class="card-frame-countbox" />
-        <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
-      </view>
-      <view class="card-data">
-        <text class="card-data-text" style="color: {{item.mulliganImpactColor}}">{{item.mulliganImpact}}</text>
-        <text class="card-data-text" style="color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
-        <text class="card-data-text" style="color: {{item.keptImpactColor}}">{{item.keptImpact}}</text>
+      <view wx:for="{{deckDetails[currentType]}}" wx:key="class">
+        <view class="details-item" wx:if="{{item.class !== 'total'}}">
+          <image class="image" src="{{class2Img[item.class]}}" />
+          <text style="color: {{item.color}}">{{item.winrate}}%</text>
+          <text>({{item.total}})</text>
+        </view>
       </view>
     </view>
   </view>
   <view style="height: 100rpx;" />
 </scroll-view>
+<button class="copy" bind:tap="handleCopy">
+  <image src="/assets/copy.svg" style="width: 50rpx; height: 50rpx;" />
+  <text>复制卡组代码</text>
+</button>

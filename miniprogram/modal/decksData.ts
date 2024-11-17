@@ -6,6 +6,7 @@ export type Card = {
   id: string;
   rarity: string;
   name: string;
+  back: string;
 };
 
 export type Deck = {

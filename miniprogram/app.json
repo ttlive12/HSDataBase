@@ -2,6 +2,7 @@
   "pages": [
     "pages/home/home",
     "pages/deck/deck",
+    "pages/deck-stats/deck-stats",
     "pages/deck-detail/deck-detail"
   ],
   "usingComponents": {},

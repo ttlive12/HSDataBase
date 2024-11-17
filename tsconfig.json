@@ -21,7 +21,7 @@
     "paths": {
       "@vant/weapp/*": ["path/to/node_modules/@vant/weapp/dist/*"]
     },
-    "lib": ["ES6"],
+    "lib": ["ES2020"],
     "typeRoots": [
       "./typings"
     ]

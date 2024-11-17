@@ -1,4 +1,4 @@
-<scroll-view scroll-x class="type">
+<scroll-view enhanced="{{true}}" show-scrollbar="{{false}}" scroll-x class="type">
   <view style="display: inline-block; width: 30rpx" />
   <view wx:for="{{dataTypes}}" wx:key="id" class="type-item {{item.id === currentType ? 'type-item-current' : ''}}" data-type="{{item.id}}" bind:tap="handleSwitch">
     <view class="type-item-inner">

@@ -12,4 +12,20 @@ export const to = <T, U = Error>(
       return [err, undefined];
     });
 };
-export default to;
+
+export function throttle<T extends (...args: any[]) => void>(
+  func: T, 
+  wait: number
+): T {
+  let lastTime = 0;
+
+  return function (this: any, ...args: any[]) {
+    const now = Date.now();
+
+    // 如果距离上次执行时间超过了指定的间隔时间
+    if (now - lastTime >= wait) {
+      lastTime = now;
+      func.apply(this, args);
+    }
+  } as T;
+}

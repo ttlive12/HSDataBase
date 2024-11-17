@@ -46,5 +46,10 @@ Component({
     handleBack() {
       wx.navigateBack();
     },
+    handleBackHome() {
+      wx.switchTab({
+        url: "/pages/home/home",
+      });
+    },
   },
 });

@@ -2,6 +2,12 @@
 
 $tab-count: 2; // tab 的数量
 
+.rankBar {
+  position: fixed;
+  left: 0;
+  top: 300rpx;
+}
+
 .tabBar-container {
   @include flex-center;
   width: 100%;

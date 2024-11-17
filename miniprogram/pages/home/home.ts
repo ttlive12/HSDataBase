@@ -6,9 +6,5 @@ Page({
         selected: 0,
       });
     }
-    const rank = this.selectComponent("#rank");
-    if (rank) {
-      rank.onShow();
-    }
   },
 });

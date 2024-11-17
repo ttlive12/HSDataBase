@@ -1,4 +1,5 @@
 App<IAppOption>({
-  globalData: {},
+  globalData: {
+  },
   async onLaunch() {},
 });

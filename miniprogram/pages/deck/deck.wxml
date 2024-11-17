@@ -5,9 +5,9 @@
   </view>
   <view class="waterfall">
     <view wx:for="{{data[currentType]}}" wx:key="id" class="waterfall-item-container">
-      <view class="waterfall-item  {{item.class}}">
+      <view class="waterfall-item  {{item.class}}" data-data="{{item}}" bind:tap="handleJump">
         <view class="waterfall-item-header">
-          <image class="image" src="{{class2Img[item.class]}}" />
+          <image class="image" src="{{class2Img[item.class]}}" mode="aspectFill" lazy-load />
           <text>{{item.zhName}}</text>
         </view>
         <view class="waterfall-item-body">
@@ -22,11 +22,12 @@
             </view>
             <view class="card-frame">
               <view class="card-frame-countbox" />
-              <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{card.id}}.webp" />
+              <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{card.id}}.webp" mode="aspectFill" lazy-load />
             </view>
           </view>
         </view>
       </view>
     </view>
   </view>
+  <view style="height: 200rpx;"/>
 </scroll-view>

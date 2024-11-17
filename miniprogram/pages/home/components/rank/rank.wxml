@@ -15,18 +15,16 @@
         <view class="rank-top-item-body">
           <view class="rank-top-item-body-left">
             <view class="rank-top-item-body-left-item">
-              <view class="svg_icon">
-                <image class="svg_icon-inner image" src="/assets/hand.svg" />
-              </view>
+              <image wx:if="{{firstDeckData.class === 'priest'}}" class="image" src="/assets/hand.svg" />
+              <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
                 <text class="light">选取率</text>
                 <text>{{firstDeckData.popularityPercent}}%</text>
               </view>
             </view>
             <view class="rank-top-item-body-left-item">
-              <view class="svg_icon">
-                <image class="svg_icon-inner image" src="/assets/up.svg" />
-              </view>
+              <image wx:if="{{firstDeckData.class === 'priest'}}" class="image" src="/assets/up.svg" />
+              <image wx:else class="image" src="/assets/up_white.svg" />
               <view>
                 <text class="light">上分速度</text>
                 <text>{{firstDeckData.ClimbingSpeed}}⭐</text>
@@ -56,18 +54,16 @@
         <view class="rank-top-item-body">
           <view class="rank-top-item-body-left">
             <view class="rank-top-item-body-left-item">
-              <view class="svg_icon">
-                <image class="svg_icon-inner image" src="/assets/hand.svg" />
-              </view>
+              <image wx:if="{{secondDeckData.class === 'priest'}}" class="image" src="/assets/hand.svg" />
+              <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
                 <text class="light">选取率</text>
                 <text>{{secondDeckData.popularityPercent}}%</text>
               </view>
             </view>
             <view class="rank-top-item-body-left-item">
-              <view class="svg_icon">
-                <image class="svg_icon-inner image" src="/assets/up.svg" />
-              </view>
+              <image wx:if="{{secondDeckData.class === 'priest'}}" class="image" src="/assets/up.svg" />
+              <image wx:else class="image" src="/assets/up_white.svg" />
               <view>
                 <text class="light">上分速度</text>
                 <text>{{secondDeckData.ClimbingSpeed}}⭐</text>

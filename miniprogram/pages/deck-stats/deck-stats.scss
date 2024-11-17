@@ -1,4 +1,10 @@
-@import "../../common.scss";
+@import '../../common.scss';
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 .scrollarea {
   flex: 1;
@@ -9,32 +15,13 @@
   gap: 40rpx;
 }
 
-.container {
-  margin: 40rpx;
-  display: flex;
-  gap: 50rpx;
-}
-
 .deck {
+  margin: 40rpx;
   border-radius: 20rpx;
-  width: 320rpx;
-  height: fit-content;
   overflow: hidden;
-}
-
-.details {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20rpx;
-  .image {
-    width: 70rpx;
-    height: 70rpx;
-  }
-  &-item {
-    line-height: 70rpx;
-    display: flex;
-    gap: 20rpx;
+  border: 1rpx solid;
+  .card:nth-child(odd){
+    background: rgba($orange,0.05);
   }
 }
 
@@ -54,16 +41,6 @@
     z-index: 2;
     left: 10rpx;
     line-height: 50rpx;
-    width: 310rpx;
-    &-back {
-      font-weight: 600;
-      color: #f4d442;
-      position: absolute;
-      right: 0;
-      width: 40rpx;
-      text-align: center;
-      background-color: rgba(#000, 0.5);
-    }
   }
 
   &-frame {
@@ -103,22 +80,28 @@
       background-repeat: no-repeat;
     }
   }
-}
 
-.copy {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5rpx;
-  right: 80rpx;
-  bottom: 80rpx;
-  height: 80rpx;
-  line-height: 80rpx;
-  font-size: 32rpx;
-  border: none;
-  border-radius: 30rpx;
-  color: white;
-  font-family: sans-serif;
-  background-color: rgba($color: $orange, $alpha: 0.8);
+  &-data {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    line-height: 50rpx;
+
+    &-text {
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 30rpx;
+      border-right: 1rpx solid;
+      border-bottom: 1rpx solid;
+    }
+
+    &-title {
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 24rpx;
+      border-bottom: 1rpx solid;
+    }
+  }
 }

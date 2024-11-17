@@ -1,6 +1,7 @@
 .type {
-  width: 100%;
+  width: 100vw;
   white-space: nowrap;
+  overflow: hidden;
   &-item {
     display: inline-block;
     border-radius: 40rpx;
