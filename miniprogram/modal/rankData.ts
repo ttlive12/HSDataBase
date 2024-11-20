@@ -1,13 +1,14 @@
 import { ClassTypes, rankType } from "../api/type";
 
 export interface Rank {
-  ClimbingSpeed: Number;
+  ClimbingSpeed: number;
   class: ClassTypes;
-  name: String;
-  popularityNum: Number;
-  popularityPercent: Number;
-  winrate: Number;
-  zhName: String;
+  name: string;
+  popularityNum: number;
+  popularityPercent: number;
+  winrate: number;
+  zhName: string;
+  compositeScore?: number;
 }
 export type RankData = Record<rankType, Rank[]>;
 

@@ -1,5 +1,11 @@
 @import "../../common.scss";
 
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .scrollarea {
   flex: 1;
   overflow-y: hidden;
@@ -20,6 +26,18 @@
   width: 320rpx;
   height: fit-content;
   overflow: hidden;
+  &-cards {
+    border-radius: 20rpx;
+    width: 320rpx;
+    height: fit-content;
+    overflow: hidden;
+  }
+  &-dust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20rpx;
+  }
 }
 
 .details {
@@ -30,6 +48,12 @@
   .image {
     width: 70rpx;
     height: 70rpx;
+  }
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10rpx;
   }
   &-item {
     line-height: 70rpx;
@@ -64,6 +88,9 @@
       text-align: center;
       background-color: rgba(#000, 0.5);
     }
+    .legend {
+      font-size: 50rpx;
+    }
   }
 
   &-frame {
@@ -91,6 +118,26 @@
         rgba(49, 49, 49, 0) calc(100% - 50px),
         rgba(49, 49, 49, 0) 100%
       );
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+    .COMMON::before {
+      background: linear-gradient(to right, $dark-common, transparent);
+    }
+    .RARE::before {
+      background: linear-gradient(to right, $dark-rare, transparent);
+    }
+    .EPIC::before {
+      background: linear-gradient(to right, $dark-epic, transparent);
+    }
+    .LEGENDARY::before {
+      background: linear-gradient(to right, $dark-legendary, transparent);
     }
 
     &-image {

@@ -1,9 +1,38 @@
-<navigation-bar />
+<navigation-bar title="{{zhName}}" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
-
-  <view class="deck">
-    <view wx:if="{{data[currentType].length}}" class="card">
+  <view class="title">
+    <image src="/assets/menu.svg" style="height: 40rpx;width: 40rpx;" />相关卡组
+  </view>
+  <scroll-view wx:if="{{decksData[currentType].length}}" class="decks" scroll-x enable-flex>
+    <view style="display: inline-block; margin-right: 30rpx;" />
+    <view class="decks-item {{item.class}}" wx:for="{{decksData[currentType]}}" wx:key="deckId" data-data="{{item}}" bind:tap="handleJump">
+      <view class="decks-item-inner">
+        <view class="decks-item-inner-dust" style="gap: 5rpx">
+          <image src="{{class2Img[item.class]}}" style="width: 40rpx; height: 40rpx;" />
+          <text>{{item.zhName}}</text>
+          <text>({{item.games}}场)</text>
+        </view>
+        <text class="decks-item-inner-winrate">胜率：{{item.winrate}}%</text>
+        <view class="decks-item-inner-dust">
+          <image src="https://www.hsguru.com/images/dust_icon.webp" style="width: 40rpx; height: 40rpx;" />
+          <text>{{item.dust}}</text>
+        </view>
+      </view>
+    </view>
+    <view style="display: inline-block; color: transparent;font-size: 1rpx;">0</view>
+  </scroll-view>
+  <view wx:if="{{!decksData[currentType].length}}" style="width: 100%; text-align: center;padding: 40rpx 0;font-size: 40rpx;">
+    暂无数据
+  </view>
+  <view class="title">
+    <image src="/assets/schedule.svg" style="height: 40rpx;width: 40rpx;" />卡牌调度
+  </view>
+  <view wx:if="{{!data[currentType].length}}" style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
+    暂无数据
+  </view>
+  <view wx:else class="deck">
+    <view class="card">
       <view class="card-frame-title" style="border-right: 1rpx solid;">
         相关卡牌
       </view>
@@ -13,16 +42,13 @@
         <text class="card-data-title">保留影响</text>
       </view>
     </view>
-    <view wx:else style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
-      暂无数据
-    </view>
     <view wx:for="{{data[currentType]}}" wx:key="id" class="card">
       <view class="card-name">
         <text>{{item.cost}}</text>
         <text>{{item.name}}</text>
       </view>
       <view class="card-frame">
-        <view class="card-frame-countbox" />
+        <view class="card-frame-countbox {{item.rarity}}" />
         <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
       </view>
       <view class="card-data">

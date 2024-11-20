@@ -12,12 +12,17 @@ Page({
     currentType: "top_legend" as rankType,
     class2Img,
   },
-  async onLoad() {
+  async onLoad(options: Record<string, string>) {
+    const rankBar = this.selectComponent("#rankBar");
+    if (rankBar) {
+      rankBar.setCurrentType(options.currentType);
+    }
     const deckData = wx.getStorageSync<Deck>("deckData");
     const deckDetails = await getDeckDetails(Number(deckData.deckId));
     this.setData({
       deckData,
       deckDetails: enhanceOpponentInfo(deckDetails.data),
+      currentType: options.currentType as rankType,
     });
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent) {

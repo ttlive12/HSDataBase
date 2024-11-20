@@ -3,10 +3,11 @@
     <!-- <button bind:tap="handleBack">返回</button> -->
     <!-- 标题 -->
     <view class='weui-navigation-bar__center'>
-      <view class="hs-icon" bind:tap="handleBackHome"/>
+      <view class="hs-icon" bind:tap="handleBackHome" />
       <view class="title">
-        <text class="main">HS</text>
-        <text class="sub">数据库</text>
+        <text class="main">{{title}}</text>
+        <text wx:if="{{subTitle}}" class="sub">{{subTitle}}</text>
+        <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日</text>
       </view>
     </view>
   </view>

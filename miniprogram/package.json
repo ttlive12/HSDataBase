@@ -10,7 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@vant/weapp": "^1.11.7"
+    "@vant/weapp": "^1.11.7",
+    "miniprogram-computed": "^5.1.0"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^4.0.1"

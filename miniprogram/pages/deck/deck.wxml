@@ -1,4 +1,4 @@
-<navigation-bar />
+<navigation-bar title="推荐卡组"/>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <rank-bar id="rankBar" bind:rankChange="handleRankChange" />

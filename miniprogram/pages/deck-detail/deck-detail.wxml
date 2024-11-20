@@ -1,22 +1,33 @@
-<navigation-bar />
+<navigation-bar title="卡组详情" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="container">
     <view class="deck">
-      <view wx:for="{{deckData.cards}}" wx:key="id" class="card">
-        <view class="card-name">
-          <text>{{item.cost}}</text>
-          <text>{{item.name}}</text>
-          <text class="card-name-back">{{item.back}}</text>
-        </view>
-        <view class="card-frame">
-          <view class="card-frame-countbox" />
-          <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
+      <view class="deck-cards">
+        <view wx:for="{{deckData.cards}}" wx:key="id" class="card">
+          <view class="card-name">
+            <text>{{item.cost}}</text>
+            <text>{{item.name}}</text>
+            <text class="card-name-back {{item.back === '⋆' ? 'legend' : ''}}">{{item.back}}</text>
+          </view>
+          <view class="card-frame">
+            <view class="card-frame-countbox {{item.rarity}}" />
+            <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
+          </view>
         </view>
       </view>
-
+      <view class="deck-dust">
+        <image src="https://www.hsguru.com/images/dust_icon.webp" style="width: 40rpx; height: 40rpx;" />
+        <text>{{deckData.dust}}</text>
+      </view>
     </view>
+
     <view class="details">
+      <view class="details-title">
+        <image src="/assets/wave.svg" style="width: 40rpx; height: 40rpx;" />
+        <view>对阵胜率</view>
+        <image src="/assets/wave.svg" style="width: 40rpx; height: 40rpx;" />
+      </view>
       <view wx:if="{{deckDetails[currentType].length === 0}}" style="text-align: center;margin-top: 25vh;">
         暂无数据
       </view>

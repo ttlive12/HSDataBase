@@ -1,4 +1,4 @@
-<navigation-bar />
+<navigation-bar title="综合排行"/>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="home">
     <!-- <header /> -->

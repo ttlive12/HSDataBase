@@ -82,9 +82,9 @@ Page({
   },
   handleJump(e: WechatMiniprogram.TouchEvent) {
     const deckData = e.currentTarget.dataset.data;
-    wx.setStorageSync("deckData", deckData);
+    wx.setStorageSync<Deck>("deckData", deckData);
     wx.navigateTo({
-      url: `/pages/deck-detail/deck-detail`,
+      url: `/pages/deck-detail/deck-detail?currentType=${this.data.currentType}`,
     });
   },
 });

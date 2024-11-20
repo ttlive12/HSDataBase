@@ -38,6 +38,7 @@
   flex: 1;
   height: 100%;
   padding-left: 30rpx;
+  gap: 15rpx;
 }
 .hs-icon {
   height: 100%;
@@ -48,16 +49,17 @@
 }
 .title {
   display: flex;
-  align-items: center;
-  font-size: 50rpx;
-  margin-left: 10rpx;
+  gap: 5rpx;
+  align-items: flex-end;
+  height: 40rpx;
   font-family: serif;
-  margin-top: 15rpx;
-  letter-spacing: 1rpx;
+  .main {
+    font-size: 40rpx;
+    line-height: 40rpx;
+    letter-spacing: 1rpx;
+  }
   .sub {
-    margin-left: 5rpx;
-    margin-top: 12rpx;
     font-size: 24rpx;
-    font-family: Arialsans-serif;
+    transform: translateY(6rpx);
   }
 }

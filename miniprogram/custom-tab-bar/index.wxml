@@ -3,6 +3,7 @@
     <view class="tabBar-background" data-selected="{{selected}}"></view>
     <view wx:for="{{list}}" wx:key="index" class="tabBar-item">
       <view class="tabBar-item-text {{selected === index ? 'tabBar-item-selected' : ''}}" bindtap="switchTab" data-index="{{index}}" data-path="{{item.pagePath}}">
+        <image src="{{selected === index ? item.selectIcon : item.icon}}" style="height: 40rpx; width: 40rpx;margin-right: 10rpx;" />
         <text>{{ item.text }}</text>
       </view>
     </view>

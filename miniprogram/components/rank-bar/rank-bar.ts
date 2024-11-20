@@ -11,6 +11,11 @@ Component({
         currentType: this.data.currentType,
       });
     },
+    setCurrentType(currentType: rankType) {
+      this.setData({
+        currentType,
+      });
+    },
     handleSwitch(e: WechatMiniprogram.TouchEvent) {
       this.setData(
         {
