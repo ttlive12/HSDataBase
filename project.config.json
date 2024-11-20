@@ -14,7 +14,7 @@
     },
     "coverView": false,
     "postcss": false,
-    "minified": false,
+    "minified": true,
     "enhance": false,
     "showShadowRootInWxmlPanel": false,
     "packNpmRelationList": [],
@@ -35,5 +35,5 @@
     "ignore": [],
     "include": []
   },
-  "appid": "wxd817a05b276ffb97"
+  "appid": "wxaa21808051c5f81a"
 }
