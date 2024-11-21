@@ -1,5 +1,8 @@
-<!--pages/home/components/rank/rank.wxml-->
-<view class="container">
+<view wx:if="{{!success}}" style="width: 100%;text-align: center;margin-top: 30vh;display: flex;flex-direction: column;">
+  <text style="font-size: 60rpx;">数据更新中</text>
+  <text style="font-size: 40rpx;">每天 4:00 更新,预计需要 15 分钟</text>
+</view>
+<view wx:else class="container">
   <!-- 排名类型选择 -->
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="rank">
@@ -100,7 +103,7 @@
           <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%
           </text>
         </view>
-        <image src="/assets/point.svg" style="width: 40rpx; height: 40rpx;margin-left: 40rpx;"/>
+        <image src="/assets/point.svg" style="width: 40rpx; height: 40rpx;margin-left: 40rpx;" />
       </view>
     </view>
   </view>

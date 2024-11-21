@@ -21,6 +21,7 @@ Component({
       win,
       hand,
     },
+    success: true,
   },
   observers: {
     "rankData, currentType": function (rankData, currentType: rankType) {
@@ -33,7 +34,7 @@ Component({
       const decksWithScores = computeCompositeScores(
         rankData[currentType],
         weight[currentType].win,
-        weight[currentType].pick,
+        weight[currentType].pick
       );
       const rankedDecks = rankDecks(decksWithScores);
       this.setData({
@@ -46,6 +47,11 @@ Component({
   lifetimes: {
     async attached() {
       const data = await getRankDatas();
+      if (!data.success) {
+        this.setData({
+          success: false,
+        });
+      }
       this.setData({
         rankData: data.data,
       });

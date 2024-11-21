@@ -8,6 +8,7 @@ Page({
     currentType: "top_legend" as rankType,
     class2Img,
     data: {} as Record<rankType, Deck[]>,
+    success: true,
   },
 
   onLoad() {
@@ -23,20 +24,15 @@ Page({
   },
 
   async getData() {
-    try {
-      const { data } = await getDecksData();
+    const data = await getDecksData();
+    if (!data.success) {
       this.setData({
-        data: this.sortDecksByRank(data),
-        loading: false,
-      });
-    } catch (error) {
-      console.error("获取卡组数据失败:", error);
-      this.setData({ loading: false });
-      wx.showToast({
-        title: "数据加载失败",
-        icon: "none",
+        success: false,
       });
     }
+    this.setData({
+      data: this.sortDecksByRank(data.data),
+    });
   },
 
   updateTabBarSelection() {
