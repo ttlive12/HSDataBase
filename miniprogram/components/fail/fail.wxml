@@ -1,0 +1,4 @@
+<view wx:if="{{show}}" style="width: 100%;text-align: center;margin-top: 30vh;display: flex;flex-direction: column;">
+  <text style="font-size: 60rpx;">系统维护中</text>
+  <text style="font-size: 40rpx;">每天 4:00 进行数据更新,预计需要 15 分钟</text>
+</view>

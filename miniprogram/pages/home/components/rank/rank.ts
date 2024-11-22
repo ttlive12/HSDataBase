@@ -39,8 +39,8 @@ Component({
       const rankedDecks = rankDecks(decksWithScores);
       this.setData({
         showData: rankedDecks,
-        firstDeckData: rankedDecks[0],
-        secondDeckData: rankedDecks[1],
+        firstDeckData: rankedDecks[0] || {},
+        secondDeckData: rankedDecks[1] || {},
       });
     },
   },
@@ -51,6 +51,7 @@ Component({
         this.setData({
           success: false,
         });
+        return;
       }
       this.setData({
         rankData: data.data,

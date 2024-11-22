@@ -10,6 +10,9 @@ export interface Rank {
   zhName: string;
   compositeScore?: number;
 }
+
+export type ChartData = Record<rankType, Rank[]>
+
 export type RankData = Record<rankType, Rank[]>;
 
 export type IGetRanksData = {

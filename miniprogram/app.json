@@ -3,7 +3,8 @@
     "pages/home/home",
     "pages/deck/deck",
     "pages/deck-stats/deck-stats",
-    "pages/deck-detail/deck-detail"
+    "pages/deck-detail/deck-detail",
+    "pages/my/my"
   ],
   "usingComponents": {},
   "window": {
@@ -28,6 +29,10 @@
       },
       {
         "pagePath": "pages/deck/deck",
+        "text": "推荐卡组"
+      },
+      {
+        "pagePath": "pages/my/my",
         "text": "我的"
       }
     ]

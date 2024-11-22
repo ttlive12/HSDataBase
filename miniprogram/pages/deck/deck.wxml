@@ -1,9 +1,6 @@
-<navigation-bar title="推荐卡组"/>
-<view wx:if="{{!success}}" style="width: 100%;text-align: center;margin-top: 30vh;display: flex;flex-direction: column;">
-  <text style="font-size: 60rpx;">数据更新中</text>
-  <text style="font-size: 40rpx;">每天 4:00 更新,预计需要 15 分钟</text>
-</view>
-<scroll-view wx:else class="scrollarea" scroll-y type="list">
+<navigation-bar title="推荐卡组" />
+<fail show="{{!success}}" />
+<scroll-view wx:if="{{success}}" class="scrollarea" scroll-y type="list">
   <view class="container">
     <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   </view>
@@ -33,5 +30,5 @@
       </view>
     </view>
   </view>
-  <view style="height: 200rpx;"/>
+  <view style="height: 200rpx;" />
 </scroll-view>

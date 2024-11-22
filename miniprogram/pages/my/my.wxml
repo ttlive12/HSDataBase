@@ -1,0 +1,8 @@
+<navigation-bar title="环境分析" />
+<fail show="{{!success}}" />
+<scroll-view wx:if="{{success}}" class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
+  </view>
+  <chart data="{{rankData[currentType]}}" />
+</scroll-view>

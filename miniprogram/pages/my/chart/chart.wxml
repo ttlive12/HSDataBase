@@ -1,0 +1,4 @@
+<view wx:if="{{isShow}}" class="chart-container">
+  <ec-canvas type="2d" id="mychart-bar2" ec="{{ ec2 }}"></ec-canvas>
+  <ec-canvas type="2d" id="mychart-bar" ec="{{ ec }}"></ec-canvas>
+</view>
