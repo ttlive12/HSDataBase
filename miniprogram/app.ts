@@ -1,8 +1,4 @@
 App<IAppOption>({
-  globalData: {
-    memory: {
-      rankData: {},
-    },
-  },
+  globalData: {},
   async onLaunch() {},
 });

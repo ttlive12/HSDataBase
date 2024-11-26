@@ -20,6 +20,8 @@ Component({
    */
   data: {
     displayStyle: "",
+    show: false,
+    radio: "1",
   },
   lifetimes: {
     attached() {
@@ -48,6 +50,19 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    onShow() {
+      const data = wx.getStorageSync("depend");
+      this.setData({ show: true });
+    },
+    onClose() {
+      this.setData({ show: false });
+    },
+    onChange(event: any) {
+      wx.setStorageSync("depend", 1);
+      this.setData({
+        radio: event.detail,
+      });
+    },
     handleBack() {
       wx.navigateBack();
     },

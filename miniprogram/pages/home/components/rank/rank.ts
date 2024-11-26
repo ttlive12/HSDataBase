@@ -26,10 +26,10 @@ Component({
   observers: {
     "rankData, currentType": function (rankData, currentType: rankType) {
       const weight: Record<rankType, { win: number; pick: number }> = {
-        top_legend: { win: 0.6, pick: 0.4 },
-        top_10k: { win: 0.65, pick: 0.35 },
+        top_legend: { win: 0.7, pick: 0.3 },
+        top_10k: { win: 0.75, pick: 0.25 },
         diamond_to_legend: { win: 0.75, pick: 0.25 },
-        diamond_4to1: { win: 0.7, pick: 0.3 },
+        diamond_4to1: { win: 0.8, pick: 0.2 },
       };
       const decksWithScores = computeCompositeScores(
         rankData[currentType],

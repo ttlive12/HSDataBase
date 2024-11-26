@@ -1,3 +1,15 @@
+@import "../../common.scss";
+
+@font-face {
+  font-family: "Ifont";
+  font-weight: 400;
+  src: url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/0wBsf0YsnfLS.woff2")
+      format("woff2"),
+    url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/cm3Bk5RPEpY5.woff")
+      format("woff");
+  font-display: swap;
+}
+
 .weui-navigation-bar {
   --weui-FG-0: rgba(0, 0, 0, 0.9);
   --height: 44px;
@@ -49,17 +61,43 @@
 }
 .title {
   display: flex;
-  gap: 5rpx;
-  align-items: flex-end;
+  gap: 10rpx;
+  align-items: center;
+  justify-content: center;
   height: 40rpx;
   font-family: serif;
   .main {
-    font-size: 40rpx;
-    line-height: 40rpx;
+    font-size: 38rpx;
+    line-height: 38rpx;
     letter-spacing: 1rpx;
   }
   .sub {
     font-size: 24rpx;
     transform: translateY(6rpx);
+  }
+}
+.popup-container {
+  box-sizing: border-box;
+  height: 800rpx;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to right bottom,
+    white,
+    rgba($color: $orange, $alpha: 0.05),
+    rgba($color: $orange, $alpha: 0.1),
+    rgba($color: $orange, $alpha: 0.2)
+  );
+  gap: 20rpx;
+  .mode {
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+    &-name {
+      font-size: 50rpx;
+      font-family: "Ifont";
+      letter-spacing: 5rpx;
+    }
   }
 }

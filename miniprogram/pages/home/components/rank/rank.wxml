@@ -18,7 +18,7 @@
               <image wx:if="{{firstDeckData.class === 'priest' || firstDeckData.class === 'rogue'}}" class="image" src="/assets/hand.svg" />
               <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
-                <text class="light">选取率</text>
+                <text class="light">热度</text>
                 <text>{{firstDeckData.popularityPercent}}%</text>
               </view>
             </view>
@@ -57,7 +57,7 @@
               <image wx:if="{{secondDeckData.class === 'priest' || secondDeckData.class === 'rogue'}}" class="image" src="/assets/hand.svg" />
               <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
-                <text class="light">选取率</text>
+                <text class="light">热度</text>
                 <text>{{secondDeckData.popularityPercent}}%</text>
               </view>
             </view>

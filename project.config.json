@@ -3,6 +3,7 @@
   "miniprogramRoot": "miniprogram/",
   "compileType": "miniprogram",
   "setting": {
+    "es6": true,
     "useCompilerPlugins": [
       "typescript",
       "sass"

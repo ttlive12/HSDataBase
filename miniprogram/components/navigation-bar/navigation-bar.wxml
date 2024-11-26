@@ -6,9 +6,43 @@
       <view class="hs-icon" bind:tap="handleBackHome" />
       <view class="title">
         <text class="main">{{title}}</text>
+        <image bind:tap="onShow" src="/assets/setting.svg" style="width: 35rpx;height: 35rpx;margin-top: 3rpx;" />
         <text wx:if="{{subTitle}}" class="sub">{{subTitle}}</text>
-        <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日</text>
+        <!-- <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日更新</text> -->
       </view>
     </view>
   </view>
 </view>
+
+<van-popup show="{{ show }}" closeable bind:close="onClose" round custom-style="width: 80%;height: 800rpx" z-index="10000">
+  <view class="popup-container">
+    <view class="mode">
+      <image src="https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png" style="width: 80rpx; height: 90rpx;" />
+      <text class="mode-name">标准模式</text>
+    </view>
+    <view class="mode">
+      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
+      <text>排行榜设置</text>
+    </view>
+
+    <view class="mode">
+      <van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal">
+        <van-radio name="1">综合排行</van-radio>
+        <van-radio name="2">胜率排行</van-radio>
+      </van-radio-group>
+    </view>
+    <view class="mode">
+      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
+      <text>问题反馈/产品建议</text>
+    </view>
+    <button size="mini" plain="true" open-type="feedback">点击前往反馈</button>
+    <view class="mode">
+      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
+      <text>更新日志</text>
+    </view>
+    <view class="mode">
+      <view>当前版本：1.2.0</view>
+      <view>当前版本：1.2.0</view>
+    </view>
+  </view>
+</van-popup>
