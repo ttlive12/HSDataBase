@@ -1,0 +1,11 @@
+@import "../../common.scss";
+
+.confirm {
+  color: black !important;
+}
+.img {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 8rpx;
+}

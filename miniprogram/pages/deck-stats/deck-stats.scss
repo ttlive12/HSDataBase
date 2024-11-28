@@ -14,6 +14,7 @@ page {
   flex-direction: column;
   gap: 40rpx;
   .title {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 4rpx;
