@@ -1,4 +1,4 @@
-<navigation-bar title="{{zhName ? zhName : ''}}" />
+<navigation-bar back="{{true}}" title="{{zhName ? zhName : ''}}" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="title">

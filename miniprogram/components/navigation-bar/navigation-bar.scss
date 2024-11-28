@@ -52,6 +52,13 @@
   padding-left: 30rpx;
   gap: 15rpx;
 }
+.back-icon {
+  height: 65%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNzMyNjk3NDU4MTk0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjEzMzcyIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PHBhdGggZD0iTTUzOC4yODggMTk4LjYyNGwtMTEuMzEyLTExLjMxMmExNiAxNiAwIDAgMC0yMi42NCAwTDE4Ny4zMTIgNTA0LjMzNmExNiAxNiAwIDAgMCAwIDIyLjY0TDUwNC4zMzYgODQ0YTE2IDE2IDAgMCAwIDIyLjY0IDBsMTEuMzEyLTExLjMxMmExNiAxNiAwIDAgMCAwLTIyLjYyNGwtMjk0LjQtMjk0LjQgMjk0LjQtMjk0LjRhMTYgMTYgMCAwIDAgMC0yMi42NHoiIGZpbGw9IiMwMDAwMDAiIHAtaWQ9IjEzMzczIj48L3BhdGg+PC9zdmc+");
+}
 .hs-icon {
   height: 100%;
   aspect-ratio: 1;
@@ -61,7 +68,6 @@
 }
 .title {
   display: flex;
-  gap: 10rpx;
   align-items: center;
   justify-content: center;
   height: 40rpx;
@@ -78,7 +84,6 @@
 }
 .popup-container {
   box-sizing: border-box;
-  height: 800rpx;
   padding: 40rpx;
   display: flex;
   flex-direction: column;
@@ -99,5 +104,11 @@
       font-family: "Ifont";
       letter-spacing: 5rpx;
     }
+  }
+  .modeCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10rpx;
   }
 }

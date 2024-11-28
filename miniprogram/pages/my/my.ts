@@ -35,4 +35,6 @@ Page({
       currentType: e.detail.currentType,
     });
   },
+  onShareAppMessage() {},
+  onShareTimeline() {},
 });

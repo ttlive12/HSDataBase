@@ -1,3 +1,5 @@
+import { IAppOption } from "typings";
+
 Component({
   options: {
     multipleSlots: true, // 在组件定义时的选项中启用多slot支持
@@ -14,6 +16,14 @@ Component({
       type: String,
       value: "",
     },
+    back: {
+      type: Boolean,
+      value: false,
+    },
+    setting: {
+      type: Boolean,
+      value: false,
+    },
   },
   /**
    * 组件的初始数据
@@ -22,27 +32,32 @@ Component({
     displayStyle: "",
     show: false,
     radio: "1",
+    safeAreaTop: `height: calc(var(--height) + 48px); padding-top: 48px`,
   },
   lifetimes: {
     attached() {
       const rect = wx.getMenuButtonBoundingClientRect();
-      wx.getSystemInfo({
-        success: (res) => {
-          const isAndroid = res.platform === "android";
-          const isDevtools = res.platform === "devtools";
-          this.setData({
-            ios: !isAndroid,
-            innerPaddingRight: `padding-right: ${
-              res.windowWidth - rect.left
-            }px`,
-            leftWidth: `width: ${res.windowWidth - rect.left}px`,
-            safeAreaTop:
-              isDevtools || isAndroid
-                ? `height: calc(var(--height) + ${res.safeArea.top}px); padding-top: ${res.safeArea.top}px`
-                : ``,
-          });
-        },
+
+      // 获取窗口信息
+      const windowInfo = wx.getWindowInfo();
+      // 获取设备信息
+      const deviceInfo = wx.getDeviceInfo();
+
+      const isAndroid = deviceInfo.platform === "android";
+      const isDevtools = deviceInfo.platform === "devtools";
+
+      this.setData({
+        ios: !isAndroid,
+        innerPaddingRight: `padding-right: ${
+          windowInfo.windowWidth - rect.left
+        }px`,
+        leftWidth: `width: ${windowInfo.windowWidth - rect.left}px`,
+        safeAreaTop:
+          isDevtools || isAndroid
+            ? `height: calc(var(--height) + ${windowInfo.safeArea.top}px); padding-top: ${windowInfo.safeArea.top}px`
+            : ``,
       });
+
       this.getCurrentDayAndMonthProgress();
     },
   },
@@ -51,14 +66,17 @@ Component({
    */
   methods: {
     onShow() {
-      const data = wx.getStorageSync("depend");
-      this.setData({ show: true });
+      const data = wx.getStorageSync("rank-type") || "1";
+      this.setData({ show: true, radio: data });
     },
     onClose() {
       this.setData({ show: false });
+      const app = getApp<IAppOption>();
+      const eventBus = app.globalData.eventBus;
+      eventBus.emit("setting");
     },
     onChange(event: any) {
-      wx.setStorageSync("depend", 1);
+      wx.setStorageSync("rank-type", event.detail);
       this.setData({
         radio: event.detail,
       });

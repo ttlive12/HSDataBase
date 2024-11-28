@@ -3,10 +3,11 @@
     <!-- <button bind:tap="handleBack">返回</button> -->
     <!-- 标题 -->
     <view class='weui-navigation-bar__center'>
-      <view class="hs-icon" bind:tap="handleBackHome" />
+      <view wx:if="{{back}}" class="back-icon" bind:tap="handleBack" />
+      <view wx:else class="hs-icon" bind:tap="handleBackHome" />
       <view class="title">
         <text class="main">{{title}}</text>
-        <image bind:tap="onShow" src="/assets/setting.svg" style="width: 35rpx;height: 35rpx;margin-top: 3rpx;" />
+        <image wx:if="{{setting}}" bind:tap="onShow" src="/assets/setting.svg" style="width: 35rpx;height: 35rpx;margin-top: 3rpx;padding: 20rpx;" />
         <text wx:if="{{subTitle}}" class="sub">{{subTitle}}</text>
         <!-- <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日更新</text> -->
       </view>
@@ -14,14 +15,15 @@
   </view>
 </view>
 
-<van-popup show="{{ show }}" closeable bind:close="onClose" round custom-style="width: 80%;height: 800rpx" z-index="10000">
+<van-popup show="{{ show }}" closeable bind:close="onClose" round custom-style="width: 80%" z-index="10000">
   <view class="popup-container">
     <view class="mode">
       <image src="https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png" style="width: 80rpx; height: 90rpx;" />
       <text class="mode-name">标准模式</text>
     </view>
+
     <view class="mode">
-      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
+      <image src="/assets/rank_black.svg" style="width: 40rpx; height: 40rpx;" />
       <text>排行榜设置</text>
     </view>
 
@@ -32,17 +34,23 @@
       </van-radio-group>
     </view>
     <view class="mode">
-      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
-      <text>问题反馈/产品建议</text>
+      <image src="/assets/clock.svg" style="width: 40rpx; height: 40rpx;" />
+      <text>数据更新时间：每日 4：30</text>
     </view>
-    <button size="mini" plain="true" open-type="feedback">点击前往反馈</button>
     <view class="mode">
-      <image src="/assets/rank.svg" style="width: 40rpx; height: 40rpx;" />
+      <image src="/assets/update.svg" style="width: 40rpx; height: 40rpx;" />
       <text>更新日志</text>
     </view>
+    <view class="modeCol">
+      <text>当前版本：1.2.1</text>
+      <text>核心更新内容：新增设置页，样式微调，右上角可分享，数据无感更新</text>
+      <text>计划更新内容：狂野模式，竞技场</text>
+    </view>
+
     <view class="mode">
-      <view>当前版本：1.2.0</view>
-      <view>当前版本：1.2.0</view>
+      <image src="/assets/feedback.svg" style="width: 40rpx; height: 40rpx;" />
+      <text>问题反馈/产品建议</text>
+      <button size="mini" plain="true" open-type="feedback">点击前往</button>
     </view>
   </view>
 </van-popup>

@@ -47,6 +47,8 @@ Page({
       },
     });
   },
+  onShareAppMessage() {},
+  onShareTimeline() {},
 });
 
 function getColor(valueParam: number) {

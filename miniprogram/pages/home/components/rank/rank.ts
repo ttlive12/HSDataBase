@@ -4,9 +4,11 @@ import { dataTypes, class2Img } from "@/constants";
 import { No1, No2, up, win, hand } from "@/assets/index";
 import { Rank, RankData } from "@/modal/rankData";
 import { computeCompositeScores, rankDecks } from "@/utils/rank";
+import { IAppOption } from "typings";
 
 Component({
   data: {
+    rankType: wx.getStorageSync("rank-type") || "1",
     dataTypes: dataTypes,
     currentType: "top_legend" as rankType,
     rankData: {} as RankData,
@@ -24,7 +26,11 @@ Component({
     success: true,
   },
   observers: {
-    "rankData, currentType": function (rankData, currentType: rankType) {
+    "rankData, currentType, rankType": function (
+      rankData,
+      currentType: rankType,
+      rankType
+    ) {
       const weight: Record<rankType, { win: number; pick: number }> = {
         top_legend: { win: 0.7, pick: 0.3 },
         top_10k: { win: 0.75, pick: 0.25 },
@@ -36,7 +42,8 @@ Component({
         weight[currentType].win,
         weight[currentType].pick
       );
-      const rankedDecks = rankDecks(decksWithScores);
+      const rankedDecks =
+        rankType === "1" ? rankDecks(decksWithScores) : rankData[currentType];
       this.setData({
         showData: rankedDecks,
         firstDeckData: rankedDecks[0] || {},
@@ -46,6 +53,13 @@ Component({
   },
   lifetimes: {
     async attached() {
+      const app = getApp<IAppOption>();
+      const eventBus = app.globalData.eventBus;
+      eventBus.on("setting", () => {
+        this.setData({
+          rankType: wx.getStorageSync("rank-type") || "1",
+        });
+      });
       const data = await getRankDatas();
       if (!data.success) {
         this.setData({

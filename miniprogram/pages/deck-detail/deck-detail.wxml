@@ -1,4 +1,4 @@
-<navigation-bar title="卡组详情" />
+<navigation-bar back title="卡组详情" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="container">

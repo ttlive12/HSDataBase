@@ -1,4 +1,9 @@
+import EventBus from "@/utils/eventBus";
+import { IAppOption } from "typings";
+
 App<IAppOption>({
-  globalData: {},
+  globalData: {
+    eventBus: new EventBus(),
+  },
   async onLaunch() {},
 });

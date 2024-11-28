@@ -83,4 +83,6 @@ Page({
       url: `/pages/deck-detail/deck-detail?currentType=${this.data.currentType}`,
     });
   },
+  onShareAppMessage() {},
+  onShareTimeline() {},
 });

@@ -7,4 +7,6 @@ Page({
       });
     }
   },
+  onShareAppMessage() {},
+  onShareTimeline() {},
 });
