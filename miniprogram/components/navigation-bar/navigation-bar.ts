@@ -32,7 +32,6 @@ Component({
     displayStyle: "",
     show: false,
     radio: "1",
-    safeAreaTop: `height: calc(var(--height) + 48px); padding-top: 48px`,
   },
   lifetimes: {
     attached() {
@@ -47,6 +46,7 @@ Component({
       const isDevtools = deviceInfo.platform === "devtools";
 
       this.setData({
+        isDevtools,
         ios: !isAndroid,
         innerPaddingRight: `padding-right: ${
           windowInfo.windowWidth - rect.left

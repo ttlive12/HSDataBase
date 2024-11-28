@@ -1,5 +1,5 @@
 <view class="weui-navigation-bar {{extClass}}">
-  <view class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}}" style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}">
+  <view class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}} {{isDevtools ? 'devtools' : ''}}" style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}">
     <!-- <button bind:tap="handleBack">返回</button> -->
     <!-- 标题 -->
     <view class='weui-navigation-bar__center'>

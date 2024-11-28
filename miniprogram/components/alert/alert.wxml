@@ -1,2 +1,1 @@
-<van-dialog id="van-dialog" confirm-button-class="confirm" />
 <image class="img" src="/assets/alert.svg" style="width: 32rpx;height: 32rpx;" bind:tap="handleShow" />
