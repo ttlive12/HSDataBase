@@ -11,6 +11,8 @@ Page({
     id: "",
     currentType: "top_legend" as rankType,
     class2Img,
+    showCardImg: false,
+    cardId: "",
   },
   async onLoad(options: Record<string, string>) {
     const rankBar = this.selectComponent("#rankBar");
@@ -24,6 +26,13 @@ Page({
       deckDetails: enhanceOpponentInfo(deckDetails.data),
       currentType: options.currentType as rankType,
     });
+  },
+  showCardImg(e: WechatMiniprogram.TouchEvent) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({ showCardImg: true, cardId: id });
+  },
+  onCloseImg() {
+    this.setData({ showCardImg: false });
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
     this.setData({

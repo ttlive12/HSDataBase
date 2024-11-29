@@ -54,7 +54,9 @@ Component({
         leftWidth: `width: ${windowInfo.windowWidth - rect.left}px`,
         safeAreaTop:
           isDevtools || isAndroid
-            ? `height: calc(var(--height) + ${windowInfo.safeArea.top}px); padding-top: ${windowInfo.safeArea.top}px`
+            ? `height: calc(var(--height) + ${
+                windowInfo.safeArea.top || 40
+              }px); padding-top: ${windowInfo.safeArea.top || 40}px`
             : ``,
       });
 

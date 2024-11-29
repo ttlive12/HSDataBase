@@ -42,8 +42,8 @@
       <text>更新日志</text>
     </view>
     <view class="modeCol">
-      <text>当前版本：1.2.1</text>
-      <text>更新内容：新增设置页，样式微调，右上角可分享，数据无感更新</text>
+      <text>当前版本：1.3.0</text>
+      <text>更新内容：新增卡牌点击后查看完成卡牌图片，样式微调</text>
       <text>计划更新内容：数据筛选维度增加，狂野模式，竞技场</text>
     </view>
 

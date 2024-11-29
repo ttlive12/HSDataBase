@@ -1,3 +1,12 @@
+<van-popup show="{{ showCardImg }}" bind:close="onCloseImg" bind:click-overlay="onCloseImg" custom-style="background-color: transparent;" round>
+  <view style="text-align: center; padding: 20px 0;" bind:tap="onCloseImg">
+    <image wx:if="{{cardId}}" src="https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/{{cardId}}.png" style="width: 60vw; height: 90vw; display: block; margin: 0 auto;"></image>
+    <text style="display: block;font-size: 18px; color: rgba(255, 255, 255, 0.7); line-height: 1.5;transform: translateY(-10vw);text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.384); letter-spacing: 3rpx;">
+      点击任意处关闭
+    </text>
+  </view>
+</van-popup>
+
 <navigation-bar back="{{true}}" title="{{zhName ? zhName : ''}}" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
@@ -46,7 +55,7 @@
         <text class="card-data-title">保留影响</text>
       </view>
     </view>
-    <view wx:for="{{data[currentType]}}" wx:key="id" class="card">
+    <view wx:for="{{data[currentType]}}" wx:key="id" class="card" bind:tap="showCardImg" data-id="{{item.id}}">
       <view class="card-name">
         <text>{{item.cost}}</text>
         <text>{{item.name}}</text>

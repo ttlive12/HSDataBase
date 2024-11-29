@@ -124,17 +124,19 @@ function generateClassPieChartOptions(rankArray) {
 Component({
   properties: {
     data: {
-      type: Object,
-      value: {},
+      type: Array,
+      value: [],
       observer: function (newVal) {
         app.globalData.rankData = newVal
         this.setData({
           isShow: false
         })
         wx.nextTick(() => {
-          this.setData({
-            isShow: true
-          })
+          if (newVal.length) {
+            this.setData({
+              isShow: true
+            })
+          }
         })
       }
     }

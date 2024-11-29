@@ -11,6 +11,15 @@ Page({
     currentType: "top_legend" as rankType,
     popularityNum: "0",
     class2Img,
+    showCardImg: false,
+    cardId: "",
+  },
+  showCardImg(e: WechatMiniprogram.TouchEvent) {
+    const id = e.currentTarget.dataset.id;
+    this.setData({ showCardImg: true, cardId: id });
+  },
+  onCloseImg() {
+    this.setData({ showCardImg: false });
   },
   async onLoad(options: Record<string, string>) {
     const rankBar = this.selectComponent("#rankBar");
