@@ -4,15 +4,13 @@ import { IGetDecksData } from "../modal/decksData";
 import { IGetRanksData } from "../modal/rankData";
 import { IGetDeckDetailData } from "@/modal/deckDetails";
 
-
-
 /***
  * 获取排行数据
  * @returns RankDataResponse
  */
 export const getRankDatas = async () => {
   return await request<IGetRanksData>({
-    url: "/getRanksData",
+    url: `/getRanksData?wild=${wx.getStorageSync("wild") || false}`,
     method: "GET",
     showLoading: true,
   });
@@ -23,7 +21,9 @@ export const getRankDatas = async () => {
  */
 export const getDeckCardStatsData = async (deckName: string) => {
   return await request<IGetDeckCardStatsData>({
-    url: `/getDeckCardStats?deckName=${deckName}`,
+    url: `/getDeckCardStats?deckName=${deckName}&wild=${
+      wx.getStorageSync("wild") || false
+    }`,
     method: "GET",
     showLoading: true,
   });
@@ -34,7 +34,7 @@ export const getDeckCardStatsData = async (deckName: string) => {
  */
 export const getDecksData = async () => {
   return await request<IGetDecksData>({
-    url: `/getDecksData`,
+    url: `/getDecksData?wild=${wx.getStorageSync("wild") || false}`,
     method: "GET",
     showLoading: true,
   });
@@ -45,7 +45,9 @@ export const getDecksData = async () => {
  */
 export const getDeckDetails = async (deckId: number) => {
   return await request<IGetDeckDetailData>({
-    url: `/getDeckDetails?deckId=${deckId}`,
+    url: `/getDeckDetails?deckId=${deckId}&wild=${
+      wx.getStorageSync("wild") || false
+    }`,
     method: "GET",
     showLoading: true,
   });
@@ -56,7 +58,9 @@ export const getDeckDetails = async (deckId: number) => {
  */
 export const getRankDetails = async (name: string) => {
   return await request<IGetDecksData>({
-    url: `/getRankDetails?name=${name}`,
+    url: `/getRankDetails?name=${name}&wild=${
+      wx.getStorageSync("wild") || false
+    }`,
     method: "GET",
     showLoading: true,
   });

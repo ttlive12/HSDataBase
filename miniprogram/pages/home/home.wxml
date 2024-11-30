@@ -1,4 +1,4 @@
-<navigation-bar title="排行榜" setting/>
+<navigation-bar id="nav-bar" title="排行榜" setting/>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="home">
     <!-- <header /> -->

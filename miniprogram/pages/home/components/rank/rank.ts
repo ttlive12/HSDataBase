@@ -24,6 +24,7 @@ Component({
       hand,
     },
     success: true,
+    wild: false,
   },
   observers: {
     "rankData, currentType, rankType": function (
@@ -55,10 +56,23 @@ Component({
     async attached() {
       const app = getApp<IAppOption>();
       const eventBus = app.globalData.eventBus;
-      eventBus.on("setting", () => {
+      eventBus.on("setting", async () => {
         this.setData({
           rankType: wx.getStorageSync("rank-type") || "1",
         });
+        if (this.data.wild !== (wx.getStorageSync("wild") || false)) {
+          const data = await getRankDatas();
+          if (!data.success) {
+            this.setData({
+              success: false,
+            });
+            return;
+          }
+          this.setData({
+            rankData: data.data,
+            wild: wx.getStorageSync("wild") || false,
+          });
+        }
       });
       const data = await getRankDatas();
       if (!data.success) {
@@ -69,6 +83,7 @@ Component({
       }
       this.setData({
         rankData: data.data,
+        wild: wx.getStorageSync("wild") || false,
       });
     },
   },

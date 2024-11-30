@@ -3,9 +3,9 @@
 @font-face {
   font-family: "Ifont";
   font-weight: 400;
-  src: url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/0wBsf0YsnfLS.woff2")
+  src: url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/LziQ3sjxjGSt.woff2")
       format("woff2"),
-    url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/cm3Bk5RPEpY5.woff")
+    url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/DAKJM3ZJX9xz.woff")
       format("woff");
   font-display: swap;
 }
@@ -112,6 +112,12 @@
       font-family: "Ifont";
       letter-spacing: 5rpx;
     }
+    &-switch {
+      border: 1rpx solid;
+      padding: 6rpx 20rpx;
+      border-radius: 10rpx;
+      font-size: 24rpx;
+    }
   }
   .modeCol {
     display: flex;
@@ -119,4 +125,61 @@
     justify-content: center;
     gap: 10rpx;
   }
+}
+
+.setting {
+  gap: 5rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 26rpx;
+  padding: 20rpx;
+  z-index: 300;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  justify-content: space-between;
+  &:first-child {
+    margin-right: 30rpx;
+  }
+  .item {
+    border-radius: 20rpx;
+    width: 48%;
+    box-sizing: border-box;
+    padding: 20rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 10rpx;
+    border: 1rpx solid #9695917a;
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15rpx;
+      font-size: 32rpx;
+      line-height: 32rpx;
+    }
+    .body {
+      font-size: 26rpx;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10rpx;
+    }
+  }
+}
+
+.icon {
+  width: 80rpx;
+  height: 90rpx;
+  transition: transform 0.4s;
+}
+
+.icon.rotate {
+  transform: rotateY(90deg);
 }

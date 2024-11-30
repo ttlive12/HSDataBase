@@ -2,6 +2,7 @@ import { getDecksData } from "@/api/index";
 import { rankType } from "@/api/type";
 import { class2Img } from "@/constants";
 import { Deck } from "@/modal/decksData";
+import { IAppOption } from "typings";
 
 Page({
   data: {
@@ -9,13 +10,31 @@ Page({
     class2Img,
     data: {} as Record<rankType, Deck[]>,
     success: true,
+    wild: false,
   },
 
   onLoad() {
     this.initializeRankBar();
+    const app = getApp<IAppOption>();
+    const eventBus = app.globalData.eventBus;
+    eventBus.on("setting", async () => {
+      if (this.data.wild !== (wx.getStorageSync("wild") || false)) {
+        await this.getData();
+        this.setData({
+          wild: wx.getStorageSync("wild") || false,
+        });
+      }
+    });
+    this.setData({
+      wild: wx.getStorageSync("wild") || false,
+    });
   },
 
   onShow() {
+    const navBar = this.selectComponent("#nav-bar");
+    if (navBar) {
+      navBar.onShow();
+    }
     this.updateTabBarSelection();
   },
 

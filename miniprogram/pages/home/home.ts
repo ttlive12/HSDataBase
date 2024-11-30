@@ -6,6 +6,10 @@ Page({
         selected: 0,
       });
     }
+    const navBar = this.selectComponent("#nav-bar");
+    if (navBar) {
+      navBar.onShow();
+    }
   },
   onShareAppMessage() {},
   onShareTimeline() {},

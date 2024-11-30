@@ -1,5 +1,7 @@
+import { nextTick } from "@/miniprogram_npm/@vant/weapp/common/utils";
 import { IAppOption } from "typings";
-
+const app = getApp<IAppOption>();
+const eventBus = app.globalData.eventBus;
 Component({
   options: {
     multipleSlots: true, // 在组件定义时的选项中启用多slot支持
@@ -32,6 +34,8 @@ Component({
     displayStyle: "",
     show: false,
     radio: "1",
+    wild: false,
+    guidePositions: [] as any[], // 存储所有目标元素的位置
   },
   lifetimes: {
     attached() {
@@ -61,27 +65,64 @@ Component({
       });
 
       this.getCurrentDayAndMonthProgress();
+      if (!wx.getStorageSync("guide")) {
+        nextTick(() => {
+          if (!this.data.setting) return;
+          wx.createSelectorQuery()
+            .in(this)
+            .select("#setting")
+            .boundingClientRect((res) => {
+              const guide = this.selectComponent("#guide");
+              guide.startGuide(
+                {
+                  left: res.left,
+                  top: res.top,
+                  width: res.width,
+                  height: res.height,
+                },
+                "点击进入设置"
+              );
+            })
+            .exec();
+        });
+      }
     },
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    onShow() {
+    onShow(e: any) {
       const data = wx.getStorageSync("rank-type") || "1";
-      this.setData({ show: true, radio: data });
+      const wild = wx.getStorageSync("wild") || false;
+      const show = Boolean(e && e.type);
+      if (show) {
+        app.globalData.eventBus.emit("showSetting");
+      }
+      this.setData({ show, radio: data, wild });
     },
     onClose() {
       this.setData({ show: false });
-      const app = getApp<IAppOption>();
-      const eventBus = app.globalData.eventBus;
-      eventBus.emit("setting");
     },
     onChange(event: any) {
       wx.setStorageSync("rank-type", event.detail);
       this.setData({
         radio: event.detail,
       });
+      eventBus.emit("setting");
+    },
+    handleSwitch() {
+      wx.setStorageSync("wild", !this.data.wild);
+      this.setData({ rotate: true });
+      setTimeout(() => {
+        this.setData({
+          wild: !this.data.wild,
+        });
+      }, 200);
+      setTimeout(() => {
+        this.setData({ rotate: false });
+      }, 400);
+      eventBus.emit("setting");
     },
     handleBack() {
       wx.navigateBack();

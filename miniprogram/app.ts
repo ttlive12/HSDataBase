@@ -3,7 +3,7 @@ import { IAppOption } from "typings";
 
 App<IAppOption>({
   globalData: {
-    eventBus: new EventBus(),
+    eventBus: new EventBus()
   },
   async onLaunch() {},
 });

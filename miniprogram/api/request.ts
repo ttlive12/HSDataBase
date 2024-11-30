@@ -1,5 +1,6 @@
 import { RequestOption } from "./type";
 
+// const BaseUrl = "https://vqnemzapzfmm.sealosbja.site";
 const BaseUrl = "https://wcshxupboocw.sealosbja.site";
 
 const request = <T>(options: RequestOption): Promise<T> => {

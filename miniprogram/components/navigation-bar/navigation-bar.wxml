@@ -1,3 +1,5 @@
+<guide id="guide" />
+
 <view class="weui-navigation-bar {{extClass}}">
   <view class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}} {{isDevtools ? 'devtools' : ''}}" style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}">
     <!-- <button bind:tap="handleBack">返回</button> -->
@@ -7,7 +9,10 @@
       <view wx:else class="hs-icon" bind:tap="handleBackHome" />
       <view class="title">
         <text class="main">{{title}}</text>
-        <image wx:if="{{setting}}" bind:tap="onShow" src="/assets/setting.svg" style="width: 35rpx;height: 35rpx;margin-top: 3rpx;padding: 20rpx;" />
+        <view id="setting" class="setting" wx:if="{{setting}}" bind:tap="onShow">
+          <image src="/assets/setting.svg" style="width: 35rpx;height: 35rpx;margin-top: 3rpx;" />
+          <text>{{wild ? '狂野模式' : '标准模式'}}</text>
+        </view>
         <text wx:if="{{subTitle}}" class="sub">{{subTitle}}</text>
         <!-- <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日更新</text> -->
       </view>
@@ -18,42 +23,59 @@
 <van-popup show="{{ show }}" closeable bind:close="onClose" round custom-style="width: 80%" z-index="10000">
   <view class="popup-container">
     <view class="mode">
-      <image src="https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png" style="width: 80rpx; height: 90rpx;" />
-      <text class="mode-name">标准模式</text>
+      <image src="{{wild ? 'https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png' : 'https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png'}}" class="icon {{rotate ? 'rotate' : ''}}" />
+      <text class="mode-name" style="margin-right: 10rpx;">{{wild ? '狂野模式' : '标准模式'}}</text>
+      <text class="mode-switch" bind:tap="handleSwitch">切换</text>
     </view>
 
-    <view class="mode">
-      <image src="/assets/rank_black.svg" style="width: 40rpx; height: 40rpx;" />
-      <text>排行榜设置</text>
+    <view class="card-container">
+      <view class="item" style="width: 100%; margin-bottom: 20rpx;">
+        <view class="header">
+          <image src="/assets/rank_black.svg" style="width: 40rpx; height: 40rpx;" />
+          <text>排行榜设置</text>
+        </view>
+
+        <view class="body">
+          <van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal">
+            <van-radio name="1">综合排行</van-radio>
+            <van-radio name="2">胜率排行</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+      <view class="item">
+        <view class="header">
+          <image src="/assets/clock.svg" style="width: 40rpx; height: 40rpx;" />
+          <text>数据更新</text>
+        </view>
+        <view class="body">
+          <text>每日 4：30更新</text>
+          <text>预计需要20分钟</text>
+        </view>
+      </view>
+
+
+      <view class="item">
+        <view class="header">
+          <image src="/assets/feedback.svg" style="width: 40rpx; height: 40rpx;" />
+          <text>意见反馈</text>
+        </view>
+        <view class="body">
+          <text>欢迎分享，评分</text>
+          <button size="mini" plain="true" open-type="feedback" style="line-height: 45rpx">前往反馈</button>
+        </view>
+      </view>
+
+      <view class="item" style="width: 100%; margin-top: 20rpx;">
+        <view class="header">
+          <image src="/assets/update.svg" style="width: 40rpx; height: 40rpx;" />
+          <text>更新日志</text>
+        </view>
+        <view class="body">
+          <text>当前版本：1.4.0</text>
+          <text>支持狂野模式，单卡图片查看</text>
+        </view>
+      </view>
     </view>
 
-    <view class="mode">
-      <van-radio-group value="{{ radio }}" bind:change="onChange" direction="horizontal">
-        <van-radio name="1">综合排行</van-radio>
-        <van-radio name="2">胜率排行</van-radio>
-      </van-radio-group>
-    </view>
-    <view class="mode">
-      <image src="/assets/clock.svg" style="width: 40rpx; height: 40rpx;" />
-      <text>数据更新时间：每日 4：30</text>
-    </view>
-    <view class="mode">
-      <image src="/assets/update.svg" style="width: 40rpx; height: 40rpx;" />
-      <text>更新日志</text>
-    </view>
-    <view class="modeCol">
-      <text>当前版本：1.3.0</text>
-      <text>更新内容：新增卡牌点击后查看完成卡牌图片，样式微调</text>
-      <text>计划更新内容：数据筛选维度增加，狂野模式，竞技场</text>
-    </view>
-
-    <view class="mode">
-      <image src="/assets/feedback.svg" style="width: 40rpx; height: 40rpx;" />
-      <text>问题反馈/产品建议</text>
-    </view>
-    <view class="mode">
-      <button size="mini" plain="true" open-type="feedback" style="line-height: 45rpx">前往反馈</button>
-      <button size="mini" plain="true" open-type="share" style="line-height: 45rpx">前往分享</button>
-    </view>
   </view>
 </van-popup>
