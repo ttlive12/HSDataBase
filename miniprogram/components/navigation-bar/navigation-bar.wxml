@@ -33,6 +33,9 @@
         <view class="header">
           <image src="/assets/rank_black.svg" style="width: 40rpx; height: 40rpx;" />
           <text>排行榜设置</text>
+          <alert title="排行榜设置">
+            <text>综合排行：根据不同的分段给予热度一定的权重</text>
+          </alert>
         </view>
 
         <view class="body">
@@ -42,6 +45,25 @@
           </van-radio-group>
         </view>
       </view>
+
+      <view class="item" style="width: 100%; margin-bottom: 20rpx;">
+        <view class="header">
+          <image src="/assets/deck_black.svg" style="width: 35rpx; height: 35rpx;" />
+          <text>卡组推荐设置</text>
+          <alert title="卡组推荐设置">
+            <text>默认数据：补丁后的数据或近一周的数据</text>
+            <text>近一天数据：一天内数据，样本量小，时效性高</text>
+          </alert>
+        </view>
+
+        <view class="body">
+          <van-radio-group value="{{ period }}" bind:change="onChangePeriod" direction="horizontal">
+            <van-radio name="default">默认数据</van-radio>
+            <van-radio name="past_day">近一天数据</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+
       <view class="item">
         <view class="header">
           <image src="/assets/clock.svg" style="width: 40rpx; height: 40rpx;" />
@@ -52,7 +74,6 @@
           <text>预计需要20分钟</text>
         </view>
       </view>
-
 
       <view class="item">
         <view class="header">
@@ -71,7 +92,8 @@
           <text>更新日志</text>
         </view>
         <view class="body">
-          <text>当前版本：1.4.0</text>
+          <text>当前版本：1.4.1</text>
+          <text>卡组推荐页可设置近一天数据</text>
           <text>支持狂野模式，单卡图片查看</text>
         </view>
       </view>

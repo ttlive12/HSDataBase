@@ -158,9 +158,10 @@
     .header {
       display: flex;
       align-items: center;
-      gap: 15rpx;
+      gap: 10rpx;
       font-size: 32rpx;
       line-height: 32rpx;
+      position: relative;
     }
     .body {
       font-size: 26rpx;

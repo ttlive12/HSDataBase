@@ -1,1 +1,8 @@
+<van-dialog use-slot title="{{title}}" show="{{ show }}" show-cancel-button bind:close="onClose" showConfirmButton="{{false}}" cancelButtonText="知道了" cancelButtonColor="#002d91">
+  <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;padding: 20rpx 40rpx;color: #797A7A;margin-bottom: 15rpx;font-size: 30rpx;line-height: 40rpx;text-align: center;">
+    <slot />
+  </view>
+</van-dialog>
+
+
 <image class="img" src="/assets/alert.svg" style="width: 32rpx;height: 32rpx;" bind:tap="handleShow" />

@@ -1,23 +1,27 @@
 Component({
   properties: {
-    message: {
-      type: String,
-      value: "",
-    },
     title: {
       type: String,
       value: "",
     },
   },
-  data: {},
+  data: {
+    show: false,
+  },
   methods: {
+    onClose() {
+      this.setData({ show: false });
+    },
     handleShow() {
-      wx.showModal({
-        title: this.data.title,
-        content: this.data.message,
-        showCancel: false,
-        confirmText: "知道了",
+      this.setData({
+        show: true,
       });
+      // wx.showModal({
+      //   title: this.data.title,
+      //   content: this.data.message,
+      //   showCancel: false,
+      //   confirmText: "知道了",
+      // });
     },
   },
 });

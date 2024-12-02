@@ -34,6 +34,8 @@ Component({
     displayStyle: "",
     show: false,
     radio: "1",
+    period: "default",
+    radioDecks: "1",
     wild: false,
     guidePositions: [] as any[], // 存储所有目标元素的位置
   },
@@ -95,11 +97,13 @@ Component({
     onShow(e: any) {
       const data = wx.getStorageSync("rank-type") || "1";
       const wild = wx.getStorageSync("wild") || false;
+      const period = wx.getStorageSync("period") || "default";
       const show = Boolean(e && e.type);
       if (show) {
+        wx.reportEvent("click_setting", {});
         app.globalData.eventBus.emit("showSetting");
       }
-      this.setData({ show, radio: data, wild });
+      this.setData({ show, radio: data, wild, period });
     },
     onClose() {
       this.setData({ show: false });
@@ -108,6 +112,13 @@ Component({
       wx.setStorageSync("rank-type", event.detail);
       this.setData({
         radio: event.detail,
+      });
+      eventBus.emit("setting");
+    },
+    onChangePeriod(event: any) {
+      wx.setStorageSync("period", event.detail);
+      this.setData({
+        period: event.detail,
       });
       eventBus.emit("setting");
     },

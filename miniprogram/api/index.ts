@@ -33,8 +33,10 @@ export const getDeckCardStatsData = async (deckName: string) => {
  * 获取推荐卡组数据
  */
 export const getDecksData = async () => {
+  const period =
+    wx.getStorageSync("period") === "past_day" ? "&period=past_day" : "";
   return await request<IGetDecksData>({
-    url: `/getDecksData?wild=${wx.getStorageSync("wild") || false}`,
+    url: `/getDecksData?wild=${wx.getStorageSync("wild") || false}${period}`,
     method: "GET",
     showLoading: true,
   });

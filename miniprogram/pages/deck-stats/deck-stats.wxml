@@ -13,9 +13,12 @@
   <view class="title">
     <image src="/assets/menu.svg" style="height: 40rpx;width: 40rpx;" />
     <text>相关卡组</text>
-    <alert title="相关卡组" message="该体系卡组的推荐构筑，点击后可查看卡组具体构筑和卡组代码" />
+    <alert title="相关卡组">
+      <text>该体系下卡组的推荐构筑</text>
+      <text>点击后可查看卡组具体构筑和卡组代码</text>
+    </alert>
   </view>
-  <scroll-view wx:if="{{decksData[currentType].length}}" class="decks" scroll-x enable-flex>
+  <scroll-view wx:if="{{decksData[currentType].length}}" class="decks" scroll-x enable-flex enhanced :show-scrollbar="false">
     <view style="display: inline-block; margin-right: 30rpx;" />
     <view class="decks-item {{item.class}}" wx:for="{{decksData[currentType]}}" wx:key="deckId" data-data="{{item}}" bind:tap="handleJump">
       <view class="decks-item-inner">
@@ -39,7 +42,11 @@
   <view class="title">
     <image src="/assets/schedule.svg" style="height: 40rpx;width: 40rpx;" />
     <text>卡牌调度</text>
-    <alert title="卡牌调度" message="携带影响：携带某张卡牌对胜率的影响， 抽到影响：抽到某张卡牌对胜率的影响， 保留影响：保留某张卡牌对胜率的影响。 注：携带或保留样本少的卡牌数据可信度低" />
+    <alert title="卡牌调度">
+      <text>携带影响：携带某张卡牌对胜率的影响</text>
+      <text>抽到影响：抽到某张卡牌对胜率的影响</text>
+      <text>保留影响：保留某张卡牌对胜率的影响</text>
+    </alert>
   </view>
   <view wx:if="{{!data[currentType].length}}" style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
     暂无数据

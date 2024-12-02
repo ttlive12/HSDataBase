@@ -5,6 +5,7 @@
     "van-popup": "@vant/weapp/popup/index",
     "van-radio": "@vant/weapp/radio/index",
     "van-radio-group": "@vant/weapp/radio-group/index",
-    "guide": "/components/guide/guide"
+    "guide": "/components/guide/guide",
+    "alert": "/components/alert/alert"
   }
 }

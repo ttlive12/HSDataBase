@@ -11,6 +11,7 @@ Page({
     data: {} as Record<rankType, Deck[]>,
     success: true,
     wild: false,
+    period: "default",
   },
 
   onLoad() {
@@ -18,15 +19,20 @@ Page({
     const app = getApp<IAppOption>();
     const eventBus = app.globalData.eventBus;
     eventBus.on("setting", async () => {
-      if (this.data.wild !== (wx.getStorageSync("wild") || false)) {
+      if (
+        this.data.wild !== (wx.getStorageSync("wild") || false) ||
+        this.data.period !== (wx.getStorageSync("period") || "default")
+      ) {
         await this.getData();
         this.setData({
           wild: wx.getStorageSync("wild") || false,
+          period: wx.getStorageSync("period") || "default",
         });
       }
     });
     this.setData({
       wild: wx.getStorageSync("wild") || false,
+      period: wx.getStorageSync("period") || "default",
     });
   },
 
