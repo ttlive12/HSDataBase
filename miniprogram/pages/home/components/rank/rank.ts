@@ -95,9 +95,25 @@ Component({
     },
     handleJump(e: WechatMiniprogram.TouchEvent) {
       const data = e.currentTarget.dataset.data;
+      const index = e.currentTarget.dataset.index;
+      if (index === "-1") {
+        wx.navigateTo({
+          url: `/pages/deck-stats/deck-stats?id=${data.name}&zhName=${data.zhName}&currentType=${this.data.currentType}`,
+        });
+        return;
+      }
+      // 添加点击动画
+      this.setData({
+        [`showData[${index}].tapped`]: true,
+      });
       wx.navigateTo({
         url: `/pages/deck-stats/deck-stats?id=${data.name}&zhName=${data.zhName}&currentType=${this.data.currentType}`,
       });
+      setTimeout(() => {
+        this.setData({
+          [`showData[${index}].tapped`]: false,
+        });
+      }, 300);
     },
   },
 });

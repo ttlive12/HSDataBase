@@ -17,11 +17,23 @@ export type rankType =
   | "top_10k"
   | "top_legend";
 
+export interface varLabs {
+  wxdata_perf_monitor_id?: string;
+  wxdata_perf_monitor_level?: number;
+  wxdata_perf_error_code?: number;
+  wxdata_perf_error_msg?: string;
+  wxdata_perf_cost_time?: number;
+  wxdata_perf_extra_info1?: string;
+  wxdata_perf_extra_info2?: string;
+  wxdata_perf_extra_info3?: string;
+}
+
 export interface RequestOption {
   url: string;
-  showLoading?: Boolean;
-  showError?: Boolean;
+  showLoading?: boolean;
+  showError?: boolean;
   method?: "GET" | "POST";
   data?: any;
   header?: any;
+  varLabs?: varLabs;
 }
