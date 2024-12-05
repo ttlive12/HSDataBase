@@ -1,127 +1,95 @@
-import { rankType } from "@/api/type";
-import {
-  DeckDetailData,
-  DeckDetailOptions,
-  EnhancedOpponentInfo,
-} from "@/modal/deck-detail";
-import { DeckDetailHelper } from "@/utils/deck-detail";
 import { getDeckDetails } from "@/api/index";
+import { rankType } from "@/api/type";
+import { OpponentInfo } from "@/modal/deckDetails";
 import { Deck } from "@/modal/decksData";
 import { class2Img } from "@/constants";
-import { OpponentInfo } from "@/modal/deckDetails";
-
-const DeckDetailPageNew = {
-  getColor(valueParam: number) {
-    const value = valueParam - 50;
-    if (value <= -20) {
-      return "rgb(255, 0, 0)";
-    } else if (value >= 20) {
-      return "rgb(0, 200, 0)";
-    } else {
-      const ratio = (value + 20) / 40;
-      const red = Math.round(255 * (1 - ratio));
-      const green = Math.round(200 * ratio);
-      return `rgb(${red}, ${green}, 0)`;
-    }
-  },
-
-  enhanceOpponentInfo(
-    data: Record<rankType, OpponentInfo[]>
-  ): Record<rankType, EnhancedOpponentInfo[]> {
-    const result: Record<rankType, EnhancedOpponentInfo[]> = {} as Record<
-      rankType,
-      EnhancedOpponentInfo[]
-    >;
-
-    Object.entries(data).forEach(([rank, opponents]) => {
-      result[rank as rankType] = opponents.map((opponent) => ({
-        ...opponent,
-        color: this.getColor(opponent.winrate),
-      }));
-    });
-
-    return result;
-  },
-};
 
 Page({
   data: {
     deckData: {} as Deck,
-    deckDetails: {} as Record<rankType, EnhancedOpponentInfo[]>,
+    deckDetails: {} as Record<rankType, OpponentInfo[]>,
+    id: "",
     currentType: "top_legend" as rankType,
     class2Img,
     showCardImg: false,
     cardId: "",
-    id: "",
-  } as DeckDetailData,
-
+  },
   async onLoad(options: Record<string, string>) {
-    const pageOptions = {
-      currentType: (options.currentType || "top_legend") as rankType,
-      id: options.id,
-    };
-    await this.initializePage(pageOptions);
-  },
-
-  async initializePage(options: DeckDetailOptions) {
-    DeckDetailHelper.initializeRankBar(this, options.currentType);
-    this.setData({
-      currentType: options.currentType,
-      id: options.id || "",
-    });
-    await this.fetchDeckDetail();
-  },
-
-  async fetchDeckDetail() {
-    try {
-      const deckData = wx.getStorageSync<Deck>("deckData");
-      const deckDetailsResponse = await getDeckDetails(Number(deckData.deckId));
-
-      const enhancedDetails = DeckDetailPageNew.enhanceOpponentInfo(
-        deckDetailsResponse.data
-      );
-
-      this.setData({
-        deckData,
-        deckDetails: enhancedDetails,
-      });
-    } catch (error) {
-      wx.showToast({
-        title: "获取数据失败",
-        icon: "error",
-      });
+    const rankBar = this.selectComponent("#rankBar");
+    if (rankBar) {
+      rankBar.setCurrentType(options.currentType);
     }
+    const deckData = wx.getStorageSync<Deck>("deckData");
+    const deckDetails = await getDeckDetails(Number(deckData.deckId));
+    this.setData({
+      deckData,
+      deckDetails: enhanceOpponentInfo(deckDetails.data),
+      currentType: options.currentType as rankType,
+    });
   },
-
-  handleRankChange(
-    e: WechatMiniprogram.CustomEvent<{ currentType: rankType }>
-  ) {
-    const { currentType } = e.detail;
-    this.setData({ currentType });
-  },
-
   showCardImg(e: WechatMiniprogram.TouchEvent) {
-    const cardId = e.currentTarget.dataset.id;
-    this.setData({
-      showCardImg: true,
-      cardId,
-    });
+    const id = e.currentTarget.dataset.id;
+    this.setData({ showCardImg: true, cardId: id });
   },
-
   onCloseImg() {
+    this.setData({ showCardImg: false });
+  },
+  handleRankChange(e: WechatMiniprogram.CustomEvent) {
     this.setData({
-      showCardImg: false,
-      cardId: "",
+      currentType: e.detail.currentType,
     });
   },
-
   handleCopy() {
-    if (this.data.deckData.deckcode) {
-      DeckDetailHelper.copyDeckCode(this.data.deckData.deckcode);
-    }
+    wx.setClipboardData({
+      data: this.data.deckData.deckcode,
+      success: () => {
+        wx.showToast({
+          title: "复制成功",
+          icon: "success",
+        });
+      },
+      fail: () => {
+        wx.showToast({
+          title: "复制失败",
+          icon: "none",
+        });
+      },
+    });
   },
-
   onShareAppMessage() {},
-
   onShareTimeline() {},
 });
+
+function getColor(valueParam: number) {
+  const value = valueParam - 50;
+  if (value <= -20) {
+    return "rgb(255, 0, 0)";
+  } else if (value >= 20) {
+    return "rgb(0, 200, 0)";
+  } else {
+    const ratio = (value + 20) / 40;
+    const red = Math.round(255 * (1 - ratio));
+    const green = Math.round(200 * ratio);
+    return `rgb(${red}, ${green}, 0)`;
+  }
+}
+
+function enhanceOpponentInfo(
+  opponents: Record<rankType, OpponentInfo[]>
+): Record<rankType, (OpponentInfo & { color: string })[]> {
+  const enhanced: Record<rankType, (OpponentInfo & { color: string })[]> = {
+    diamond_4to1: [],
+    diamond_to_legend: [],
+    top_10k: [],
+    top_legend: [],
+  };
+
+  for (const rank of Object.keys(opponents) as rankType[]) {
+    enhanced[rank] = opponents[rank].map((opponent) => ({
+      ...opponent,
+      color: getColor(opponent.winrate),
+    }));
+  }
+
+  return enhanced;
+}

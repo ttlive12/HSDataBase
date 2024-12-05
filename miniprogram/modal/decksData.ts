@@ -23,7 +23,6 @@ export type Deck = {
   legendaryCardNum: number;
   zhName: string;
   order: number;
-  height: number;
 };
 
 export type IGetDecksData = {

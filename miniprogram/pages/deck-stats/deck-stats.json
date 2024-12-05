@@ -3,10 +3,6 @@
     "navigation-bar": "/components/navigation-bar/navigation-bar",
     "rank-bar": "/components/rank-bar/rank-bar",
     "alert": "/components/alert/alert",
-    "van-popup": "@vant/weapp/popup/index",
-    "card-preview": "/components/card-preview/card-preview",
-    "deck-list-item": "/components/deck-list-item/deck-list-item",
-    "title-bar": "/components/title-bar/title-bar",
-    "card-frame": "/components/card-frame/card-frame"
+    "van-popup": "@vant/weapp/popup/index"
   }
 }

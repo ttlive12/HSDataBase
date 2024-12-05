@@ -4,7 +4,7 @@
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="rank">
     <view class="rank-top" wx:if="{{firstDeckData.name && secondDeckData.name}}">
-      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-data="{{firstDeckData}}" data-index="-1">
+      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-data="{{firstDeckData}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[firstDeckData.class]}}" />
@@ -43,7 +43,7 @@
           </view>
         </view>
       </view>
-      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-data="{{secondDeckData}}" data-index="-1">
+      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-data="{{secondDeckData}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
             <image class="image" src="{{class2Img[secondDeckData.class]}}" />
@@ -84,13 +84,7 @@
       </view>
     </view>
     <view wx:for="{{ showData }}" wx:key="_id" class="rank-container">
-      <view 
-        wx:if="{{index >= 2}}" 
-        class="rank-item {{item.tapped ? 'tapped' : ''}}" 
-        bind:tap="handleJump" 
-        data-data="{{item}}"
-        data-index="{{index}}"
-      >
+      <view wx:if="{{index >= 2}}" class="rank-item" bind:tap="handleJump" data-data="{{item}}">
         <text class="rank-item-index">{{ index + 1 }}</text>
         <text class="rank-item-name {{ item.class }}">{{ item.zhName }}</text>
         <view class="rank-item-container">
