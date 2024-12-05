@@ -1,11 +1,7 @@
 <van-popup show="{{ show }}" bind:close="onClose" bind:click-overlay="onClose" custom-style="background-color: transparent;" round>
   <view class="card-preview" bind:tap="onClose">
     <view class="card-preview-container {{isLoading ? 'loading' : ''}}">
-      <!-- 低质量预览图 -->
-      <image wx:if="{{cardId}}" class="preview-image thumbnail {{!isLoading ? 'hidden' : ''}}" src="https://art.hearthstonejson.com/v1/render/latest/zhCN/128x/{{cardId}}.png" mode="aspectFit" />
-      <!-- 高质量图片 -->
       <image wx:if="{{cardId}}" class="preview-image full {{isLoading ? 'hidden' : ''}}" src="https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/{{cardId}}.png" mode="aspectFit" bind:load="onImageLoad" />
-      <!-- 加载动画 -->
       <view wx:if="{{isLoading}}" class="loading-container">
         <view class="loading-spinner"></view>
         <text class="loading-text">加载中...</text>

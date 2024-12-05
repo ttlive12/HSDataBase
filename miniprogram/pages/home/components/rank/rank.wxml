@@ -100,7 +100,7 @@
           <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%
           </text>
         </view>
-        <image src="/assets/point.svg" style="width: 40rpx; height: 40rpx;margin-left: 40rpx;" />
+        <image class="rank-item-img" src="/assets/point.svg" />
       </view>
     </view>
   </view>

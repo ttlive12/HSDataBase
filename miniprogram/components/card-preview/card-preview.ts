@@ -27,7 +27,6 @@ Component({
     onClose() {
       this.triggerEvent('close');
     },
-
     onImageLoad() {
       // 高质量图片加载完成后，隐藏加载状态
       this.setData({ isLoading: false });
