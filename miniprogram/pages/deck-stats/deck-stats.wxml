@@ -1,36 +1,28 @@
-<van-popup show="{{ showCardImg }}" bind:close="onCloseImg" bind:click-overlay="onCloseImg" custom-style="background-color: transparent;" round>
-  <view style="text-align: center; padding: 20px 0;" bind:tap="onCloseImg">
-    <image wx:if="{{cardId}}" src="https://art.hearthstonejson.com/v1/render/latest/zhCN/256x/{{cardId}}.png" style="width: 60vw; height: 90vw; display: block; margin: 0 auto;"></image>
-    <text style="display: block;font-size: 18px; color: rgba(255, 255, 255, 0.7); line-height: 1.5;transform: translateY(-10vw);text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.384); letter-spacing: 3rpx;">
-      点击任意处关闭
-    </text>
-  </view>
-</van-popup>
-
+<card-preview show="{{showCardImg}}" card-id="{{cardId}}" bind:close="onCloseImg" />
 <navigation-bar back="{{true}}" title="{{zhName ? zhName : ''}}" />
 <scroll-view class="scrollarea" scroll-y>
   <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
-  <view class="title">
-    <image src="/assets/menu.svg" style="height: 40rpx;width: 40rpx;" />
-    <text>相关卡组</text>
-    <alert title="相关卡组">
-      <text>该体系下卡组的推荐构筑</text>
-      <text>点击后可查看卡组具体构筑和卡组代码</text>
-    </alert>
-  </view>
+  <title-bar icon="/assets/menu.svg" title="相关卡组">
+    <text>该体系下卡组的推荐构筑</text>
+    <text>点击后可查看卡组具体构筑和卡组代码</text>
+  </title-bar>
   <scroll-view wx:if="{{decksData[currentType].length}}" class="decks" scroll-x enable-flex enhanced :show-scrollbar="false">
     <view style="display: inline-block; margin-right: 30rpx;" />
     <view class="decks-item {{item.class}}" wx:for="{{decksData[currentType]}}" wx:key="deckId" data-data="{{item}}" bind:tap="handleJump">
       <view class="decks-item-inner">
-        <view class="decks-item-inner-dust" style="gap: 5rpx">
-          <image src="{{class2Img[item.class]}}" style="width: 40rpx; height: 40rpx;" />
-          <text>{{item.zhName}}</text>
-          <text>({{item.games}}场)</text>
+        <view class="decks-item-inner-header">
+          <image class="class-icon" src="{{class2Img[item.class]}}" />
+          <text class="deck-name">
+            <text>{{item.zhName}}</text>
+            <text class="games">({{item.games}}场)</text>
+          </text>
         </view>
-        <text class="decks-item-inner-winrate">胜率：{{item.winrate}}%</text>
-        <view class="decks-item-inner-dust">
-          <image src="https://www.hsguru.com/images/dust_icon.webp" style="width: 40rpx; height: 40rpx;" />
-          <text>{{item.dust}}</text>
+        <view class="decks-item-inner-stats">
+          <text class="decks-item-inner-stats-winrate">{{item.winrate}}</text>
+          <view class="decks-item-inner-stats-dust">
+            <image class="dust-icon" src="https://www.hsguru.com/images/dust_icon.webp" />
+            <text>{{item.dust}}</text>
+          </view>
         </view>
       </view>
     </view>
@@ -39,43 +31,39 @@
   <view wx:if="{{!decksData[currentType].length}}" style="width: 100%; text-align: center;padding: 40rpx 0;font-size: 40rpx;">
     暂无数据
   </view>
-  <view class="title">
-    <image src="/assets/schedule.svg" style="height: 40rpx;width: 40rpx;" />
-    <text>卡牌调度</text>
-    <alert title="卡牌调度">
-      <text>携带影响：携带某张卡牌对胜率的影响</text>
-      <text>抽到影响：抽到某张卡牌对胜率的影响</text>
-      <text>保留影响：保留某张卡牌对胜率的影响</text>
-    </alert>
-  </view>
-  <view wx:if="{{!data[currentType].length}}" style="text-align: center; margin-top: 200rpx;font-size: 40rpx;">
+  <title-bar icon="/assets/schedule.svg" title="卡牌调度">
+    <text>各卡牌的携带，抽到，保留对胜率的影响</text>
+    <text>仅展示在该分段有一定携带数量的卡牌</text>
+    <text>保留数据样本小的卡牌数据可信度低</text>
+  </title-bar>
+  <view wx:if="{{!data[currentType].length}}" style="width: 100%; text-align: center;padding: 100rpx 0;font-size: 40rpx;">
     暂无数据
   </view>
-  <view wx:else class="deck">
-    <view class="card">
-      <view class="card-frame-title" style="border-right: 1rpx solid;">
-        相关卡牌
+  <view wx:else class="cards">
+    <view class="cards-header">
+      <view class="sort-header" style="grid-column: 1;">
+        <text>卡牌</text>
       </view>
-      <view class="card-data">
-        <text class="card-data-title" style="border-right: 1rpx solid;">携带影响</text>
-        <text class="card-data-title" style="border-right: 1rpx solid;">抽到影响</text>
-        <text class="card-data-title">保留影响</text>
+      <view class="sort-header" style="grid-column: 2;" bind:tap="handleSort" data-type="mulliganImpact">
+        <text>携带影响</text>
+        <image class="sort-icon {{sortType === 'mulliganImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
+      </view>
+      <view class="sort-header" style="grid-column: 3;" bind:tap="handleSort" data-type="drawnImpact">
+        <text>抽到影响</text>
+        <image class="sort-icon {{sortType === 'drawnImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
+      </view>
+      <view class="sort-header" style="grid-column: 4;" bind:tap="handleSort" data-type="keptImpact">
+        <text>保留影响</text>
+        <image class="sort-icon {{sortType === 'keptImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
       </view>
     </view>
-    <view wx:for="{{data[currentType]}}" wx:key="id" class="card" bind:tap="showCardImg" data-id="{{item.id}}">
-      <view class="card-name">
-        <text>{{item.cost}}</text>
-        <text>{{item.name}}</text>
+    <view class="cards-item" wx:for="{{data[currentType]}}" wx:key="id">
+      <view class="cards-item-card" style="grid-column: 1;">
+        <card-frame card-id="{{item.id}}" cost="{{item.cost}}" name="{{item.name}}" rarity="{{item.rarity}}" bind:tap="showCardImg" data-id="{{item.id}}" />
       </view>
-      <view class="card-frame">
-        <view class="card-frame-countbox {{item.rarity}}" />
-        <image class="card-frame-image" src="https://art.hearthstonejson.com/v1/tiles/{{item.id}}.webp" />
-      </view>
-      <view class="card-data">
-        <text class="card-data-text" style="color: {{item.mulliganImpactColor}}">{{item.mulliganImpact}}</text>
-        <text class="card-data-text" style="color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
-        <text class="card-data-text" style="color: {{item.keptImpactColor}}; border-right: 0">{{item.keptImpact}}</text>
-      </view>
+      <text style="grid-column: 2; color: {{item.mulliganImpactColor}}">{{item.mulliganImpact}}</text>
+      <text style="grid-column: 3; color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
+      <text style="grid-column: 4; color: {{item.keptImpactColor}}">{{item.keptImpact}}</text>
     </view>
   </view>
   <view style="height: 100rpx;" />

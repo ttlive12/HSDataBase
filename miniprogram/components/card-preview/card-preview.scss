@@ -1,0 +1,96 @@
+/* 卡牌预览样式 */
+.card-preview {
+  text-align: center;
+  padding: 20px 0;
+
+  &-container {
+    position: relative;
+    width: 60vw;
+    height: 90vw;
+    margin: 0 auto;
+    border-radius: 16rpx;
+    overflow: hidden;
+  }
+
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+
+    &.hidden {
+      opacity: 0;
+    }
+
+    &.thumbnail {
+      position: absolute;
+      top: 0;
+      left: 0;
+      filter: blur(10px);
+      transform: scale(1.1);
+    }
+
+    &.full {
+      position: relative;
+      z-index: 2;
+    }
+  }
+
+  .loading-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20rpx;
+  }
+
+  .loading-spinner {
+    width: 60rpx;
+    height: 60rpx;
+    border: 6rpx solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-text {
+    color: #fff;
+    font-size: 28rpx;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .preview-tip {
+    display: block;
+    font-size: 32rpx;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-top: -5vw;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    letter-spacing: 3rpx;
+  }
+
+  &-image {
+    width: 60vw;
+    height: 90vw;
+    display: block;
+    margin: 0 auto;
+  }
+
+  &-close-text {
+    display: block;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+    transform: translateY(-10vw);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.384);
+    letter-spacing: 3rpx;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

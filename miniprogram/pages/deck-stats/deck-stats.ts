@@ -13,6 +13,11 @@ Page({
     class2Img,
     showCardImg: false,
     cardId: "",
+    sortType: "mulliganImpact" as
+      | "mulliganImpact"
+      | "drawnImpact"
+      | "keptImpact",
+    sortOrder: "desc" as "asc" | "desc",
   },
   showCardImg(e: WechatMiniprogram.TouchEvent) {
     const id = e.currentTarget.dataset.id;
@@ -46,6 +51,49 @@ Page({
     wx.navigateTo({
       url: `/pages/deck-detail/deck-detail?currentType=${this.data.currentType}`,
     });
+  },
+  handleSort(e: WechatMiniprogram.TouchEvent) {
+    const type = e.currentTarget.dataset.type as
+      | "mulliganImpact"
+      | "drawnImpact"
+      | "keptImpact";
+    const { currentType, sortType, sortOrder } = this.data;
+
+    const getValue = (item: CardInfo, key: keyof CardInfo) => {
+      const value = item[key];
+      if (typeof value === "string") {
+        return parseFloat(value.replace("%", "")) || 0;
+      }
+      return typeof value === "number" ? value : 0;
+    };
+
+    // 如果点击的是当前排序字段，切换排序顺序
+    if (type === sortType) {
+      const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+      this.setData({
+        sortOrder: newSortOrder,
+        [`data.${currentType}`]: [...this.data.data[currentType]].sort(
+          (a, b) => {
+            const aValue = getValue(a, type);
+            const bValue = getValue(b, type);
+            return newSortOrder === "asc" ? aValue - bValue : bValue - aValue;
+          }
+        ),
+      });
+    } else {
+      // 如果点击的是新字段，设置为降序
+      this.setData({
+        sortType: type,
+        sortOrder: "desc",
+        [`data.${currentType}`]: [...this.data.data[currentType]].sort(
+          (a, b) => {
+            const aValue = getValue(a, type);
+            const bValue = getValue(b, type);
+            return bValue - aValue; // 降序排列
+          }
+        ),
+      });
+    }
   },
   onShareAppMessage() {},
   onShareTimeline() {},
