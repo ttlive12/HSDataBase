@@ -73,6 +73,38 @@ Page({
   },
   // 检查访问记录并决定是否弹出广告
   checkPageVisitAndShowDialog: function () {
+    const thirtyMinutesInMs = 30 * 60 * 1000; // 半小时
+    const threeDaysInMs = 3 * 24 * 60 * 60 * 1000; // 三天
+    if (wx.createRewardedVideoAd) {
+      videoAd = wx.createRewardedVideoAd({
+        adUnitId: "adunit-28756f75721e4cf2",
+      });
+      videoAd.onError((err) => {
+        console.error("激励视频加载失败", err);
+      });
+      videoAd.onClose((res) => {
+        if (res && res.isEnded) {
+          // 完整观看广告，设置三天内不弹出广告
+          wx.reportEvent("ad_full_watch", {
+            page_nums: visitCount,
+          });
+          wx.showToast({
+            icon: "none",
+            title: "已清理三天内弹窗，感谢支持~",
+          });
+          visitInfo.blockTimestamp = currentTime + threeDaysInMs; // 完整观看广告，三天内不弹出广告
+        } else {
+          // 未完整观看广告，设置半小时内不弹出广告
+          wx.showToast({
+            icon: "none",
+            title: "感谢支持~",
+          });
+          visitInfo.blockTimestamp = currentTime + thirtyMinutesInMs; // 半小时内不弹出广告
+        }
+        wx.setStorageSync("pageVisitInfo", visitInfo);
+      });
+    }
+
     const today = new Date().toISOString().split("T")[0]; // 获取当前日期，格式：yyyy-mm-dd
     const storageKey = "pageVisitInfo"; // 存储的 key
     let visitInfo: VisitInfo =
@@ -110,8 +142,6 @@ Page({
   // 展示广告弹窗
   showAdDialog: function (visitInfo: VisitInfo, currentTime: number) {
     const fifthMinutesInMs = 5 * 60 * 1000; // 五分钟
-    const thirtyMinutesInMs = 30 * 60 * 1000; // 半小时
-    const threeDaysInMs = 3 * 24 * 60 * 60 * 1000; // 三天
     const visitCount = visitInfo.visitCount;
     wx.reportEvent("ad_modal_mv", {
       page_nums: visitCount,
@@ -125,45 +155,15 @@ Page({
     })
       .then(() => {
         // 用户点击了“好的”，展示广告
-        if (wx.createRewardedVideoAd) {
-          videoAd = wx.createRewardedVideoAd({
-            adUnitId: "adunit-28756f75721e4cf2",
-          });
-          videoAd.onError((err) => {
-            console.error("激励视频加载失败", err);
-          });
-          videoAd.onClose((res) => {
-            if (res && res.isEnded) {
-              // 完整观看广告，设置三天内不弹出广告
-              wx.reportEvent("ad_full_watch", {
-                page_nums: visitCount,
-              });
-              wx.showToast({
-                icon: "none",
-                title: "已清理三天内弹窗，感谢支持~",
-              });
-              visitInfo.blockTimestamp = currentTime + threeDaysInMs; // 完整观看广告，三天内不弹出广告
-            } else {
-              // 未完整观看广告，设置半小时内不弹出广告
-              wx.showToast({
-                icon: "none",
-                title: "感谢支持~",
-              });
-              visitInfo.blockTimestamp = currentTime + thirtyMinutesInMs; // 半小时内不弹出广告
-            }
-            wx.setStorageSync("pageVisitInfo", visitInfo);
-          });
-
-          videoAd.show().catch(() => {
-            // 失败重试
-            videoAd
-              .load()
-              .then(() => videoAd.show())
-              .catch((err) => {
-                console.error("激励视频广告显示失败", err);
-              });
-          });
-        }
+        videoAd.show().catch(() => {
+          // 失败重试
+          videoAd
+            .load()
+            .then(() => videoAd.show())
+            .catch((err) => {
+              console.error("激励视频广告显示失败", err);
+            });
+        });
       })
       .catch(() => {
         // 用户点击了“残忍拒绝”按钮
