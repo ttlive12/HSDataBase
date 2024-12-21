@@ -70,8 +70,8 @@
           <text>数据更新</text>
         </view>
         <view class="body">
-          <text>每日 4：30更新</text>
-          <text>预计需要20分钟</text>
+          <text>每日自动更新</text>
+          <text>自动剔除老数据</text>
         </view>
       </view>
 
@@ -92,10 +92,9 @@
           <text>更新日志</text>
         </view>
         <view class="body">
-          <text>当前版本：1.5.1</text>
-          <text>UI 优化，添加过渡动画</text>
-          <!-- <text>卡组推荐页可设置近一天数据</text> -->
-          <text>支持狂野模式，单卡图片查看</text>
+          <text>当前版本：1.6.0</text>
+          <text>复制卡组代码会加入卡组名</text>
+          <text>计划更新内容：推荐卡组数量增加，支持按职业搜索。竞技场模式。</text>
         </view>
       </view>
     </view>

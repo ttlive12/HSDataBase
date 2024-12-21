@@ -1,3 +1,4 @@
+<van-dialog id="van-dialog" />
 <card-preview show="{{showCardImg}}" card-id="{{cardId}}" bind:close="onCloseImg" />
 <navigation-bar back title="卡组详情" />
 <scroll-view class="scrollarea" scroll-y>
