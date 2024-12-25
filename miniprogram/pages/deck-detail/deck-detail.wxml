@@ -1,4 +1,11 @@
-<van-dialog id="van-dialog" />
+<van-dialog use-slot title="支持作者" show="{{ showAdModal }}" show-cancel-button showConfirmButton="{{true}}" cancelButtonText="拒绝" confirmButtonText="好的" cancelButtonColor="#EE0A24" confirmButtonColor="#002d91" z-index="10000" root-portal
+bind:confirm="onConfirm" bind:cancel="onRefuse" 
+>
+  <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;padding: 20rpx 40rpx;color: #797A7A;font-size: 30rpx;line-height: 40rpx;text-align: center;gap: 30rpx;">
+    <text>今天您已经查看了 {{visitInfo.visitCount}} 个卡组了，看个广告支持一下吧~</text>
+    <text style="font-size: 22rpx;line-height: 22rpx;">Tips:完整观看广告可屏蔽近3天弹窗</text>
+  </view>
+</van-dialog>
 <card-preview show="{{showCardImg}}" card-id="{{cardId}}" bind:close="onCloseImg" />
 <navigation-bar back title="卡组详情" />
 <scroll-view class="scrollarea" scroll-y>

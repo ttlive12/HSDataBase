@@ -1,4 +1,4 @@
-<guide id="guide" />
+<!-- <guide id="guide" /> -->
 
 <view class="weui-navigation-bar {{extClass}}">
   <view class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}} {{isDevtools ? 'devtools' : ''}}" style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}">

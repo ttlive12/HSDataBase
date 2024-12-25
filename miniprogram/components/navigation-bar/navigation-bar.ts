@@ -1,4 +1,3 @@
-import { nextTick } from "@/miniprogram_npm/@vant/weapp/common/utils";
 import { IAppOption } from "typings";
 const app = getApp<IAppOption>();
 const eventBus = app.globalData.eventBus;
@@ -65,29 +64,27 @@ Component({
               }px); padding-top: ${windowInfo.safeArea.top || 40}px`
             : ``,
       });
-
-      this.getCurrentDayAndMonthProgress();
-      if (!wx.getStorageSync("guide")) {
-        nextTick(() => {
-          if (!this.data.setting) return;
-          wx.createSelectorQuery()
-            .in(this)
-            .select("#setting")
-            .boundingClientRect((res) => {
-              const guide = this.selectComponent("#guide");
-              guide.startGuide(
-                {
-                  left: res.left,
-                  top: res.top,
-                  width: res.width,
-                  height: res.height,
-                },
-                "点击进入设置"
-              );
-            })
-            .exec();
-        });
-      }
+      // if (!wx.getStorageSync("guide")) {
+      //   nextTick(() => {
+      //     if (!this.data.setting) return;
+      //     wx.createSelectorQuery()
+      //       .in(this)
+      //       .select("#setting")
+      //       .boundingClientRect((res) => {
+      //         const guide = this.selectComponent("#guide");
+      //         guide.startGuide(
+      //           {
+      //             left: res.left,
+      //             top: res.top,
+      //             width: res.width,
+      //             height: res.height,
+      //           },
+      //           "点击进入设置"
+      //         );
+      //       })
+      //       .exec();
+      //   });
+      // }
     },
   },
   /**
