@@ -12,6 +12,7 @@ Page({
     success: true,
     wild: false,
     period: "default",
+    value: ''
   },
 
   onLoad() {

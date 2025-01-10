@@ -2,6 +2,7 @@
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar",
     "rank-bar": "/components/rank-bar/rank-bar",
-    "fail": "/components/fail/fail"
+    "fail": "/components/fail/fail",
+    "van-search": "@vant/weapp/search/index"
   }
 }
