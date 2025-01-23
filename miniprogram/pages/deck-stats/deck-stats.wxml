@@ -30,6 +30,12 @@
   </scroll-view>
   <view wx:if="{{!decksData[currentType].length}}" style="width: 100%; text-align: center;padding: 40rpx 0;font-size: 40rpx;">
     暂无数据
+    <view wx:if="{{decksDataLength}}" style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
+      您可以选择切换分段查看相关数据
+    </view>
+    <view wx:else style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
+      当前卡组样本量小，以后再来查看吧
+    </view>
   </view>
   <title-bar icon="/assets/schedule.svg" title="卡牌调度">
     <text>各卡牌的携带，抽到，保留对胜率的影响</text>
@@ -38,6 +44,12 @@
   </title-bar>
   <view wx:if="{{!data[currentType].length}}" style="width: 100%; text-align: center;padding: 100rpx 0;font-size: 40rpx;">
     暂无数据
+    <view wx:if="{{dataLength}}" style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
+      您可以选择切换分段查看相关数据
+    </view>
+    <view wx:else style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
+      当前卡组样本量小，以后再来查看吧
+    </view>
   </view>
   <view wx:else class="cards">
     <view class="cards-header">

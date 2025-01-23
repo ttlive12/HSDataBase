@@ -2,7 +2,7 @@
 <fail show="{{!success}}" />
 <scroll-view wx:if="{{success}}" class="scrollarea" scroll-y type="list">
   <view class="container">
-    <van-search value="{{ value }}" placeholder="请输入搜索关键词" />
+    <!-- <van-search value="{{ value }}" placeholder="请输入搜索关键词" /> -->
     <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   </view>
   <view class="waterfall">

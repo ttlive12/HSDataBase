@@ -35,7 +35,9 @@ Page({
     const decksData = await getRankDetails(options.id);
     this.setData({
       data: data.data,
+      dataLength: Object.values(data.data).flat().length,
       decksData: decksData.data,
+      decksDataLength: Object.values(decksData.data).flat().length,
       zhName: options.zhName,
       currentType: options.currentType as rankType,
     });
