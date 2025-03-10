@@ -1,15 +1,5 @@
 @import "../../common.scss";
 
-@font-face {
-  font-family: "Ifont";
-  font-weight: 400;
-  src: url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/LziQ3sjxjGSt.woff2")
-      format("woff2"),
-    url("//at.alicdn.com/wf/webfont/G2dyfJYkXZQ2/DAKJM3ZJX9xz.woff")
-      format("woff");
-  font-display: swap;
-}
-
 .weui-navigation-bar {
   --weui-FG-0: rgba(0, 0, 0, 0.9);
   --height: 44px;

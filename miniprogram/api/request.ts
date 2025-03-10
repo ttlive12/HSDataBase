@@ -2,11 +2,11 @@ import { RequestOption } from "./type";
 
 // 环境配置
 const ENV = {
-  PROD: "https://wcshxupboocw.sealosbja.site",
-  TEST: "https://vqnemzapzfmm.sealosbja.site",
+  PROD: "https://tlumbbmnnlhg.sealosgzg.site",
+  TEST: "https://enhjvirnfvlm.sealosgzg.site",
 };
 
-const BaseUrl = ENV.PROD;
+const BaseUrl = ENV.TEST;
 
 type WxRequestError = WechatMiniprogram.GeneralCallbackResult & {
   errMsg?: string;

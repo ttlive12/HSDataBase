@@ -23,9 +23,9 @@
 <van-popup show="{{ show }}" closeable bind:close="onClose" round custom-style="width: 80%" z-index="10000">
   <view class="popup-container">
     <view class="mode">
-      <image src="{{wild ? 'https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png' : 'https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png'}}" class="icon {{rotate ? 'rotate' : ''}}" bind:tap="handleSwitch"/>
+      <image src="{{wild ? 'https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png' : 'https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png'}}" class="icon {{rotate ? 'rotate' : ''}}" bind:tap="handleSwitch" />
       <text class="mode-name">{{wild ? '狂野模式' : '标准模式'}}</text>
-      <image src="/assets/switch.svg" style="width: 40rpx; height: 40rpx;padding: 15rpx; transform: translateX(-10rpx);" bind:tap="handleSwitch"/>
+      <image src="/assets/switch.svg" style="width: 40rpx; height: 40rpx;padding: 15rpx; transform: translateX(-10rpx);" bind:tap="handleSwitch" />
     </view>
 
     <view class="card-container">
@@ -94,8 +94,8 @@
           <text>更新日志</text>
         </view>
         <view class="body">
-          <text>当前版本：1.6.2</text>
-          <text>计划更新：推荐卡组优化，竞技场模式</text>
+          <text>当前版本：1.7.0</text>
+          <text>计划更新：竞技场模式</text>
         </view>
       </view>
     </view>

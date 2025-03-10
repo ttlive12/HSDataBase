@@ -28,7 +28,7 @@
     </view>
     <view style="display: inline-block; color: transparent;font-size: 1rpx;">0</view>
   </scroll-view>
-  <view wx:if="{{!decksData[currentType].length}}" style="width: 100%; text-align: center;padding: 40rpx 0;font-size: 40rpx;">
+  <view wx:if="{{!loading && !decksData[currentType].length}}" style="width: 100%; text-align: center;padding: 40rpx 0;font-size: 40rpx;">
     暂无数据
     <view wx:if="{{decksDataLength}}" style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
       您可以选择切换分段查看相关数据
@@ -42,7 +42,7 @@
     <text>仅展示在该分段有一定携带数量的卡牌</text>
     <text>保留数据样本小的卡牌数据可信度低</text>
   </title-bar>
-  <view wx:if="{{!data[currentType].length}}" style="width: 100%; text-align: center;padding: 100rpx 0;font-size: 40rpx;">
+  <view wx:if="{{!loading && !data[currentType].length}}" style="width: 100%; text-align: center;padding: 100rpx 0;font-size: 40rpx;">
     暂无数据
     <view wx:if="{{dataLength}}" style="font-size: 28rpx; color: rgba(0,0,0,0.8);">
       您可以选择切换分段查看相关数据

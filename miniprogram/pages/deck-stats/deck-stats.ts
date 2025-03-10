@@ -18,6 +18,7 @@ Page({
       | "drawnImpact"
       | "keptImpact",
     sortOrder: "desc" as "asc" | "desc",
+    loading: true
   },
   showCardImg(e: WechatMiniprogram.TouchEvent) {
     const id = e.currentTarget.dataset.id;
@@ -40,6 +41,7 @@ Page({
       decksDataLength: Object.values(decksData.data).flat().length,
       zhName: options.zhName,
       currentType: options.currentType as rankType,
+      loading: false
     });
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
@@ -97,6 +99,6 @@ Page({
       });
     }
   },
-  onShareAppMessage() {},
-  onShareTimeline() {},
+  onShareAppMessage() { },
+  onShareTimeline() { },
 });
