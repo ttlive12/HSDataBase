@@ -36,4 +36,5 @@ export interface RequestOption {
   data?: any;
   header?: any;
   varLabs?: varLabs;
+  maxRetries?: number;
 }
