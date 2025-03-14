@@ -18,8 +18,8 @@ import { url_diamond1, url_legend } from "./assets/index";
       url: url_diamond1,
     },
     {
-      name: "传说 Top10000" as rankType,
-      id: "top_10k",
+      name: "传说 Top5000" as rankType,
+      id: "top_5k",
       url: url_legend,
     },
     {

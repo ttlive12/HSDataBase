@@ -34,7 +34,7 @@ Component({
     ) {
       const weight: Record<rankType, { win: number; pick: number }> = {
         top_legend: { win: 0.7, pick: 0.3 },
-        top_10k: { win: 0.75, pick: 0.25 },
+        top_5k: { win: 0.75, pick: 0.25 },
         diamond_to_legend: { win: 0.75, pick: 0.25 },
         diamond_4to1: { win: 0.8, pick: 0.2 },
       };

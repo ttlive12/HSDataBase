@@ -14,7 +14,7 @@ export type ClassTypes =
 export type rankType =
   | "diamond_4to1"
   | "diamond_to_legend"
-  | "top_10k"
+  | "top_5k"
   | "top_legend";
 
 export interface varLabs {
