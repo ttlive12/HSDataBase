@@ -204,7 +204,7 @@ function getColor(valueParam: number) {
 }
 
 function enhanceOpponentInfo(
-  opponents: Record<rankType, OpponentInfo[]>,
+  opponents: Record<rankType, OpponentInfo[]>
 ): Record<rankType, (OpponentInfo & { color: string })[]> {
   const enhanced: Record<rankType, (OpponentInfo & { color: string })[]> = {
     diamond_4to1: [],

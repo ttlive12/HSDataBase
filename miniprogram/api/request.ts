@@ -23,7 +23,12 @@ class RequestError extends Error {
   requestUrl?: string;
   requestMethod?: string;
 
-  constructor(message: string, statusCode?: number, url?: string, method?: string) {
+  constructor(
+    message: string,
+    statusCode?: number,
+    url?: string,
+    method?: string
+  ) {
     super(message);
     this.name = "RequestError";
     this.errMsg = message;
@@ -39,7 +44,7 @@ const showErrorMessage = (error: RequestError | WxRequestError) => {
     icon: "none",
     duration: 2000,
   });
-  
+
   // 记录错误日志
   console.error("API请求错误:", error);
 };
@@ -95,13 +100,13 @@ class RequestCache {
       data: response,
       timestamp: Date.now(),
     });
-    
+
     // 每次设置缓存时，有10%的概率清理过期缓存
     if (Math.random() < 0.1) {
       this.clearExpiredCache();
     }
   }
-  
+
   // 清除所有过期缓存
   clearExpiredCache(): void {
     const now = Date.now();
@@ -111,7 +116,7 @@ class RequestCache {
       }
     }
   }
-  
+
   // 清除特定URL的缓存
   clearUrlCache(url: string): void {
     for (const key of this.cache.keys()) {
@@ -120,7 +125,7 @@ class RequestCache {
       }
     }
   }
-  
+
   // 清除所有缓存
   clearAllCache(): void {
     this.cache.clear();
@@ -202,19 +207,22 @@ const request = <T extends ApiResponse>({
         },
         fail(err) {
           const costTime = Date.now() - startTime;
-          
+
           // 如果还有重试次数，则进行重试
           if (retryCount < maxRetries) {
             console.log(`请求失败，正在进行第${retryCount + 1}次重试...`);
             // 延迟一段时间后重试
-            setTimeout(() => {
-              executeRequest(retryCount + 1)
-                .then(resolve)
-                .catch(reject);
-            }, 1000 * (retryCount + 1)); // 重试延迟时间递增
+            setTimeout(
+              () => {
+                executeRequest(retryCount + 1)
+                  .then(resolve)
+                  .catch(reject);
+              },
+              1000 * (retryCount + 1)
+            ); // 重试延迟时间递增
             return;
           }
-          
+
           wx.reportEvent("wxdata_perf_monitor", {
             ...varLabs,
             wxdata_perf_error_code: -1,
@@ -223,7 +231,12 @@ const request = <T extends ApiResponse>({
           });
 
           showError && showErrorMessage(err);
-          const error = new RequestError(err.errMsg || "网络请求失败", undefined, url, method);
+          const error = new RequestError(
+            err.errMsg || "网络请求失败",
+            undefined,
+            url,
+            method
+          );
           reject(error);
         },
         complete() {
