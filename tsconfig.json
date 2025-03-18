@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "types": ["miniprogram-api-typings"],
     "paths": {
-      "@vant/weapp/*": ["path/to/node_modules/@vant/weapp/dist/*"]
+      "@vant/weapp/*": ["path/to/node_modules/@vant/weapp/dist/*"],
+      "@/*": ["miniprogram/*"]
     },
     "lib": ["ES2020"],
     "typeRoots": [

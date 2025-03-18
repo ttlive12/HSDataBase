@@ -1,0 +1,32 @@
+{
+  "semi": true,
+  "trailingComma": "es5",
+  "singleQuote": true,
+  "printWidth": 100,
+  "tabWidth": 2,
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["*.wxml"],
+      "options": {
+        "parser": "html",
+        "htmlWhitespaceSensitivity": "css",
+        "singleAttributePerLine": true
+      }
+    },
+    {
+      "files": ["*.wxss", "*.acss"],
+      "options": {
+        "parser": "css"
+      }
+    },
+    {
+      "files": ["*.wxs"],
+      "options": {
+        "parser": "babel"
+      }
+    }
+  ]
+}

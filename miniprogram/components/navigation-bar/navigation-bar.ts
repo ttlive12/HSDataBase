@@ -1,4 +1,4 @@
-import { IAppOption } from "typings";
+import { IAppOption } from 'typings';
 const app = getApp<IAppOption>();
 const eventBus = app.globalData.eventBus;
 Component({
@@ -11,11 +11,11 @@ Component({
   properties: {
     title: {
       type: String,
-      value: "HS",
+      value: 'HS',
     },
     subTitle: {
       type: String,
-      value: "",
+      value: '',
     },
     back: {
       type: Boolean,
@@ -30,11 +30,11 @@ Component({
    * 组件的初始数据
    */
   data: {
-    displayStyle: "",
+    displayStyle: '',
     show: false,
-    radio: "1",
-    period: "default",
-    radioDecks: "1",
+    radio: '1',
+    period: 'default',
+    radioDecks: '1',
     wild: false,
     guidePositions: [] as any[], // 存储所有目标元素的位置
   },
@@ -47,15 +47,13 @@ Component({
       // 获取设备信息
       const deviceInfo = wx.getDeviceInfo();
 
-      const isAndroid = deviceInfo.platform === "android";
-      const isDevtools = deviceInfo.platform === "devtools";
+      const isAndroid = deviceInfo.platform === 'android';
+      const isDevtools = deviceInfo.platform === 'devtools';
 
       this.setData({
         isDevtools,
         ios: !isAndroid,
-        innerPaddingRight: `padding-right: ${
-          windowInfo.windowWidth - rect.left
-        }px`,
+        innerPaddingRight: `padding-right: ${windowInfo.windowWidth - rect.left}px`,
         leftWidth: `width: ${windowInfo.windowWidth - rect.left}px`,
         safeAreaTop:
           isDevtools || isAndroid
@@ -92,13 +90,13 @@ Component({
    */
   methods: {
     onShow(e: any) {
-      const data = wx.getStorageSync("rank-type") || "1";
-      const wild = wx.getStorageSync("wild") || false;
-      const period = wx.getStorageSync("period") || "default";
+      const data = wx.getStorageSync('rank-type') || '1';
+      const wild = wx.getStorageSync('wild') || false;
+      const period = wx.getStorageSync('period') || 'default';
       const show = Boolean(e && e.type);
       if (show) {
-        wx.reportEvent("click_setting", {});
-        app.globalData.eventBus.emit("showSetting");
+        wx.reportEvent('click_setting', {});
+        app.globalData.eventBus.emit('showSetting');
       }
       this.setData({ show, radio: data, wild, period });
     },
@@ -106,21 +104,21 @@ Component({
       this.setData({ show: false });
     },
     onChange(event: any) {
-      wx.setStorageSync("rank-type", event.detail);
+      wx.setStorageSync('rank-type', event.detail);
       this.setData({
         radio: event.detail,
       });
-      eventBus.emit("setting");
+      eventBus.emit('setting');
     },
     onChangePeriod(event: any) {
-      wx.setStorageSync("period", event.detail);
+      wx.setStorageSync('period', event.detail);
       this.setData({
         period: event.detail,
       });
-      eventBus.emit("setting");
+      eventBus.emit('setting');
     },
     handleSwitch() {
-      wx.setStorageSync("wild", !this.data.wild);
+      wx.setStorageSync('wild', !this.data.wild);
       this.setData({ rotate: true });
       setTimeout(() => {
         this.setData({
@@ -130,14 +128,14 @@ Component({
       setTimeout(() => {
         this.setData({ rotate: false });
       }, 400);
-      eventBus.emit("setting");
+      eventBus.emit('setting');
     },
     handleBack() {
       wx.navigateBack();
     },
     handleBackHome() {
       wx.switchTab({
-        url: "/pages/home/home",
+        url: '/pages/home/home',
       });
     },
     getCurrentDayAndMonthProgress() {
@@ -151,8 +149,7 @@ Component({
       const firstDayOfNextMonth = new Date(Date.UTC(year, month + 1, 1));
       const currentDay = beijingTime.getUTCDate();
       const totalDaysInMonth =
-        (firstDayOfNextMonth.getTime() - firstDayOfMonth.getTime()) /
-        (1000 * 60 * 60 * 24);
+        (firstDayOfNextMonth.getTime() - firstDayOfMonth.getTime()) / (1000 * 60 * 60 * 24);
       const monthProgress = (currentDay / totalDaysInMonth) * 100;
 
       // 计算当前月份是第几赛季

@@ -1,38 +1,97 @@
-<van-dialog use-slot title="支持作者" show="{{ showAdModal }}" show-cancel-button showConfirmButton="{{true}}" cancelButtonText="拒绝" confirmButtonText="好的" cancelButtonColor="#EE0A24" confirmButtonColor="#002d91" z-index="10000" root-portal
-bind:confirm="onConfirm" bind:cancel="onRefuse" 
+<van-dialog
+  use-slot
+  title="支持作者"
+  show="{{ showAdModal }}"
+  show-cancel-button
+  showConfirmButton="{{true}}"
+  cancelButtonText="拒绝"
+  confirmButtonText="好的"
+  cancelButtonColor="#EE0A24"
+  confirmButtonColor="#002d91"
+  z-index="10000"
+  root-portal
+  bind:confirm="onConfirm"
+  bind:cancel="onRefuse"
 >
-  <view style="display: flex;flex-direction: column;align-items: center;justify-content: center;padding: 20rpx 40rpx;color: #797A7A;font-size: 30rpx;line-height: 40rpx;text-align: center;gap: 30rpx;">
+  <view class="support">
     <text>今天您已经查看了 {{visitInfo.visitCount}} 个卡组了，看个广告支持一下吧~</text>
-    <text style="font-size: 22rpx;line-height: 22rpx;">Tips:完整观看广告可屏蔽近3天弹窗</text>
+    <text style="font-size: 22rpx; line-height: 22rpx">Tips:完整观看广告可屏蔽近3天弹窗</text>
   </view>
 </van-dialog>
-<card-preview show="{{showCardImg}}" card-id="{{cardId}}" bind:close="onCloseImg" />
-<navigation-bar back title="卡组详情" />
-<scroll-view class="scrollarea" scroll-y>
-  <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
+<card-preview
+  show="{{showCardImg}}"
+  card-id="{{cardId}}"
+  bind:close="onCloseImg"
+/>
+<navigation-bar
+  back
+  title="卡组详情"
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+>
+  <rank-bar
+    id="rankBar"
+    bind:rankChange="handleRankChange"
+  />
   <view class="container">
     <view class="deck">
       <view class="deck-cards">
-        <card-frame wx:for="{{deckData.cards}}" wx:key="id" card-id="{{item.id}}" cost="{{item.cost}}" name="{{item.name}}" rarity="{{item.rarity}}" back="{{item.back}}" data-id="{{item.id}}" bind:tap="showCardImg" />
+        <card-frame
+          wx:for="{{deckData.cards}}"
+          wx:key="id"
+          card-id="{{item.id}}"
+          cost="{{item.cost}}"
+          name="{{item.name}}"
+          rarity="{{item.rarity}}"
+          back="{{item.back}}"
+          data-id="{{item.id}}"
+          bind:tap="showCardImg"
+        />
       </view>
       <view class="deck-dust">
-        <image src="https://www.hsguru.com/images/dust_icon.webp" style="width: 40rpx; height: 40rpx;" />
+        <image
+          src="https://www.hsguru.com/images/dust_icon.webp"
+          style="width: 40rpx; height: 40rpx"
+        />
         <text>{{deckData.dust}}</text>
       </view>
     </view>
     <view class="details">
       <view class="details-title">
-        <image src="/assets/wave.svg" style="width: 40rpx; height: 40rpx;" />
+        <image
+          src="/assets/wave.svg"
+          style="width: 40rpx; height: 40rpx"
+        />
         <view>对阵胜率</view>
-        <image src="/assets/wave.svg" style="width: 40rpx; height: 40rpx;" />
+        <image
+          src="/assets/wave.svg"
+          style="width: 40rpx; height: 40rpx"
+        />
       </view>
-      <view wx:if="{{deckDetails[currentType].length <= 1}}" style="text-align: center;margin-top: 25vh;">
+      <view
+        wx:if="{{deckDetails[currentType].length <= 1}}"
+        style="text-align: center; margin-top: 25vh"
+      >
         暂无数据
       </view>
-      <view wx:else class="details-content">
-        <view wx:for="{{deckDetails[currentType]}}" wx:key="class">
-          <view class="details-item" wx:if="{{item.class !== 'total'}}">
-            <image class="image" src="{{class2Img[item.class]}}" />
+      <view
+        wx:else
+        class="details-content"
+      >
+        <view
+          wx:for="{{deckDetails[currentType]}}"
+          wx:key="class"
+        >
+          <view
+            class="details-item"
+            wx:if="{{item.class !== 'total'}}"
+          >
+            <image
+              class="image"
+              src="{{class2Img[item.class]}}"
+            />
             <text style="color: {{item.color}}">{{item.winrate}}%</text>
             <text>({{item.total}})</text>
           </view>
@@ -40,9 +99,15 @@ bind:confirm="onConfirm" bind:cancel="onRefuse"
       </view>
     </view>
   </view>
-  <view style="height: 100rpx;" />
-  <view class="fab-button" bind:tap="handleCopy">
-    <image style="width: 45rpx; height: 45rpx;" src="/assets/copy.svg" />
+  <view style="height: 100rpx" />
+  <view
+    class="fab-button"
+    bind:tap="handleCopy"
+  >
+    <image
+      style="width: 45rpx; height: 45rpx"
+      src="/assets/copy.svg"
+    />
     <text class="copy-button">复制卡组代码</text>
   </view>
 </scroll-view>

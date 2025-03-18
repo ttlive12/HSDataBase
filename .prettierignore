@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+miniprogram_npm/
+ec-canvas/
+.idea/
+.vscode/
+*.min.js
+*.min.css
+*.json
+!.prettierrc
+project.config.json
+project.private.config.json
+sitemap.json

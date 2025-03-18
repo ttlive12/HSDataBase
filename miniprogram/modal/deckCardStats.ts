@@ -1,4 +1,4 @@
-import { rankType } from "../api/type";
+import { rankType } from '../api/type';
 
 export interface CardInfo {
   id: string;
@@ -13,8 +13,7 @@ export interface CardInfo {
   keptImpactColor: string;
 }
 
-export type IGetDeckCardStatsData = {
+export interface IGetDeckCardStatsData {
   success: boolean;
   data: Record<rankType, CardInfo[]>;
-};
-
+}

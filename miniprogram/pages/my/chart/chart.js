@@ -1,6 +1,6 @@
-import * as echarts from "../../../ec-canvas/echarts";
+import * as echarts from '../../../ec-canvas/echarts';
 
-const app = getApp()
+const app = getApp();
 
 function generatePieChartOptions(rankArray, topN = 20) {
   // 排序并获取前N项数据
@@ -11,15 +11,15 @@ function generatePieChartOptions(rankArray, topN = 20) {
   let topPercentSum = topItems.reduce((sum, item) => sum + item.popularityPercent, 0);
 
   // 准备饼图数据
-  let pieData = topItems.map(item => ({
+  let pieData = topItems.map((item) => ({
     name: item.zhName,
     value: item.popularityPercent,
     itemStyle: {
       color: class2Color[item.class],
       borderColor: '#ffffff', // 设置分割线颜色为白色
-      borderWidth: 2 // 设置分割线宽度
+      borderWidth: 2, // 设置分割线宽度
     },
-    popularityNum: item.popularityNum
+    popularityNum: item.popularityNum,
   }));
 
   // 如果总百分比小于100，添加“其他”项
@@ -30,9 +30,9 @@ function generatePieChartOptions(rankArray, topN = 20) {
       itemStyle: {
         color: 'black',
         borderColor: '#ffffff', // 设置分割线颜色为白色
-        borderWidth: 2 // 设置分割线宽度
+        borderWidth: 2, // 设置分割线宽度
       },
-      popularityNum: 0
+      popularityNum: 0,
     });
   }
 
@@ -43,8 +43,8 @@ function generatePieChartOptions(rankArray, topN = 20) {
       left: 'center', // 标题位置
       subtextStyle: {
         color: '#333333', // 副标题字体颜色
-        fontSize: 16 // 副标题字体大小
-      }
+        fontSize: 16, // 副标题字体大小
+      },
     },
     tooltip: {
       trigger: 'item',
@@ -54,15 +54,17 @@ function generatePieChartOptions(rankArray, topN = 20) {
         } else {
           return `${params.name} : ${params.value}% (${params.data.popularityNum})`;
         }
-      }
+      },
     },
-    series: [{
-      name: '流行度',
-      type: 'pie',
-      radius: '55%',
-      center: ['50%', '50%'],
-      data: pieData,
-    }]
+    series: [
+      {
+        name: '流行度',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '50%'],
+        data: pieData,
+      },
+    ],
   };
 }
 
@@ -70,13 +72,13 @@ function generateClassPieChartOptions(rankArray) {
   // 合并相同class的数据
   const classDataMap = {};
 
-  rankArray.forEach(item => {
+  rankArray.forEach((item) => {
     if (!classDataMap[item.class]) {
       classDataMap[item.class] = {
         className: item.class,
         name: class2Zh[item.class],
         totalPercent: 0,
-        totalNum: 0
+        totalNum: 0,
       };
     }
     classDataMap[item.class].totalPercent += item.popularityPercent;
@@ -84,15 +86,15 @@ function generateClassPieChartOptions(rankArray) {
   });
 
   // 准备饼图数据
-  const pieData = Object.values(classDataMap).map(item => ({
+  const pieData = Object.values(classDataMap).map((item) => ({
     name: item.name,
     value: item.totalPercent,
     itemStyle: {
       color: class2Color[item.className],
       borderColor: '#ffffff', // 设置分割线颜色为白色
-      borderWidth: 2 // 设置分割线宽度
+      borderWidth: 2, // 设置分割线宽度
     },
-    popularityNum: item.totalNum
+    popularityNum: item.totalNum,
   }));
 
   // 生成ECharts选项
@@ -102,22 +104,24 @@ function generateClassPieChartOptions(rankArray) {
       left: 'center', // 标题位置
       subtextStyle: {
         color: '#333333', // 副标题字体颜色
-        fontSize: 16 // 副标题字体大小
-      }
+        fontSize: 16, // 副标题字体大小
+      },
     },
     tooltip: {
       trigger: 'item',
       formatter: function (params) {
         return `${params.name} : ${params.value.toFixed(1)}% (${params.data.popularityNum})`;
-      }
+      },
     },
-    series: [{
-      name: '流行度',
-      type: 'pie',
-      radius: '55%',
-      center: ['50%', '50%'],
-      data: pieData.sort((a, b) => b.value - a.value),
-    }]
+    series: [
+      {
+        name: '流行度',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '50%'],
+        data: pieData.sort((a, b) => b.value - a.value),
+      },
+    ],
   };
 }
 
@@ -127,19 +131,19 @@ Component({
       type: Array,
       value: [],
       observer: function (newVal) {
-        app.globalData.rankData = newVal
+        app.globalData.rankData = newVal;
         this.setData({
-          isShow: false
-        })
+          isShow: false,
+        });
         wx.nextTick(() => {
           if (newVal.length) {
             this.setData({
-              isShow: true
-            })
+              isShow: true,
+            });
           }
-        })
-      }
-    }
+        });
+      },
+    },
   },
   data: {
     isShow: false,
@@ -150,7 +154,7 @@ Component({
           height: height,
           devicePixelRatio: dpr,
         });
-        const data = app.globalData.rankData ? app.globalData.rankData : []
+        const data = app.globalData.rankData ? app.globalData.rankData : [];
         canvas.setChart(pieChart);
         pieChart.setOption(generatePieChartOptions(data));
         return pieChart;
@@ -163,15 +167,14 @@ Component({
           height: height,
           devicePixelRatio: dpr,
         });
-        const data = app.globalData.rankData ? app.globalData.rankData : []
+        const data = app.globalData.rankData ? app.globalData.rankData : [];
         canvas.setChart(pieChart);
         pieChart.setOption(generateClassPieChartOptions(data));
         return pieChart;
       },
-    }
-  }
+    },
+  },
 });
-
 
 const class2Color = {
   shaman: '#0070de',
@@ -184,7 +187,7 @@ const class2Color = {
   druid: '#ff7d0a',
   paladin: '#f58cba',
   deathknight: '#c41f3b',
-  demonhunter: '#a330c9'
+  demonhunter: '#a330c9',
 };
 
 const class2Zh = {
@@ -198,5 +201,5 @@ const class2Zh = {
   druid: '德鲁伊',
   paladin: '圣骑士',
   deathknight: '死亡骑士',
-  demonhunter: '恶魔猎手'
-}
+  demonhunter: '恶魔猎手',
+};

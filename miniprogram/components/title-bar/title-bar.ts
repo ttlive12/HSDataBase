@@ -4,7 +4,7 @@ Component({
     title: String,
     showAlert: {
       type: Boolean,
-      value: true
-    }
-  }
+      value: true,
+    },
+  },
 });

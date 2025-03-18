@@ -2,25 +2,25 @@ Component({
   properties: {
     show: {
       type: Boolean,
-      value: false
+      value: false,
     },
     cardId: {
       type: String,
-      value: ''
-    }
+      value: '',
+    },
   },
 
   data: {
-    isLoading: true
+    isLoading: true,
   },
 
   observers: {
-    'show': function(show) {
+    show: function (show) {
       // 每次显示时重置加载状态
       if (show) {
         this.setData({ isLoading: true });
       }
-    }
+    },
   },
 
   methods: {
@@ -30,6 +30,6 @@ Component({
     onImageLoad() {
       // 高质量图片加载完成后，隐藏加载状态
       this.setData({ isLoading: false });
-    }
-  }
+    },
+  },
 });

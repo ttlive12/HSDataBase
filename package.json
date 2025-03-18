@@ -1,14 +1,42 @@
 {
   "name": "miniprogram-ts-sass-quickstart",
   "version": "1.0.0",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint --ext .js,.ts miniprogram/",
+    "lint:fix": "eslint --ext .js,.ts miniprogram/ --fix",
+    "lint:staged": "eslint --fix",
+    "format": "prettier --write \"miniprogram/**/*.{js,ts,wxml,wxss}\"",
+    "check-format": "prettier --check \"miniprogram/**/*.{js,ts,wxml,wxss}\"",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run lint:staged",
+      "prettier --write"
+    ],
+    "*.{wxml,wxss}": [
+      "prettier --write"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
-    "miniprogram-api-typings": "^2.8.3-1"
+    "@eslint/js": "^9.22.0",
+    "@typescript-eslint/eslint-plugin": "^8.26.1",
+    "@typescript-eslint/parser": "^8.26.1",
+    "@wxml/parser": "^0.4.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-wxml": "^0.8.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "miniprogram-api-typings": "4.0.5",
+    "prettier": "^3.5.3"
   },
-  "main": ".eslintrc.js",
-  "description": ""
+  "main": "eslint.config.js",
+  "description": "",
+  "type": "module"
 }

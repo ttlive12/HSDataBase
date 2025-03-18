@@ -1,10 +1,9 @@
-import { getDeckDetails } from "@/api/index";
-import { rankType } from "@/api/type";
-import { OpponentInfo } from "@/modal/deckDetails";
-import { Deck } from "@/modal/decksData";
-import { class2Img } from "@/constants";
-// @ts-ignore
-import Dialog from "@vant/weapp/dialog/dialog";
+import { getDeckDetails } from '@/api/index';
+import { rankType } from '@/api/type';
+import { class2Img } from '@/constants';
+import { OpponentInfo } from '@/modal/deckDetails';
+import { Deck } from '@/modal/decksData';
+import { isResourcePreloaded } from '@/utils/preloadCache';
 
 interface VisitInfo {
   lastVisitDate: string; // 上次访问日期
@@ -18,22 +17,30 @@ Page({
   data: {
     deckData: {} as Deck,
     deckDetails: {} as Record<rankType, OpponentInfo[]>,
-    id: "",
-    currentType: "top_legend" as rankType,
+    id: '',
+    currentType: 'top_legend' as rankType,
     class2Img,
     showCardImg: false,
-    cardId: "",
+    cardId: '',
     showAdModal: false,
     visitInfo: {} as VisitInfo,
     adLoaded: false,
   },
   async onLoad(options: Record<string, string>) {
-    const rankBar = this.selectComponent("#rankBar");
+    const rankBar = this.selectComponent('#rankBar');
     if (rankBar) {
       rankBar.setCurrentType(options.currentType);
     }
-    const deckData = wx.getStorageSync<Deck>("deckData");
-    const deckDetails = await getDeckDetails(Number(deckData.deckId));
+    const deckData = wx.getStorageSync<Deck>('deckData');
+
+    // 检查该卡组是否已经预加载过
+    const isPreloaded = isResourcePreloaded('deckDetails', deckData.deckId);
+
+    const deckDetails = await getDeckDetails(
+      deckData.deckId,
+      isPreloaded ? { showLoading: false } : {}
+    );
+
     this.setData({
       deckData,
       deckDetails: enhanceOpponentInfo(deckDetails.data),
@@ -56,20 +63,20 @@ Page({
     });
   },
   handleCopy() {
-    wx.reportEvent("copy_code", {});
+    wx.reportEvent('copy_code', {});
     const { deckcode, zhName } = this.data.deckData;
     wx.setClipboardData({
       data: `###${zhName}\n${deckcode}`,
       success: () => {
         wx.showToast({
-          title: "复制成功",
-          icon: "success",
+          title: '复制成功',
+          icon: 'success',
         });
       },
       fail: () => {
         wx.showToast({
-          title: "复制失败",
-          icon: "none",
+          title: '复制失败',
+          icon: 'none',
         });
       },
     });
@@ -77,10 +84,9 @@ Page({
   // 检查访问记录并决定是否弹出广告
   checkPageVisitAndShowDialog: function () {
     const threeDaysInMs = 3 * 24 * 60 * 60 * 1000; // 三天
-    const today = new Date().toISOString().split("T")[0]; // 获取当前日期，格式：yyyy-mm-dd
-    const storageKey = "pageVisitInfo"; // 存储的 key
-    let visitInfo: VisitInfo =
-      wx.getStorageSync(storageKey) || ({} as VisitInfo);
+    const today = new Date().toISOString().split('T')[0]; // 获取当前日期，格式：yyyy-mm-dd
+    const storageKey = 'pageVisitInfo'; // 存储的 key
+    let visitInfo: VisitInfo = wx.getStorageSync(storageKey) || ({} as VisitInfo);
 
     const { lastVisitDate, visitCount, blockTimestamp } = visitInfo;
     const currentTime = new Date().getTime();
@@ -110,32 +116,32 @@ Page({
       // 加载广告组件
       if (wx.createRewardedVideoAd) {
         videoAd = wx.createRewardedVideoAd({
-          adUnitId: "adunit-28756f75721e4cf2",
+          adUnitId: 'adunit-28756f75721e4cf2',
         });
         videoAd.onError((err) => {
-          console.error("激励视频加载失败", err);
+          console.error('激励视频加载失败', err);
         });
         videoAd.onClose((res) => {
           if (res && res.isEnded) {
             // 完整观看广告，设置三天内不弹出广告
-            wx.reportEvent("ad_full_watch", {
+            wx.reportEvent('ad_full_watch', {
               page_nums: visitCount,
             });
             wx.showToast({
-              icon: "none",
-              title: "已清理三天内弹窗，感谢支持~",
+              icon: 'none',
+              title: '已清理三天内弹窗，感谢支持~',
             });
             visitInfo.blockTimestamp = currentTime + threeDaysInMs; // 完整观看广告，三天内不弹出广告
           } else {
             // 未完整观看广告，设置10分钟内不弹出广告
             wx.showToast({
-              icon: "none",
-              title: "感谢支持~",
+              icon: 'none',
+              title: '感谢支持~',
             });
             const tenMinutesInMs = 10 * 60 * 1000; // 10分钟
             visitInfo.blockTimestamp = currentTime + tenMinutesInMs; // 10分钟内不弹出广告
           }
-          wx.setStorageSync("pageVisitInfo", visitInfo);
+          wx.setStorageSync('pageVisitInfo', visitInfo);
         });
         videoAd.onLoad(() => {
           if (!this.data.adLoaded) {
@@ -156,20 +162,20 @@ Page({
         .load()
         .then(() => videoAd.show())
         .catch((err) => {
-          console.error("激励视频广告显示失败", err);
+          console.error('激励视频广告显示失败', err);
         });
     });
   },
   onRefuse() {
-    // 用户点击了“残忍拒绝”按钮
+    // 用户点击了"残忍拒绝"按钮
     const visitInfo = this.data.visitInfo;
     const currentTime = new Date().getTime();
     const oneMinutesInMs = 1 * 60 * 1000; // 1分钟
-    wx.reportEvent("ad_refuse", {
+    wx.reportEvent('ad_refuse', {
       page_nums: visitInfo.visitCount,
     });
     visitInfo.blockTimestamp = currentTime + oneMinutesInMs; // 1分钟内不再弹出广告
-    wx.setStorageSync("pageVisitInfo", visitInfo);
+    wx.setStorageSync('pageVisitInfo', visitInfo);
     this.setData({
       showAdModal: false,
     });
@@ -177,7 +183,7 @@ Page({
   // 展示广告弹窗
   showAdDialog: function (visitInfo: VisitInfo) {
     const visitCount = visitInfo.visitCount;
-    wx.reportEvent("ad_modal_mv", {
+    wx.reportEvent('ad_modal_mv', {
       page_nums: visitCount,
     });
     this.setData({
@@ -189,12 +195,12 @@ Page({
   onShareTimeline() {},
 });
 
-function getColor(valueParam: number) {
+function getColor(valueParam: number): string {
   const value = valueParam - 50;
   if (value <= -20) {
-    return "rgb(255, 0, 0)";
+    return 'rgb(255, 0, 0)';
   } else if (value >= 20) {
-    return "rgb(0, 200, 0)";
+    return 'rgb(0, 200, 0)';
   } else {
     const ratio = (value + 20) / 40;
     const red = Math.round(255 * (1 - ratio));

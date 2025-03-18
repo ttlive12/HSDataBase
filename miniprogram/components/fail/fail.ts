@@ -21,7 +21,7 @@ Component({
   methods: {
     reload() {
       wx.reLaunch({
-        url: "/pages/home/home",
+        url: '/pages/home/home',
       });
     },
   },

@@ -1,24 +1,24 @@
-import { getDeckCardStatsData, getRankDetails } from "@/api/index";
-import { rankType } from "@/api/type";
-import { CardInfo } from "@/modal/deckCardStats";
-import { Deck } from "@/modal/decksData";
-import { class2Img } from "@/constants";
+import { getDeckStatsAndRankDetails } from '@/api/index';
+import { preloadDeckDetails } from '@/api/index';
+import { rankType } from '@/api/type';
+import { class2Img } from '@/constants';
+import { CardInfo } from '@/modal/deckCardStats';
+import { Deck } from '@/modal/decksData';
+import { requestIdleCallback } from '@/utils/idleCallback';
+import { isResourcePreloaded, markResourcePreloaded } from '@/utils/preloadCache';
 
 Page({
   data: {
     data: {} as Record<rankType, CardInfo[]>,
     decksData: {} as Record<rankType, Deck[]>,
-    currentType: "top_legend" as rankType,
-    popularityNum: "0",
+    currentType: 'top_legend' as rankType,
+    popularityNum: '0',
     class2Img,
     showCardImg: false,
-    cardId: "",
-    sortType: "mulliganImpact" as
-      | "mulliganImpact"
-      | "drawnImpact"
-      | "keptImpact",
-    sortOrder: "desc" as "asc" | "desc",
-    loading: true
+    cardId: '',
+    sortType: 'mulliganImpact' as 'mulliganImpact' | 'drawnImpact' | 'keptImpact',
+    sortOrder: 'desc' as 'asc' | 'desc',
+    loading: true,
   },
   showCardImg(e: WechatMiniprogram.TouchEvent) {
     const id = e.currentTarget.dataset.id;
@@ -28,77 +28,126 @@ Page({
     this.setData({ showCardImg: false });
   },
   async onLoad(options: Record<string, string>) {
-    const rankBar = this.selectComponent("#rankBar");
+    const rankBar = this.selectComponent('#rankBar');
     if (rankBar) {
       rankBar.setCurrentType(options.currentType);
     }
-    const data = await getDeckCardStatsData(options.id);
-    const decksData = await getRankDetails(options.id);
-    this.setData({
-      data: data.data,
-      dataLength: Object.values(data.data).flat().length,
-      decksData: decksData.data,
-      decksDataLength: Object.values(decksData.data).flat().length,
-      zhName: options.zhName,
-      currentType: options.currentType as rankType,
-      loading: false
-    });
+
+    try {
+      const result = await getDeckStatsAndRankDetails(options.id);
+
+      this.setData({
+        data: result.deckCardStats.data,
+        dataLength: Object.values(result.deckCardStats.data).flat().length,
+        decksData: result.rankDetails.data,
+        decksDataLength: Object.values(result.rankDetails.data).flat().length,
+        zhName: options.zhName,
+        currentType: options.currentType as rankType,
+        loading: false,
+      });
+
+      // 在数据加载完成后，使用requestIdleCallback预加载可能会被点击的第一个卡组
+      this.preloadFirstDeckDetails();
+    } catch (error) {
+      console.error('加载数据失败:', error);
+      wx.showToast({
+        title: '数据加载失败',
+        icon: 'none',
+      });
+      this.setData({ loading: false });
+    }
   },
+
+  // 预加载第一个可能会被点击的卡组详情
+  preloadFirstDeckDetails() {
+    // 使用requestIdleCallback在浏览器空闲时执行，避免影响主线程
+    requestIdleCallback(
+      () => {
+        const { currentType, decksData } = this.data;
+
+        // 如果当前类型的卡组数据不存在或为空，则不执行预加载
+        if (!decksData[currentType] || decksData[currentType].length === 0) {
+          return;
+        }
+
+        // 获取第一个卡组作为预加载目标
+        const firstDeck = decksData[currentType][0];
+
+        // 如果已经预加载过该卡组，则不重复预加载
+        if (isResourcePreloaded('deckDetails', firstDeck.deckId)) {
+          console.log(`卡组 ${firstDeck.deckId} 已经预加载过`);
+          return;
+        }
+
+        console.log(`开始预加载卡组详情: ${firstDeck.deckId}`);
+
+        // 执行预加载
+        preloadDeckDetails(firstDeck.deckId, true)
+          .then((success) => {
+            if (success) {
+              // 标记为已预加载
+              markResourcePreloaded('deckDetails', firstDeck.deckId);
+            }
+          })
+          .catch((error) => {
+            console.error('预加载卡组详情失败:', error);
+          });
+      },
+      { timeout: 2000 }
+    ); // 设置2秒超时，避免长时间等待
+  },
+
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
     this.setData({
       currentType: e.detail.currentType,
     });
+
+    // 当排行变化时，也预加载新类型下的第一个卡组
+    this.preloadFirstDeckDetails();
   },
   handleJump(e: WechatMiniprogram.TouchEvent) {
     const deckData = e.currentTarget.dataset.data;
-    wx.setStorageSync<Deck>("deckData", deckData);
+    wx.setStorageSync<Deck>('deckData', deckData);
     wx.navigateTo({
       url: `/pages/deck-detail/deck-detail?currentType=${this.data.currentType}`,
     });
   },
   handleSort(e: WechatMiniprogram.TouchEvent) {
-    const type = e.currentTarget.dataset.type as
-      | "mulliganImpact"
-      | "drawnImpact"
-      | "keptImpact";
+    const type = e.currentTarget.dataset.type as 'mulliganImpact' | 'drawnImpact' | 'keptImpact';
     const { currentType, sortType, sortOrder } = this.data;
 
     const getValue = (item: CardInfo, key: keyof CardInfo) => {
       const value = item[key];
-      if (typeof value === "string") {
-        return parseFloat(value.replace("%", "")) || 0;
+      if (typeof value === 'string') {
+        return parseFloat(value.replace('%', '')) || 0;
       }
-      return typeof value === "number" ? value : 0;
+      return typeof value === 'number' ? value : 0;
     };
 
     // 如果点击的是当前排序字段，切换排序顺序
     if (type === sortType) {
-      const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+      const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
       this.setData({
         sortOrder: newSortOrder,
-        [`data.${currentType}`]: [...this.data.data[currentType]].sort(
-          (a, b) => {
-            const aValue = getValue(a, type);
-            const bValue = getValue(b, type);
-            return newSortOrder === "asc" ? aValue - bValue : bValue - aValue;
-          }
-        ),
+        [`data.${currentType}`]: [...this.data.data[currentType]].sort((a, b) => {
+          const aValue = getValue(a, type);
+          const bValue = getValue(b, type);
+          return newSortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+        }),
       });
     } else {
       // 如果点击的是新字段，设置为降序
       this.setData({
         sortType: type,
-        sortOrder: "desc",
-        [`data.${currentType}`]: [...this.data.data[currentType]].sort(
-          (a, b) => {
-            const aValue = getValue(a, type);
-            const bValue = getValue(b, type);
-            return bValue - aValue; // 降序排列
-          }
-        ),
+        sortOrder: 'desc',
+        [`data.${currentType}`]: [...this.data.data[currentType]].sort((a, b) => {
+          const aValue = getValue(a, type);
+          const bValue = getValue(b, type);
+          return bValue - aValue; // 降序排列
+        }),
       });
     }
   },
-  onShareAppMessage() { },
-  onShareTimeline() { },
+  onShareAppMessage() {},
+  onShareTimeline() {},
 });

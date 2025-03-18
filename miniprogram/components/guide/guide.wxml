@@ -1,5 +1,12 @@
-<view wx:if="{{isGuideVisible}}" class="guide-overlay" bind:tap="finish">
-  <view class="guide-box" style="top: {{guidePosition.top}}px; left: {{guidePosition.left}}px;width: {{guidePosition.width}}px;height: {{guidePosition.height}}px;">
+<view
+  wx:if="{{isGuideVisible}}"
+  class="guide-overlay"
+  bind:tap="finish"
+>
+  <view
+    class="guide-box"
+    style="top: {{guidePosition.top}}px; left: {{guidePosition.left}}px;width: {{guidePosition.width}}px;height: {{guidePosition.height}}px;"
+  >
     <text class="text">{{guideContent}}</text>
   </view>
 </view>

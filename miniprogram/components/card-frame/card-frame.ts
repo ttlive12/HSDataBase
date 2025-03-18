@@ -1,4 +1,4 @@
-interface CardFrameData {
+interface _CardFrameData {
   cardId: string;
   cost: number;
   name: string;
@@ -14,15 +14,15 @@ Component({
     rarity: String,
     back: {
       type: String,
-      value: ''
-    }
+      value: '',
+    },
   },
 
   methods: {
     onTap() {
       this.triggerEvent('tap', {
-        cardId: this.data.cardId
+        cardId: this.data.cardId,
       });
-    }
-  }
+    },
+  },
 });

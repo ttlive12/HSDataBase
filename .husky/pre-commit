@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# 运行 ESLint 检查
+echo "Running ESLint..."
+npx eslint --ext .js,.ts miniprogram/ --fix --no-error-on-unmatched-pattern
+
+# 运行 Prettier 格式化
+echo "Running Prettier..."
+npx prettier --write "miniprogram/**/*.{js,ts,wxml,wxss}"
+
+# 添加修改后的文件
+git add .

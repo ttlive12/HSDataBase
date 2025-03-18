@@ -1,5 +1,6 @@
-import EventBus from "@/utils/eventBus";
-import { IAppOption } from "typings";
+import { IAppOption } from 'typings';
+
+import EventBus from '@/utils/eventBus';
 
 App<IAppOption>({
   globalData: {

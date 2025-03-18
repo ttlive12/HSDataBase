@@ -2,7 +2,7 @@ Component({
   properties: {
     title: {
       type: String,
-      value: "",
+      value: '',
     },
   },
   data: {

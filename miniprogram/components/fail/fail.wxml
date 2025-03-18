@@ -1,5 +1,14 @@
-<view wx:if="{{show}}" style="width: 100%;text-align: center;margin-top: 15vh;display: flex;flex-direction: column;">
+<view
+  wx:if="{{show}}"
+  style="width: 100%; text-align: center; margin-top: 15vh; display: flex; flex-direction: column"
+>
   <van-empty description="网络错误">
-    <van-button bind:tap="reload" round type="warning" custom-style="padding: 20rpx 100rpx">重新加载</van-button>
+    <van-button
+      bind:tap="reload"
+      round
+      type="warning"
+      custom-style="padding: 20rpx 100rpx"
+      >重新加载</van-button
+    >
   </van-empty>
 </view>

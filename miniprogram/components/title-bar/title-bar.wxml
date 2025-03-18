@@ -1,7 +1,13 @@
 <view class="title-bar">
-  <image class="title-bar-icon" src="{{icon}}" />
+  <image
+    class="title-bar-icon"
+    src="{{icon}}"
+  />
   <text class="title-bar-text">{{title}}</text>
-  <alert wx:if="{{showAlert}}" title="{{title}}">
+  <alert
+    wx:if="{{showAlert}}"
+    title="{{title}}"
+  >
     <slot></slot>
   </alert>
 </view>

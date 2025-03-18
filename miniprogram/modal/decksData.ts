@@ -1,15 +1,15 @@
-import { rankType } from "../api/type";
+import { rankType } from '../api/type';
 
-export type Card = {
+export interface Card {
   dbfId: number;
   cost: number;
   id: string;
   rarity: string;
   name: string;
   back: string;
-};
+}
 
-export type Deck = {
+export interface Deck {
   deckId: string;
   rank: string;
   cards: Card[];
@@ -23,9 +23,9 @@ export type Deck = {
   legendaryCardNum: number;
   zhName: string;
   order: number;
-};
+}
 
-export type IGetDecksData = {
+export interface IGetDecksData {
   success: boolean;
   data: Record<rankType, Deck[]>;
-};
+}

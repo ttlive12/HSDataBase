@@ -19,6 +19,19 @@ page {
   gap: 50rpx;
 }
 
+.support {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 40rpx;
+  color: #797a7a;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  text-align: center;
+  gap: 30rpx;
+}
+
 .deck {
   &-cards {
     width: 320rpx;
@@ -26,6 +39,7 @@ page {
     border-radius: 20rpx;
     overflow: hidden;
   }
+
   &-dust {
     display: flex;
     align-items: center;
@@ -39,21 +53,25 @@ page {
   display: flex;
   flex-direction: column;
   gap: 20rpx;
+
   .image {
     width: 70rpx;
     height: 70rpx;
   }
+
   &-title {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10rpx;
   }
+
   &-item {
     line-height: 70rpx;
     display: flex;
     gap: 20rpx;
   }
+
   &-content {
     display: flex;
     flex-direction: column;

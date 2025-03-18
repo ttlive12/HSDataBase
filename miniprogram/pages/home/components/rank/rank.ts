@@ -1,16 +1,17 @@
-import { getRankDatas } from "@/api/index";
-import { rankType } from "@/api/type";
-import { dataTypes, class2Img } from "@/constants";
-import { No1, No2, up, win, hand } from "@/assets/index";
-import { Rank, RankData } from "@/modal/rankData";
-import { computeCompositeScores, rankDecks } from "@/utils/rank";
-import { IAppOption } from "typings";
+import { IAppOption } from 'typings';
+
+import { getRankDatas } from '@/api/index';
+import { rankType } from '@/api/type';
+import { No1, No2, up, win, hand } from '@/assets/index';
+import { dataTypes, class2Img } from '@/constants';
+import { Rank, RankData } from '@/modal/rankData';
+import { computeCompositeScores, rankDecks } from '@/utils/rank';
 
 Component({
   data: {
-    rankType: wx.getStorageSync("rank-type") || "1",
+    rankType: wx.getStorageSync('rank-type') || '1',
     dataTypes: dataTypes,
-    currentType: "top_legend" as rankType,
+    currentType: 'top_legend' as rankType,
     rankData: {} as RankData,
     firstDeckData: {} as Rank,
     secondDeckData: {} as Rank,
@@ -27,11 +28,7 @@ Component({
     wild: false,
   },
   observers: {
-    "rankData, currentType, rankType": function (
-      rankData,
-      currentType: rankType,
-      rankType
-    ) {
+    'rankData, currentType, rankType': function (rankData, currentType: rankType, rankType) {
       const weight: Record<rankType, { win: number; pick: number }> = {
         top_legend: { win: 0.7, pick: 0.3 },
         top_5k: { win: 0.75, pick: 0.25 },
@@ -43,8 +40,7 @@ Component({
         weight[currentType].win,
         weight[currentType].pick
       );
-      const rankedDecks =
-        rankType === "1" ? rankDecks(decksWithScores) : rankData[currentType];
+      const rankedDecks = rankType === '1' ? rankDecks(decksWithScores) : rankData[currentType];
       this.setData({
         showData: rankedDecks,
         firstDeckData: rankedDecks[0] || {},
@@ -56,11 +52,11 @@ Component({
     async attached() {
       const app = getApp<IAppOption>();
       const eventBus = app.globalData.eventBus;
-      eventBus.on("setting", async () => {
+      eventBus.on('setting', async () => {
         this.setData({
-          rankType: wx.getStorageSync("rank-type") || "1",
+          rankType: wx.getStorageSync('rank-type') || '1',
         });
-        if (this.data.wild !== (wx.getStorageSync("wild") || false)) {
+        if (this.data.wild !== (wx.getStorageSync('wild') || false)) {
           const data = await getRankDatas();
           if (!data.success) {
             this.setData({
@@ -70,7 +66,7 @@ Component({
           }
           this.setData({
             rankData: data.data,
-            wild: wx.getStorageSync("wild") || false,
+            wild: wx.getStorageSync('wild') || false,
           });
         }
       });
@@ -83,7 +79,7 @@ Component({
       }
       this.setData({
         rankData: data.data,
-        wild: wx.getStorageSync("wild") || false,
+        wild: wx.getStorageSync('wild') || false,
       });
     },
   },

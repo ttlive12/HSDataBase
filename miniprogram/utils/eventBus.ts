@@ -9,7 +9,7 @@ class EventBus {
       this.listeners[event] = [];
     }
     this.listeners[event].push(listener);
-    
+
     // 返回取消订阅的函数
     return () => this.off(event, listener);
   }
@@ -20,7 +20,7 @@ class EventBus {
       listener(...args);
       this.off(event, onceWrapper);
     };
-    
+
     return this.on(event, onceWrapper);
   }
 
@@ -29,16 +29,18 @@ class EventBus {
     const listeners = this.listeners[event];
     if (listeners) {
       // 创建副本以防在回调中修改监听器数组
-      [...listeners].forEach(listener => listener(...args));
+      [...listeners].forEach((listener) => listener(...args));
     }
   }
 
   // 取消订阅事件
   off(event: string, listener: EventListener): void {
-    if (!this.listeners[event]) return;
-    this.listeners[event] = this.listeners[event].filter(l => l !== listener);
+    if (!this.listeners[event]) {
+      return;
+    }
+    this.listeners[event] = this.listeners[event].filter((l) => l !== listener);
   }
-  
+
   // 取消订阅特定事件的所有监听器
   offAll(event: string): void {
     if (event) {
@@ -49,4 +51,4 @@ class EventBus {
   }
 }
 
-export default EventBus
+export default EventBus;
