@@ -3,7 +3,6 @@ import { rankType } from '@/api/type';
 import { class2Img } from '@/constants';
 import { OpponentInfo } from '@/modal/deckDetails';
 import { Deck } from '@/modal/decksData';
-import { isResourcePreloaded } from '@/utils/preloadCache';
 
 interface VisitInfo {
   lastVisitDate: string; // 上次访问日期
@@ -33,13 +32,7 @@ Page({
     }
     const deckData = wx.getStorageSync<Deck>('deckData');
 
-    // 检查该卡组是否已经预加载过
-    const isPreloaded = isResourcePreloaded('deckDetails', deckData.deckId);
-
-    const deckDetails = await getDeckDetails(
-      deckData.deckId,
-      isPreloaded ? { showLoading: false } : {}
-    );
+    const deckDetails = await getDeckDetails(deckData.deckId);
 
     this.setData({
       deckData,

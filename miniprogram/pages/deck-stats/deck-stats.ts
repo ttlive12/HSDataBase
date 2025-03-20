@@ -4,8 +4,6 @@ import { rankType } from '@/api/type';
 import { class2Img } from '@/constants';
 import { CardInfo } from '@/modal/deckCardStats';
 import { Deck } from '@/modal/decksData';
-import { requestIdleCallback } from '@/utils/idleCallback';
-import { isResourcePreloaded, markResourcePreloaded } from '@/utils/preloadCache';
 
 Page({
   data: {
@@ -46,7 +44,6 @@ Page({
         loading: false,
       });
 
-      // 在数据加载完成后，使用requestIdleCallback预加载可能会被点击的第一个卡组
       this.preloadFirstDeckDetails();
     } catch (error) {
       console.error('加载数据失败:', error);
@@ -60,41 +57,14 @@ Page({
 
   // 预加载第一个可能会被点击的卡组详情
   preloadFirstDeckDetails() {
-    // 使用requestIdleCallback在浏览器空闲时执行，避免影响主线程
-    requestIdleCallback(
-      () => {
-        const { currentType, decksData } = this.data;
-
-        // 如果当前类型的卡组数据不存在或为空，则不执行预加载
-        if (!decksData[currentType] || decksData[currentType].length === 0) {
-          return;
-        }
-
-        // 获取第一个卡组作为预加载目标
-        const firstDeck = decksData[currentType][0];
-
-        // 如果已经预加载过该卡组，则不重复预加载
-        if (isResourcePreloaded('deckDetails', firstDeck.deckId)) {
-          console.log(`卡组 ${firstDeck.deckId} 已经预加载过`);
-          return;
-        }
-
-        console.log(`开始预加载卡组详情: ${firstDeck.deckId}`);
-
-        // 执行预加载
-        preloadDeckDetails(firstDeck.deckId, true)
-          .then((success) => {
-            if (success) {
-              // 标记为已预加载
-              markResourcePreloaded('deckDetails', firstDeck.deckId);
-            }
-          })
-          .catch((error) => {
-            console.error('预加载卡组详情失败:', error);
-          });
-      },
-      { timeout: 2000 }
-    ); // 设置2秒超时，避免长时间等待
+    const { currentType, decksData } = this.data;
+    // 如果当前类型的卡组数据不存在或为空，则不执行预加载
+    if (!decksData[currentType] || decksData[currentType].length === 0) {
+      return;
+    }
+    // 获取第一个卡组作为预加载目标
+    const firstDeck = decksData[currentType][0];
+    preloadDeckDetails(firstDeck.deckId);
   },
 
   handleRankChange(e: WechatMiniprogram.CustomEvent) {

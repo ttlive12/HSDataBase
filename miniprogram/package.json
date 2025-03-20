@@ -12,7 +12,7 @@
   "dependencies": {
     "@vant/weapp": "^1.11.7",
     "miniprogram-computed": "^5.1.0",
-    "npm": "^10.9.1"
+    "wx-request-plus": "^1.0.13"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^4.0.1"

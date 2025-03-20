@@ -8,6 +8,3 @@ npx eslint --ext .js,.ts miniprogram/ --fix --no-error-on-unmatched-pattern
 # 运行 Prettier 格式化
 echo "Running Prettier..."
 npx prettier --write "miniprogram/**/*.{js,ts,wxml,wxss}"
-
-# 添加修改后的文件
-git add .

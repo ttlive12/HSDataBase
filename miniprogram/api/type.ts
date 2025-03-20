@@ -23,27 +23,3 @@ export interface varLabs {
   wxdata_perf_extra_info2?: string;
   wxdata_perf_extra_info3?: string;
 }
-
-export interface RequestOption {
-  url: string;
-  showLoading?: boolean;
-  showError?: boolean;
-  method?: 'GET' | 'POST';
-  data?: any;
-  header?: any;
-  varLabs?: varLabs;
-  maxRetries?: number;
-  priority?: number;
-  ignoreOffline?: boolean;
-}
-
-export interface BatchRequestItem {
-  path: string;
-  params?: Record<string, any>;
-  priority?: number;
-}
-
-export interface OfflineRequest {
-  options: RequestOption;
-  timestamp: number;
-}
