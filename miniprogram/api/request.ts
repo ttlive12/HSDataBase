@@ -34,9 +34,20 @@ wxRequest.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.config?.varLabs) {
+      wx.reportEvent('wxdata_perf_monitor', {
+        ...error.config.varLabs,
+        wxdata_perf_error_code: error.status,
+        wxdata_perf_error_msg: error.statusText,
+      });
+    }
+    wx.showToast({
+      title: error.statusText,
+      icon: 'none',
+    })
     return {
       success: false,
-      error: error,
+      ...error
     };
   }
 );

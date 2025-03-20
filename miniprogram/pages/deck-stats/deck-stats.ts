@@ -30,29 +30,18 @@ Page({
     if (rankBar) {
       rankBar.setCurrentType(options.currentType);
     }
+    const result = await getDeckStatsAndRankDetails(options.id);
+    this.setData({
+      data: result.deckCardStats.data,
+      dataLength: Object.values(result.deckCardStats.data).flat().length,
+      decksData: result.rankDetails.data,
+      decksDataLength: Object.values(result.rankDetails.data).flat().length,
+      zhName: options.zhName,
+      currentType: options.currentType as rankType,
+      loading: false,
+    });
 
-    try {
-      const result = await getDeckStatsAndRankDetails(options.id);
-
-      this.setData({
-        data: result.deckCardStats.data,
-        dataLength: Object.values(result.deckCardStats.data).flat().length,
-        decksData: result.rankDetails.data,
-        decksDataLength: Object.values(result.rankDetails.data).flat().length,
-        zhName: options.zhName,
-        currentType: options.currentType as rankType,
-        loading: false,
-      });
-
-      this.preloadFirstDeckDetails();
-    } catch (error) {
-      console.error('加载数据失败:', error);
-      wx.showToast({
-        title: '数据加载失败',
-        icon: 'none',
-      });
-      this.setData({ loading: false });
-    }
+    this.preloadFirstDeckDetails();
   },
 
   // 预加载第一个可能会被点击的卡组详情
