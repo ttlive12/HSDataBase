@@ -132,7 +132,7 @@ export const preloadDeckDetails = async (deckId: string) => {
       wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
     },
     preloadKey: deckId,
-    expireTime: 600000
+    expireTime: 600000,
   });
 
   return true;

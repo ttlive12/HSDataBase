@@ -17,14 +17,14 @@ wxRequest.interceptors.request.use((config) => {
   // 对GET请求默认启用强缓存
   if (config.method?.toUpperCase() === 'GET' && config.cache === undefined) {
     config.cache = 'force-cache';
-    config.cacheExpire = 120000
+    config.cacheExpire = 120000;
   }
   return config;
 });
 
 wxRequest.interceptors.response.use(
   (response) => {
-    if(response.config?.varLabs) {
+    if (response.config?.varLabs) {
       wx.reportEvent('wxdata_perf_monitor', {
         ...response.config.varLabs,
         wxdata_perf_error_code: 0,
@@ -36,8 +36,8 @@ wxRequest.interceptors.response.use(
   (error) => {
     return {
       success: false,
-      error: error
-    }
+      error: error,
+    };
   }
 );
 
