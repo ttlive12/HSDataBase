@@ -104,17 +104,25 @@ export const getDeckStatsAndRankDetails = async (deckName: string) => {
   const wild = wx.getStorageSync('wild') || false;
   const deckCardStats = await wxRequest.get<IGetDeckCardStatsData>(
     `/getDeckCardStats?deckName=${deckName}&wild=${wild}`,
-    { groupKey: 'stats',varLabs: {
-      wxdata_perf_monitor_id: 'stats',
-      wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
-    } }
+    {
+      groupKey: 'stats',
+      varLabs: {
+        wxdata_perf_monitor_id: 'stats',
+        wxdata_perf_monitor_level: 1,
+        wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      },
+    }
   );
   const rankDetails = await wxRequest.get<IGetDecksData>(
     `/getRankDetails?name=${deckName}&wild=${wild}`,
-    { groupKey: 'stats',varLabs: {      wxdata_perf_monitor_id: 'rankData',
-    wxdata_perf_monitor_level: 1,
-    wxdata_perf_extra_info1: wild ? 'wild' : 'standard',} }
+    {
+      groupKey: 'stats',
+      varLabs: {
+        wxdata_perf_monitor_id: 'rankData',
+        wxdata_perf_monitor_level: 1,
+        wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      },
+    }
   );
 
   return {

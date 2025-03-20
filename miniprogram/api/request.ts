@@ -44,10 +44,10 @@ wxRequest.interceptors.response.use(
     wx.showToast({
       title: error.statusText,
       icon: 'none',
-    })
+    });
     return {
       success: false,
-      ...error
+      ...error,
     };
   }
 );
