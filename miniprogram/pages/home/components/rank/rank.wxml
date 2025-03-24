@@ -1,6 +1,4 @@
-<view
-  class="container"
->
+<view class="container">
   <!-- 排名类型选择 -->
   <rank-bar
     id="rankBar"
