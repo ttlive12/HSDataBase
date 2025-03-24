@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { IGetDeckDetailData } from '@/modal/deckDetails';
 
 import wxRequest from './request';
@@ -5,8 +6,7 @@ import { IGetDeckCardStatsData } from '../modal/deckCardStats';
 import { IGetDecksData } from '../modal/decksData';
 import { IGetRanksData } from '../modal/rankData';
 
-const request = wxRequest.request;
-const preRequest = wxRequest.preRequest;
+const { request, preRequest, all } = wxRequest;
 
 /***
  * 获取排行数据
@@ -102,32 +102,28 @@ export const getRankDetails = async (name: string) => {
  */
 export const getDeckStatsAndRankDetails = async (deckName: string) => {
   const wild = wx.getStorageSync('wild') || false;
-  const deckCardStats = await wxRequest.get<IGetDeckCardStatsData>(
-    `/getDeckCardStats?deckName=${deckName}&wild=${wild}`,
-    {
-      groupKey: 'stats',
+  const [deckCardStats, rankDetails] = await all([
+    wxRequest.get<IGetDeckCardStatsData>(`/getDeckCardStats?deckName=${deckName}&wild=${wild}`, {
+      showLoading: true,
       varLabs: {
         wxdata_perf_monitor_id: 'stats',
         wxdata_perf_monitor_level: 1,
         wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
       },
-    }
-  );
-  const rankDetails = await wxRequest.get<IGetDecksData>(
-    `/getRankDetails?name=${deckName}&wild=${wild}`,
-    {
-      groupKey: 'stats',
+    }),
+    wxRequest.get<IGetDecksData>(`/getRankDetails?name=${deckName}&wild=${wild}`, {
+      showLoading: true,
       varLabs: {
         wxdata_perf_monitor_id: 'rankData',
         wxdata_perf_monitor_level: 1,
         wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
       },
-    }
-  );
+    }),
+  ]);
 
   return {
-    deckCardStats: deckCardStats as IGetDeckCardStatsData,
-    rankDetails: rankDetails as IGetDecksData,
+    deckCardStats: deckCardStats,
+    rankDetails: rankDetails,
   };
 };
 
@@ -138,11 +134,11 @@ export const getDeckStatsAndRankDetails = async (deckName: string) => {
 export const preloadDeckDetails = async (deckId: string) => {
   const wild = wx.getStorageSync('wild') || false;
 
-  await preRequest({
+  preRequest({
     url: `/getDeckDetails?deckId=${deckId}&wild=${wild}`,
     varLabs: {
       wxdata_perf_monitor_id: 'preload_details',
-      wxdata_perf_monitor_level: 0,
+      wxdata_perf_monitor_level: 1,
       wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
     },
     preloadKey: deckId,

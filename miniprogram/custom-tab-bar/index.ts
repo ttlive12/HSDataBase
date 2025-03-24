@@ -23,7 +23,7 @@ Component({
     ],
   },
   methods: {
-    switchTab(e: any) {
+    switchTab(e: WechatMiniprogram.TouchEvent) {
       const data = e.currentTarget.dataset;
       const index = data.index;
       const url = data.path;

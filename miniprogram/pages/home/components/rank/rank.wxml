@@ -1,6 +1,4 @@
-<fail show="{{!success}}" />
 <view
-  wx:if="{{success}}"
   class="container"
 >
   <!-- 排名类型选择 -->

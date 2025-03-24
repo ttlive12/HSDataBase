@@ -1,7 +1,6 @@
 {
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "rank-bar": "/components/rank-bar/rank-bar",
-    "fail": "/components/fail/fail"
+    "rank-bar": "/components/rank-bar/rank-bar"
   }
 }

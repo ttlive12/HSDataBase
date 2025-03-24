@@ -10,7 +10,6 @@ Page({
     currentType: 'top_legend' as rankType,
     class2Img,
     data: {} as Record<rankType, Deck[]>,
-    success: true,
     wild: false,
     period: 'default',
     value: '',
@@ -52,11 +51,6 @@ Page({
 
   async getData() {
     const data = await getDecksData();
-    if (!data.success) {
-      this.setData({
-        success: false,
-      });
-    }
     this.setData({
       data: this.sortDecksByRank(data.data),
     });

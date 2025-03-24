@@ -1,7 +1,6 @@
 {
   "component": true,
   "usingComponents": {
-    "rank-bar": "/components/rank-bar/rank-bar",
-    "fail": "/components/fail/fail"
+    "rank-bar": "/components/rank-bar/rank-bar"
   }
 }

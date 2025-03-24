@@ -1,7 +1,5 @@
 <navigation-bar title="环境分析" />
-<fail show="{{!success}}" />
 <view
-  wx:if="{{success}}"
   class="scrollarea"
   scroll-y
   type="list"

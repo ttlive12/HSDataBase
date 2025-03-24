@@ -75,7 +75,7 @@ Page({
     const type = e.currentTarget.dataset.type as 'mulliganImpact' | 'drawnImpact' | 'keptImpact';
     const { currentType, sortType, sortOrder } = this.data;
 
-    const getValue = (item: CardInfo, key: keyof CardInfo) => {
+    const getValue = (item: CardInfo, key: keyof CardInfo): number => {
       const value = item[key];
       if (typeof value === 'string') {
         return parseFloat(value.replace('%', '')) || 0;

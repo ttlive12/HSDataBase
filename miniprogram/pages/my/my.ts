@@ -10,34 +10,19 @@ Page({
     eventBus.on('setting', async () => {
       if (this.data.wild !== (wx.getStorageSync('wild') || false)) {
         const data = await getRankDatas();
-        if (!data.success) {
-          this.setData({
-            success: false,
-          });
-          return;
-        }
         this.setData({
-          success: true,
           rankData: data.data,
           wild: wx.getStorageSync('wild') || false,
         });
       }
     });
     const data = await getRankDatas();
-    if (!data.success) {
-      this.setData({
-        success: false,
-      });
-      return;
-    }
     this.setData({
-      success: true,
       rankData: data.data,
       wild: wx.getStorageSync('wild') || false,
     });
   },
   data: {
-    success: true,
     rankData: {} as RankData,
     currentType: 'top_legend' as rankType,
     wild: false,

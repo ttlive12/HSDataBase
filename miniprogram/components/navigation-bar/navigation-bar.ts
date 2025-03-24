@@ -36,7 +36,6 @@ Component({
     period: 'default',
     radioDecks: '1',
     wild: false,
-    guidePositions: [] as any[], // 存储所有目标元素的位置
   },
   lifetimes: {
     attached() {
@@ -62,34 +61,13 @@ Component({
               }px); padding-top: ${windowInfo.safeArea.top || 40}px`
             : ``,
       });
-      // if (!wx.getStorageSync("guide")) {
-      //   nextTick(() => {
-      //     if (!this.data.setting) return;
-      //     wx.createSelectorQuery()
-      //       .in(this)
-      //       .select("#setting")
-      //       .boundingClientRect((res) => {
-      //         const guide = this.selectComponent("#guide");
-      //         guide.startGuide(
-      //           {
-      //             left: res.left,
-      //             top: res.top,
-      //             width: res.width,
-      //             height: res.height,
-      //           },
-      //           "点击进入设置"
-      //         );
-      //       })
-      //       .exec();
-      //   });
-      // }
     },
   },
   /**
    * 组件的方法列表
    */
   methods: {
-    onShow(e: any) {
+    onShow(e: WechatMiniprogram.TouchEvent) {
       const data = wx.getStorageSync('rank-type') || '1';
       const wild = wx.getStorageSync('wild') || false;
       const period = wx.getStorageSync('period') || 'default';
@@ -103,17 +81,17 @@ Component({
     onClose() {
       this.setData({ show: false });
     },
-    onChange(event: any) {
+    onChange(event: WechatMiniprogram.CustomEvent<{ detail: string | number }>) {
       wx.setStorageSync('rank-type', event.detail);
       this.setData({
-        radio: event.detail,
+        radio: String(event.detail),
       });
       eventBus.emit('setting');
     },
-    onChangePeriod(event: any) {
+    onChangePeriod(event: WechatMiniprogram.CustomEvent<{ detail: string | number }>) {
       wx.setStorageSync('period', event.detail);
       this.setData({
-        period: event.detail,
+        period: String(event.detail),
       });
       eventBus.emit('setting');
     },

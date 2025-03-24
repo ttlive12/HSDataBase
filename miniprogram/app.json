@@ -4,7 +4,8 @@
     "pages/deck/deck",
     "pages/deck-stats/deck-stats",
     "pages/deck-detail/deck-detail",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/fail/fail"
   ],
   "usingComponents": {},
   "window": {

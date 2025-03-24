@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type EventListener = (...args: any[]) => void;
 
 class EventBus {
@@ -16,7 +17,7 @@ class EventBus {
 
   // 只订阅一次事件
   once(event: string, listener: EventListener): () => void {
-    const onceWrapper = (...args: any[]) => {
+    const onceWrapper = (...args: any[]): void => {
       listener(...args);
       this.off(event, onceWrapper);
     };

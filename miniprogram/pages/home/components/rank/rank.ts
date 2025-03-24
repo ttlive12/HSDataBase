@@ -24,7 +24,6 @@ Component({
       win,
       hand,
     },
-    success: true,
     wild: false,
   },
   observers: {
@@ -58,12 +57,6 @@ Component({
         });
         if (this.data.wild !== (wx.getStorageSync('wild') || false)) {
           const data = await getRankDatas();
-          if (!data.success) {
-            this.setData({
-              success: false,
-            });
-            return;
-          }
           this.setData({
             rankData: data.data,
             wild: wx.getStorageSync('wild') || false,
@@ -71,12 +64,6 @@ Component({
         }
       });
       const data = await getRankDatas();
-      if (!data.success) {
-        this.setData({
-          success: false,
-        });
-        return;
-      }
       this.setData({
         rankData: data.data,
         wild: wx.getStorageSync('wild') || false,

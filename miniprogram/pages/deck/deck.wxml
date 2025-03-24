@@ -3,9 +3,7 @@
   setting
   id="nav-bar"
 />
-<fail show="{{!success}}" />
 <scroll-view
-  wx:if="{{success}}"
   class="scrollarea"
   scroll-y
   type="list"
