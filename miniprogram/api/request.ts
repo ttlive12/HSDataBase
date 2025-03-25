@@ -1,6 +1,6 @@
 import WxRequest from 'wx-request-plus';
 
-const TIMEOUT = 6000;
+const TIMEOUT = 8000;
 const LOADING_DELAY = 200;
 
 // 环境配置
@@ -38,7 +38,7 @@ wxRequest.interceptors.request.use(
       config.cacheExpire = 120000;
     }
     // loading逻辑
-    if (config.showLoading && ++requestCount === 1) {
+    if (config?.showLoading && ++requestCount === 1) {
       // 延迟200ms显示loading
       loadingTimer = setTimeout(() => {
         wx.showLoading({
@@ -58,7 +58,7 @@ wxRequest.interceptors.request.use(
     return config;
   },
   (error) => {
-    if (error.config.showLoading && --requestCount === 0) {
+    if (error.config?.showLoading && --requestCount === 0) {
       clearAllTimers();
       wx.hideLoading();
     }
@@ -69,7 +69,7 @@ wxRequest.interceptors.request.use(
 wxRequest.interceptors.response.use(
   (response) => {
     // loading
-    if (response.config.showLoading && --requestCount === 0) {
+    if (response.config?.showLoading && --requestCount === 0) {
       clearAllTimers();
       wx.hideLoading();
     }
@@ -85,7 +85,7 @@ wxRequest.interceptors.response.use(
   },
   (error) => {
     // loading
-    if (error.config.showLoading && --requestCount === 0) {
+    if (error.config?.showLoading && --requestCount === 0) {
       clearAllTimers();
       wx.hideLoading();
     }

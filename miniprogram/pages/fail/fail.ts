@@ -23,6 +23,9 @@ Page({
       case ErrorType.CANCEL:
         message = '请求取消';
         break;
+      case ErrorType.CLIENT:
+        message = '服务器错误';
+        break;
       case ErrorType.SERVER:
         message = '服务器错误';
         break;

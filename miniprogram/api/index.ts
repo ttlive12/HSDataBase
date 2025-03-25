@@ -6,7 +6,7 @@ import { IGetDeckCardStatsData } from '../modal/deckCardStats';
 import { IGetDecksData } from '../modal/decksData';
 import { IGetRanksData } from '../modal/rankData';
 
-const { request, preRequest, all } = wxRequest;
+const { request, all } = wxRequest;
 
 /***
  * 获取排行数据
@@ -65,12 +65,12 @@ export const getDecksData = async () => {
 /**
  * 获取推荐卡组数据详情
  */
-export const getDeckDetails = async (deckId: string) => {
+export const getDeckDetails = async (deckId: string, pre = false) => {
   const wild = wx.getStorageSync('wild') || false;
   return await request<IGetDeckDetailData>({
     url: `/getDeckDetails?deckId=${deckId}&wild=${wild}`,
     method: 'GET',
-    showLoading: true,
+    showLoading: !pre,
     varLabs: {
       wxdata_perf_monitor_id: 'details',
       wxdata_perf_monitor_level: 1,
@@ -125,25 +125,4 @@ export const getDeckStatsAndRankDetails = async (deckName: string) => {
     deckCardStats: deckCardStats,
     rankDetails: rankDetails,
   };
-};
-
-/**
- * 预加载卡组详情数据（用于提前缓存可能会被点击的卡组信息）
- * @param deckId 卡组ID
- */
-export const preloadDeckDetails = async (deckId: string) => {
-  const wild = wx.getStorageSync('wild') || false;
-
-  preRequest({
-    url: `/getDeckDetails?deckId=${deckId}&wild=${wild}`,
-    varLabs: {
-      wxdata_perf_monitor_id: 'preload_details',
-      wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
-    },
-    preloadKey: deckId,
-    expireTime: 600000,
-  });
-
-  return true;
 };

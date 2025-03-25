@@ -1,5 +1,5 @@
 import { getDeckStatsAndRankDetails } from '@/api/index';
-import { preloadDeckDetails } from '@/api/index';
+import { getDeckDetails } from '@/api/index';
 import { rankType } from '@/api/type';
 import { class2Img } from '@/constants';
 import { CardInfo } from '@/modal/deckCardStats';
@@ -53,7 +53,8 @@ Page({
     }
     // 获取第一个卡组作为预加载目标
     const firstDeck = decksData[currentType][0];
-    preloadDeckDetails(firstDeck.deckId);
+    setTimeout(() => {getDeckDetails(firstDeck.deckId,true);},50) 
+    
   },
 
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
