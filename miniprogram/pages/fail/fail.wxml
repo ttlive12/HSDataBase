@@ -6,7 +6,7 @@
       bind:tap="reload"
       round
       type="warning"
-      custom-style="padding: 20rpx 100rpx"
+      custom-style="padding: 0 100rpx;line-height: 85rpx;height: 85rpx"
       >重新加载</van-button
     >
   </van-empty>
