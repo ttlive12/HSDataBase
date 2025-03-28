@@ -3,14 +3,22 @@
   show-scrollbar="{{false}}"
   scroll-x
   class="type"
+  scroll-with-animation="{{true}}"
 >
+  <view class="type-hint-top" />
   <view style="display: inline-block; width: 30rpx" />
   <view
-    wx:for="{{dataTypes}}"
+    wx:for="{{sortedDataTypes}}"
     wx:key="id"
-    class="type-item {{item.id === currentType ? 'type-item-current' : ''}}"
+    wx:for-index="index"
+    class="type-item {{item.id === currentType ? 'type-item-current' : ''}} {{dragItemIndex === index ? 'type-item-dragging' : ''}}"
     data-type="{{item.id}}"
+    data-index="{{index}}"
     bind:tap="handleSwitch"
+    bind:longpress="handleLongPress"
+    catch:touchmove="{{isDragging ? 'handleTouchMove' : ''}}"
+    catch:touchend="{{isDragging ? 'handleTouchEnd' : ''}}"
+    catch:touchcancel="{{isDragging ? 'handleTouchEnd' : ''}}"
   >
     <view class="type-item-inner">
       <image
@@ -20,4 +28,5 @@
       <text>{{ item.name }}</text>
     </view>
   </view>
+  <view class="type-hint-bottom" />
 </scroll-view>

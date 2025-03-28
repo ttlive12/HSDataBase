@@ -21,15 +21,14 @@ page {
 }
 
 .container {
-  padding-top: 25rpx;
-  padding-bottom: 25rpx;
+  padding-top: 15rpx;
 }
 
 .waterfall {
   column-count: 2;
   column-gap: 0rpx;
-  padding-left: 15rpx;
-  padding-right: 15rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
   @each $class, $color in $classColors {
     .#{$class} {
       background: $color;

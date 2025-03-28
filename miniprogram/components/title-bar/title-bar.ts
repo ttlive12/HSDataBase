@@ -6,5 +6,9 @@ Component({
       type: Boolean,
       value: true,
     },
+    cstyle: {
+      type: String,
+      value: '',
+    },
   },
 });

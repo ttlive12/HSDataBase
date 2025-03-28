@@ -18,6 +18,7 @@
   <title-bar
     icon="/assets/menu.svg"
     title="相关卡组"
+    cstyle="margin-top: -20rpx"
   >
     <text>该体系下卡组的推荐构筑</text>
     <text>点击后可查看卡组具体构筑和卡组代码</text>

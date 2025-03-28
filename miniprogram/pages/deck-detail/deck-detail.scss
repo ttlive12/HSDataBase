@@ -9,12 +9,12 @@ page {
 .scrollarea {
   flex: 1;
   overflow-y: hidden;
-  padding-top: 20rpx;
+  padding-top: 15rpx;
   gap: 40rpx;
 }
 
 .container {
-  margin: 40rpx;
+  margin: 20rpx 40rpx 40rpx;
   display: flex;
   gap: 50rpx;
 }

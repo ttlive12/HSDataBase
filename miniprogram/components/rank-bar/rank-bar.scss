@@ -1,24 +1,54 @@
 .type {
   width: 100vw;
   white-space: nowrap;
-  overflow: hidden;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 15rpx;
+
   &-item {
     display: inline-block;
     border-radius: 40rpx;
     margin-right: 20rpx;
     padding: 20rpx 25rpx;
     background-color: rgba(#fff, 0.4);
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s;
+    position: relative;
+
     &-current {
       background-color: #fff;
     }
+
+    &-dragging {
+      transform: scale(1.05);
+      box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.2);
+      opacity: 0.95;
+      z-index: 100000;
+      touch-action: none;
+    }
+
     &-inner {
       display: flex;
       align-items: center;
       justify-content: center;
+
       &-img {
         width: 50rpx;
         height: 50rpx;
       }
+    }
+  }
+
+  &-hint {
+    &-top {
+      color: transparent;
+      height: 15rpx;
+    }
+
+    &-bottom {
+      color: transparent;
+      height: 25rpx;
     }
   }
 }
