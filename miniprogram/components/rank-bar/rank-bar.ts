@@ -5,6 +5,12 @@ import EventBus from '@/utils/eventBus';
 // 全局排序变更事件常量
 const RANK_ORDER_CHANGED_EVENT = 'rank_bar_order_changed';
 
+// 定义事件数据类型
+interface RankOrderChangedData {
+  sortedDataTypes: typeof dataTypes;
+  timestamp: number;
+}
+
 // 创建全局单例eventBus
 const eventBus = getApp()?.globalData?.eventBus || new EventBus();
 
@@ -91,7 +97,7 @@ Component({
     // 监听全局排序变更事件
     listenForOrderChanges() {
       // 使用eventBus监听排序变更
-      const unsubscribe = eventBus.on(RANK_ORDER_CHANGED_EVENT, (data: any) => {
+      const unsubscribe = eventBus.on(RANK_ORDER_CHANGED_EVENT, (data: RankOrderChangedData) => {
         if (data && data.sortedDataTypes) {
           const newSortedTypes = data.sortedDataTypes;
 
