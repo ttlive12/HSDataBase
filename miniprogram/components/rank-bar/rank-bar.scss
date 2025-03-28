@@ -24,7 +24,7 @@
       transform: scale(1.05);
       box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.2);
       opacity: 0.95;
-      z-index: 100000;
+      z-index: 8000;
       touch-action: none;
     }
 
@@ -51,4 +51,13 @@
       height: 25rpx;
     }
   }
+}
+
+.rank-bar-container {
+  position: relative;
+  width: 100%;
+  z-index: 8000;
+  padding: 0;
+  margin: 0;
+  display: block;
 }

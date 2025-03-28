@@ -23,6 +23,16 @@ Component({
     sortedDataTypes: [] as typeof dataTypes,
     // 用于取消订阅的函数
     unsubscribe: null as (() => void) | null,
+    // 引导步骤
+    tourSteps: [
+      {
+        target: '',
+        title: '',
+        content: '',
+        placement: '',
+      },
+    ],
+    rankBarRect: null as WechatMiniprogram.BoundingClientRectCallbackResult | null,
   },
   lifetimes: {
     attached() {
@@ -30,6 +40,9 @@ Component({
       this.setData({
         sortedDataTypes: [...dataTypes],
       });
+
+      // 获取rank-bar容器位置
+      this.getRankBarPosition();
 
       // 从本地存储读取排序配置
       try {
@@ -94,6 +107,48 @@ Component({
     },
   },
   methods: {
+    // 获取组件位置
+    getRankBarPosition() {
+      // 延迟获取位置，确保组件已经渲染完成
+      setTimeout(() => {
+        const query = this.createSelectorQuery();
+        query
+          .select('.rank-bar-container')
+          .boundingClientRect((rect) => {
+            if (rect) {
+              try {
+                const tourSteps = [
+                  {
+                    target: 'rank-bar-container',
+                    title: '新功能：自定义排序',
+                    content: '长按分类可以拖动调整顺序，将常用分类排在前面。',
+                    placement: 'bottom',
+                    rect,
+                  },
+                ];
+
+                // 同时更新位置数据和引导步骤
+                this.setData(
+                  {
+                    rankBarRect: rect,
+                    tourSteps,
+                  },
+                  () => {
+                    const tourComponent = this.selectComponent('.tour-guide');
+                    if (tourComponent) {
+                      tourComponent.checkAndShow();
+                    }
+                  }
+                );
+              } catch (e) {
+                console.error('处理位置信息时出错:', e);
+              }
+            }
+          })
+          .exec();
+      }, 500);
+    },
+
     // 监听全局排序变更事件
     listenForOrderChanges() {
       // 使用eventBus监听排序变更
@@ -290,6 +345,26 @@ Component({
         this.triggerOrderChangedEvent(sortedTypes);
       } catch (e) {
         console.error('保存rank-bar排序配置失败', e);
+      }
+    },
+    onTourEnd() {
+      // 引导结束后的回调
+    },
+
+    // 用于测试：重置引导状态
+    resetTour() {
+      try {
+        wx.removeStorageSync('rank_bar_tour');
+
+        // 立即重新显示引导
+        setTimeout(() => {
+          const tourComponent = this.selectComponent('.tour-guide');
+          if (tourComponent) {
+            tourComponent.checkAndShow();
+          }
+        }, 500);
+      } catch (e) {
+        console.error('重置引导状态失败', e);
       }
     },
   },

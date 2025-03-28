@@ -1,8 +1,8 @@
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
-import prettier from 'eslint-plugin-prettier';
 import importPlugin from 'eslint-plugin-import';
+import prettier from 'eslint-plugin-prettier';
 
 export default [
   js.configs.recommended,
@@ -23,9 +23,9 @@ export default [
       'project.config.json',
       'project.private.config.json',
       'sitemap.json',
-      '*.wxml',  // 暂时忽略 wxml 文件，直到找到正确的规则配置
+      '*.wxml', // 暂时忽略 wxml 文件，直到找到正确的规则配置
       'node_modules/@vant/**',
-      'miniprogram/pages/my/chart/**'
+      'miniprogram/pages/my/chart/**',
     ],
   },
   {
@@ -58,18 +58,21 @@ export default [
     },
     plugins: {
       '@typescript-eslint': tsPlugin,
-      'prettier': prettier,
-      'import': importPlugin,
+      prettier: prettier,
+      import: importPlugin,
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
       // TypeScript 相关规则
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', {
-        'argsIgnorePattern': '^_',
-        'varsIgnorePattern': '^_'
-      }],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
       '@typescript-eslint/consistent-type-definitions': ['warn', 'interface'],
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-non-null-assertion': 'warn',
@@ -84,29 +87,32 @@ export default [
       'no-redeclare': 'warn',
 
       // 引入相关规则
-      'import/order': ['warn', {
-        'groups': [
-          'builtin',
-          'external',
-          'internal',
-          ['parent', 'sibling'],
-          'index',
-          'object',
-          'type'
-        ],
-        'pathGroups': [
-          {
-            'pattern': '@/**',
-            'group': 'internal',
-            'position': 'after'
-          }
-        ],
-        'newlines-between': 'always',
-        'alphabetize': {
-          'order': 'asc',
-          'caseInsensitive': true
-        }
-      }],
+      'import/order': [
+        'warn',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            ['parent', 'sibling'],
+            'index',
+            'object',
+            'type',
+          ],
+          pathGroups: [
+            {
+              pattern: '@/**',
+              group: 'internal',
+              position: 'after',
+            },
+          ],
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+            caseInsensitive: true,
+          },
+        },
+      ],
       'import/no-unresolved': 'off', // TypeScript 可以处理这个
 
       // 代码风格相关规则
@@ -114,18 +120,18 @@ export default [
       'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
       'prefer-const': 'error',
       'no-var': 'error',
-      'eqeqeq': ['error', 'always', { 'null': 'ignore' }],
-      'no-multiple-empty-lines': ['error', { 'max': 1, 'maxEOF': 1 }],
-      'curly': ['warn', 'all'],  // 改为警告级别
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
+      'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
+      curly: ['warn', 'all'], // 改为警告级别
       'no-alert': 'error',
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-      '@typescript-eslint/no-unused-expressions': 'warn',  // 降级为警告
+      '@typescript-eslint/no-unused-expressions': 'warn', // 降级为警告
     },
   },
   {
     files: ['*.config.js', '*.conf.js'],
     rules: {
-      '@typescript-eslint/no-var-requires': 'off'
-    }
-  }
+      '@typescript-eslint/no-var-requires': 'off',
+    },
+  },
 ];

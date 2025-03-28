@@ -28,6 +28,9 @@ Component({
   },
   observers: {
     'rankData, currentType, rankType': function (rankData, currentType: rankType, rankType) {
+      if (!rankData[currentType]) {
+        return;
+      }
       const weight: Record<rankType, { win: number; pick: number }> = {
         top_legend: { win: 0.7, pick: 0.3 },
         top_5k: { win: 0.75, pick: 0.25 },

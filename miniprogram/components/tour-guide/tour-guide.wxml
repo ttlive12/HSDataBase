@@ -1,0 +1,64 @@
+<view
+  class="tour-guide {{show ? 'show' : ''}}"
+  id="tour-guide"
+>
+  <!-- 遮罩层 - 移除点击事件，防止用户意外关闭 -->
+  <view class="tour-mask"></view>
+
+  <!-- 高亮区域 -->
+  <view
+    class="tour-highlight"
+    wx:if="{{targetRect}}"
+    style="top: {{targetRect.top}}px; left: {{targetRect.left}}px; width: {{targetRect.width}}px; height: {{targetRect.height}}px;"
+  ></view>
+
+  <!-- 提示框 -->
+  <view
+    class="tour-tooltip {{currentStepData.placement || 'bottom'}}"
+    wx:if="{{currentStepData && targetRect}}"
+    style="top: {{currentStepData.placement === 'top' ? targetRect.top - 120 : targetRect.bottom + 20}}px; left: {{targetRect.left + (targetRect.width / 2)}}px;"
+  >
+    <view class="tooltip-content">
+      <view class="tooltip-title">{{currentStepData.title}}</view>
+      <view class="tooltip-text">{{currentStepData.content}}</view>
+    </view>
+    <view class="tooltip-arrow"></view>
+  </view>
+
+  <!-- 控制按钮 -->
+  <view
+    class="tour-controls"
+    wx:if="{{currentStepData}}"
+  >
+    <!-- 最后一步时显示 -->
+    <block wx:if="{{currentStep === stepsData.length - 1}}">
+      <view
+        class="know-btn"
+        catch:tap="skipTour"
+        >知道了</view
+      >
+    </block>
+    <!-- 非最后一步时显示 -->
+    <block wx:else>
+      <view class="step-indicator">{{currentStep + 1}}/{{stepsData.length}}</view>
+      <view class="control-buttons">
+        <view
+          class="skip-btn"
+          catch:tap="skipTour"
+          >跳过</view
+        >
+        <view
+          class="prev-btn"
+          catch:tap="prevStep"
+          wx:if="{{currentStep > 0}}"
+          >上一步</view
+        >
+        <view
+          class="next-btn"
+          catch:tap="nextStep"
+          >下一步</view
+        >
+      </view>
+    </block>
+  </view>
+</view>
