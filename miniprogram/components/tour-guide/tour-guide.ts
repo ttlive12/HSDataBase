@@ -57,9 +57,13 @@ Component({
   methods: {
     checkAndShow() {
       const { storageKeyData, stepsData } = this.data;
-      if (!storageKeyData) return;
+      if (!storageKeyData) {
+        return;
+      }
 
-      if (!stepsData || stepsData.length === 0) return;
+      if (!stepsData || stepsData.length === 0) {
+        return;
+      }
 
       const hasSeen = wx.getStorageSync(storageKeyData);
       if (!hasSeen) {
@@ -112,7 +116,7 @@ Component({
               right: res.windowWidth / 2 + 150,
               bottom: res.windowHeight / 3 + 100,
               id: '',
-              dataset: {} as any,
+              dataset: {} as Record<string, unknown>,
             } as WechatMiniprogram.BoundingClientRectCallbackResult;
 
             // 一次性更新所有相关数据，避免中间状态
