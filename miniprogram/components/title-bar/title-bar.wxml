@@ -1,4 +1,7 @@
-<view class="title-bar" style="{{cstyle}}">
+<view
+  class="title-bar"
+  style="{{cstyle}}"
+>
   <image
     class="title-bar-icon"
     src="{{icon}}"
