@@ -46,16 +46,17 @@ Component({
       // 获取设备信息
       const deviceInfo = wx.getDeviceInfo();
 
-      const isAndroid = deviceInfo.platform === 'android';
+      const isAndroid = deviceInfo.platform === 'android' || deviceInfo.platform === 'windows';
       const isDevtools = deviceInfo.platform === 'devtools';
+      const isHos = deviceInfo.platform === 'ohos';
 
       this.setData({
         isDevtools,
-        ios: !isAndroid,
+        ios: !isAndroid && !isHos,
         innerPaddingRight: `padding-right: ${windowInfo.windowWidth - rect.left}px`,
         leftWidth: `width: ${windowInfo.windowWidth - rect.left}px`,
         safeAreaTop:
-          isDevtools || isAndroid
+          isDevtools || isAndroid || isHos
             ? `height: calc(var(--height) + ${
                 windowInfo.safeArea.top || 40
               }px); padding-top: ${windowInfo.safeArea.top || 40}px`

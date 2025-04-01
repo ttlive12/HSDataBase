@@ -3,7 +3,6 @@
     class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}} {{isDevtools ? 'devtools' : ''}}"
     style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}"
   >
-    <!-- <button bind:tap="handleBack">返回</button> -->
     <!-- 标题 -->
     <view class="weui-navigation-bar__center">
       <view
@@ -169,8 +168,8 @@
           <text>更新日志</text>
         </view>
         <view class="body">
-          <text>当前版本：1.8.0</text>
-          <text>计划更新：竞技场模式</text>
+          <text>当前版本：1.8.3</text>
+          <text>更新内容：若干bug修复，排行分类可拖拽</text>
         </view>
       </view>
     </view>

@@ -3,6 +3,7 @@
   bind:close="onClose"
   bind:click-overlay="onClose"
   custom-style="background-color: transparent;"
+  z-index="10010"
   round
 >
   <view

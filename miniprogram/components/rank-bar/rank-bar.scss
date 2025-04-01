@@ -2,8 +2,11 @@
   width: 100vw;
   white-space: nowrap;
   position: relative;
-  -webkit-overflow-scrolling: touch;
   padding-bottom: 15rpx;
+  z-index: 100;
+  ::-webkit-scrollbar {
+    z-index: 100;
+  }
 
   &-item {
     display: inline-block;
@@ -44,11 +47,13 @@
     &-top {
       color: transparent;
       height: 15rpx;
+      z-index: -1;
     }
 
     &-bottom {
       color: transparent;
       height: 25rpx;
+      z-index: -1;
     }
   }
 }
