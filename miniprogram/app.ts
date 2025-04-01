@@ -11,7 +11,6 @@ App<IAppOption>({
     // 版本更新检查
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager();
-
       // 检查是否有新版本
       updateManager.onCheckForUpdate((res) => {
         if (res.hasUpdate) {

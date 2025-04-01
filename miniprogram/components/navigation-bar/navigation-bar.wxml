@@ -168,7 +168,7 @@
           <text>更新日志</text>
         </view>
         <view class="body">
-          <text>当前版本：1.8.3</text>
+          <text>当前版本：1.8.4</text>
           <text>更新内容：若干bug修复，排行分类可拖拽</text>
         </view>
       </view>

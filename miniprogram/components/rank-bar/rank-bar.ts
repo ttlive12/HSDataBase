@@ -116,6 +116,7 @@ Component({
           .select('.rank-bar-container')
           .boundingClientRect((rect) => {
             if (rect) {
+              rect.height -= 15;
               try {
                 const tourSteps = [
                   {
@@ -349,23 +350,6 @@ Component({
     },
     onTourEnd() {
       // 引导结束后的回调
-    },
-
-    // 用于测试：重置引导状态
-    resetTour() {
-      try {
-        wx.removeStorageSync('rank_bar_tour');
-
-        // 立即重新显示引导
-        setTimeout(() => {
-          const tourComponent = this.selectComponent('.tour-guide');
-          if (tourComponent) {
-            tourComponent.checkAndShow();
-          }
-        }, 500);
-      } catch (e) {
-        console.error('重置引导状态失败', e);
-      }
     },
   },
 });

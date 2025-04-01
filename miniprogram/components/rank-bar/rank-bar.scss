@@ -2,12 +2,8 @@
   width: 100vw;
   white-space: nowrap;
   position: relative;
-  padding-bottom: 15rpx;
-  z-index: 100;
-  ::-webkit-scrollbar {
-    z-index: 100;
-  }
-
+  padding-top: 15rpx;
+  height: 125rpx;
   &-item {
     display: inline-block;
     border-radius: 40rpx;
@@ -42,27 +38,4 @@
       }
     }
   }
-
-  &-hint {
-    &-top {
-      color: transparent;
-      height: 15rpx;
-      z-index: -1;
-    }
-
-    &-bottom {
-      color: transparent;
-      height: 25rpx;
-      z-index: -1;
-    }
-  }
-}
-
-.rank-bar-container {
-  position: relative;
-  width: 100%;
-  z-index: 8000;
-  padding: 0;
-  margin: 0;
-  display: block;
 }
