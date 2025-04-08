@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@import '../../common.scss';
 
 page {
   height: 100vh;
@@ -22,6 +22,19 @@ page {
 
 .container {
   padding-top: 15rpx;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 150rpx;
+  .no-data-text {
+    text-align: center;
+    font-size: 36rpx;
+    color: $gray-6;
+  }
 }
 
 .waterfall {
@@ -55,17 +68,13 @@ page {
     position: relative;
 
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 0.1),
-        transparent
-      );
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
@@ -142,7 +151,7 @@ page {
       );
 
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         top: 0;
         right: 0;

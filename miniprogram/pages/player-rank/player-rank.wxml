@@ -1,0 +1,81 @@
+<!-- pages/player-rank/player-rank.wxml -->
+<navigation-bar
+  back="{{true}}"
+  title="玩家排名"
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+  bindscrolltolower="handleScrollToBottom"
+>
+  <view class="container">
+    <!-- 选择器 -->
+    <view class="selectors">
+      <picker
+        mode="selector"
+        range="{{modeList}}"
+        range-key="cn_mode_name"
+        value="{{modeIndex}}"
+        bindchange="handleModeChange"
+        class="selector"
+      >
+        <view class="selector-content">
+          <text class="selector-label">模式</text>
+          <text class="selector-value">{{currentMode.cn_mode_name}}</text>
+        </view>
+      </picker>
+      <picker
+        mode="selector"
+        range="{{seasonList}}"
+        range-key="season"
+        value="{{seasonIndex}}"
+        bindchange="handleSeasonChange"
+        class="selector"
+      >
+        <view class="selector-content">
+          <text class="selector-label">赛季</text>
+          <text class="selector-value">{{currentSeason.season}}</text>
+        </view>
+      </picker>
+    </view>
+    <!-- 排名列表 -->
+    <view class="rank-list">
+      <view class="rank-header">
+        <text
+          class="rank-header-item"
+          style="width: 100rpx"
+          >排名</text
+        >
+        <text
+          class="rank-header-item"
+          style="flex: 1"
+          >玩家</text
+        >
+      </view>
+      <view class="rank-items">
+        <view
+          class="rank-item"
+          wx:for="{{playerList}}"
+          wx:key="position"
+        >
+          <view class="rank-item-position">
+            <text class="rank-item-position-text">{{item.position}}</text>
+          </view>
+          <text class="rank-item-name">{{item.battle_tag}}</text>
+        </view>
+      </view>
+      <!-- 加载更多 -->
+      <view
+        class="load-more"
+        wx:if="{{!isLoading}}"
+      >
+        <view
+          class="loading-spinner"
+          wx:if="{{isLoadMore}}"
+        ></view>
+        <text wx:if="{{!isLoadMore && hasMore}}">上拉加载更多</text>
+        <text wx:if="{{!isLoadMore && !hasMore}}">没有更多数据了</text>
+      </view>
+    </view>
+  </view>
+</scroll-view>

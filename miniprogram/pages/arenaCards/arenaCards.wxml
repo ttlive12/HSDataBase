@@ -1,0 +1,83 @@
+<!-- pages/arenaCards/arenaCards.wxml -->
+<card-preview
+  show="{{showCardImg}}"
+  card-id="{{cardId}}"
+  bind:close="onCloseImg"
+/>
+<navigation-bar
+  back="{{true}}"
+  title="竞技场-{{className}}"
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+>
+  <view class="cards">
+    <view class="cards-header">
+      <view
+        class="sort-header"
+        style="grid-column: 1"
+      >
+        <text>卡牌</text>
+      </view>
+      <view
+        class="sort-header"
+        style="grid-column: 2"
+        bind:tap="handleSort"
+        data-type="included_winrate"
+      >
+        <text>选取胜率</text>
+        <image
+          class="sort-icon {{sortType === 'included_winrate' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
+      </view>
+      <view
+        class="sort-header"
+        style="grid-column: 3"
+        bind:tap="handleSort"
+        data-type="included_popularity"
+      >
+        <text>选取率</text>
+        <image
+          class="sort-icon {{sortType === 'included_popularity' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
+      </view>
+      <view
+        class="sort-header"
+        style="grid-column: 4"
+        bind:tap="handleSort"
+        data-type="winrate_when_played"
+      >
+        <text>打出胜率</text>
+        <image
+          class="sort-icon {{sortType === 'winrate_when_played' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
+      </view>
+    </view>
+    <view
+      class="cards-item"
+      wx:for="{{cardData}}"
+      wx:key="id"
+    >
+      <view
+        class="cards-item-card"
+        style="grid-column: 1"
+      >
+        <card-frame
+          card-id="{{item.id}}"
+          cost="{{item.cost}}"
+          name="{{item.name}}"
+          rarity="{{item.rarity}}"
+          bind:tap="showCardImg"
+          data-id="{{item.id}}"
+        />
+      </view>
+      <text style="grid-column: 2">{{item.included_winrate}}%</text>
+      <text style="grid-column: 3">{{item.included_popularity}}%</text>
+      <text style="grid-column: 4">{{item.winrate_when_played}}%</text>
+    </view>
+  </view>
+</scroll-view>

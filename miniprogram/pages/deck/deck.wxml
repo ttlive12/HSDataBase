@@ -9,11 +9,17 @@
   type="list"
 >
   <view class="container">
-    <!-- <van-search value="{{ value }}" placeholder="请输入搜索关键词" /> -->
     <rank-bar
       id="rankBar"
       bind:rankChange="handleRankChange"
     />
+  </view>
+  <!-- 近一天数据时，如果无数据，推荐用户切换模式 -->
+  <view
+    wx:if="{{data[currentType].length === 0 && period === 'past_day'}}"
+    class="no-data"
+  >
+    <text class="no-data-text">暂无数据，请切换至默认数据</text>
   </view>
   <view class="waterfall">
     <view

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "navigation-bar": "/components/navigation-bar/navigation-bar",
+    "card-preview": "/components/card-preview/card-preview",
+    "card-frame": "/components/card-frame/card-frame"
+  }
+}

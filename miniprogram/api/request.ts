@@ -1,6 +1,6 @@
 import WxRequest from 'wx-request-plus';
 
-const TIMEOUT = 8000;
+const TIMEOUT = 10000;
 const LOADING_DELAY = 200;
 
 // 环境配置
@@ -10,7 +10,7 @@ const ENV = {
 };
 
 const wxRequest = WxRequest.create({
-  baseURL: ENV.PROD,
+  baseURL: ENV.TEST,
   timeout: TIMEOUT,
   returnData: true,
 });

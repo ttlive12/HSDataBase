@@ -16,7 +16,7 @@ Component({
       },
       {
         pagePath: '/pages/my/my',
-        text: '环境',
+        text: '工具',
         icon: '/assets/env.svg',
         selectIcon: '/assets/env_orange.svg',
       },

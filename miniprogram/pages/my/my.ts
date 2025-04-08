@@ -1,31 +1,12 @@
-import { IAppOption } from 'typings';
+import { arenaIcon } from '@/constants';
 
-import { getRankDatas } from '@/api/index';
-import { rankType } from '@/api/type';
-import { RankData } from '@/modal/rankData';
 Page({
-  async onLoad() {
-    const app = getApp<IAppOption>();
-    const eventBus = app.globalData.eventBus;
-    eventBus.on('setting', async () => {
-      if (this.data.wild !== (wx.getStorageSync('wild') || false)) {
-        const data = await getRankDatas();
-        this.setData({
-          rankData: data.data,
-          wild: wx.getStorageSync('wild') || false,
-        });
-      }
-    });
-    const data = await getRankDatas();
-    this.setData({
-      rankData: data.data,
-      wild: wx.getStorageSync('wild') || false,
-    });
-  },
   data: {
-    rankData: {} as RankData,
-    currentType: 'top_legend' as rankType,
-    wild: false,
+    // environmentIcon,
+    arenaIcon,
+  },
+  onLoad() {
+    // 页面初始化
   },
   onShow() {
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
@@ -34,9 +15,22 @@ Page({
       });
     }
   },
-  handleRankChange(e: WechatMiniprogram.CustomEvent<{ currentType: rankType }>) {
-    this.setData({
-      currentType: e.detail.currentType,
+  // 跳转到环境分析页面
+  navigateToEnvironment() {
+    wx.navigateTo({
+      url: '/pages/environment/environment',
+    });
+  },
+  // 跳转到竞技场页面
+  navigateToArena() {
+    wx.navigateTo({
+      url: '/pages/arena/arena',
+    });
+  },
+  // 跳转到玩家排行页面
+  navigateToPlayerRank() {
+    wx.navigateTo({
+      url: '/pages/player-rank/player-rank',
     });
   },
   onShareAppMessage() {},

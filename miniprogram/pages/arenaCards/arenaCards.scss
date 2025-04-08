@@ -1,0 +1,85 @@
+/* pages/arenaCards/arenaCards.wxss */
+@import "../../common.scss";
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20rpx;
+}
+
+.cards {
+  &-header {
+    display: grid;
+    grid-template-columns: 320rpx 1fr 1fr 1fr;
+    padding: 20rpx 0;
+    font-size: 24rpx;
+    color: #666;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+
+    text {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .sort-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4rpx;
+
+      .sort-icon {
+        width: 20rpx;
+        height: 20rpx;
+        transition: transform 0.2s ease;
+
+        &.asc {
+          transform: rotate(180deg);
+        }
+
+        &.desc {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  &-item {
+    display: grid;
+    grid-template-columns: 320rpx 1fr 1fr 1fr;
+    border-bottom: 1px solid #eee;
+    align-items: center;
+    text-align: center;
+
+    &:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    &-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .card {
+        width: 286rpx;
+      }
+    }
+
+    text {
+      font-size: 28rpx;
+    }
+  }
+}

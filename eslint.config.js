@@ -25,7 +25,8 @@ export default [
       'sitemap.json',
       '*.wxml', // 暂时忽略 wxml 文件，直到找到正确的规则配置
       'node_modules/@vant/**',
-      'miniprogram/pages/my/chart/**',
+      'miniprogram/pages/environment/chart/**',
+      'eslint.config.js',
     ],
   },
   {

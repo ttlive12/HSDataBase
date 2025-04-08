@@ -1,0 +1,41 @@
+<navigation-bar
+  back="{{true}}"
+  title="竞技场职业排行"
+/>
+<view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    <view class="rank">
+      <!-- 其他排名 -->
+      <view class="rank-list">
+        <view
+          wx:for="{{classData}}"
+          wx:key="class"
+          class="rank-item {{item.class}}"
+          bind:tap="onClassTap"
+          data-class-name="{{item.class}}"
+        >
+          <text class="rank-item-index">{{index + 1}}</text>
+          <view class="rank-item-content">
+            <image
+              class="rank-item-img"
+              src="{{item.img}}"
+            />
+            <text class="rank-item-name">{{item.name}}</text>
+          </view>
+          <view class="rank-item-stats">
+            <text class="rank-item-label">胜率</text>
+            <text class="rank-item-winrate">{{item.win_rate}}%</text>
+          </view>
+          <image
+            class="rank-item-arrow"
+            src="/assets/point.svg"
+          />
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

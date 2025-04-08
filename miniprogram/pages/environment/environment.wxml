@@ -1,0 +1,17 @@
+<navigation-bar
+  back="{{true}}"
+  title="{{wild ? '环境图表: 狂野模式' : '环境图表: 标准模式'}}"
+/>
+<view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    <rank-bar
+      id="rankBar"
+      bind:rankChange="handleRankChange"
+    />
+  </view>
+  <chart data="{{rankData[currentType]}}" />
+</view>

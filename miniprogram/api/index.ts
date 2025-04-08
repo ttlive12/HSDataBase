@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+import { IGetArenaCardRank, IGetArenaData } from '@/modal/arena';
 import { IGetDeckDetailData } from '@/modal/deckDetails';
+import { IGetModeResponse, IGetPlayerRequest, IGetPlayerResponse } from '@/modal/player';
 
 import wxRequest from './request';
 import { IGetDeckCardStatsData } from '../modal/deckCardStats';
@@ -125,4 +127,69 @@ export const getDeckStatsAndRankDetails = async (deckName: string) => {
     deckCardStats: deckCardStats,
     rankDetails: rankDetails,
   };
+};
+
+/**
+ * 获取竞技场职业排名数据
+ * @returns 职业胜率排名
+ */
+export const getJJCRank = async (): Promise<IGetArenaData> => {
+  return await request<IGetArenaData>({
+    url: '/getJJCRank',
+    method: 'GET',
+    showLoading: true,
+    varLabs: {
+      wxdata_perf_monitor_id: 'arenaRank',
+      wxdata_perf_monitor_level: 1,
+      wxdata_perf_extra_info1: 'arena',
+    },
+  });
+};
+
+/**
+ * 获取竞技场职业卡牌排名数据
+ * @param className 职业英文名，小写(例如: mage)
+ * @returns 卡牌排名数据
+ */
+export const getJJCCardRank = async (className: string): Promise<IGetArenaCardRank> => {
+  return await request<IGetArenaCardRank>({
+    url: `/getJJCCardRank?class=${className}`,
+    method: 'GET',
+    showLoading: true,
+    varLabs: {
+      wxdata_perf_monitor_id: 'arenaCardRank',
+      wxdata_perf_monitor_level: 1,
+      wxdata_perf_extra_info1: 'arena',
+    },
+  });
+};
+
+/**
+ * 获取玩家竞技场排名数据
+ * @returns 玩家竞技场排名数据
+ */
+export const getModeData = async (): Promise<IGetModeResponse> => {
+  return await request<IGetModeResponse>({
+    url: 'https://webapi.blizzard.cn/hs-rank-api-server/api/v2/game/mode',
+    method: 'GET',
+    showLoading: true,
+    varLabs: {
+      wxdata_perf_monitor_id: 'modeData',
+      wxdata_perf_monitor_level: 1,
+      wxdata_perf_extra_info1: 'arena',
+    },
+  });
+};
+
+/**
+ * 获取玩家竞技场排名数据
+ * @returns 玩家竞技场排名数据
+ */
+export const getPlayerRank = async (params: IGetPlayerRequest): Promise<IGetPlayerResponse> => {
+  return await request<IGetPlayerResponse>({
+    url: 'https://webapi.blizzard.cn/hs-rank-api-server/api/game/ranks',
+    method: 'GET',
+    showLoading: false,
+    params,
+  });
 };

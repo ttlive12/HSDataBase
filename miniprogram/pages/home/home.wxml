@@ -9,7 +9,6 @@
   type="list"
 >
   <view class="home">
-    <!-- <header /> -->
     <rank id="rank" />
   </view>
 </scroll-view>
