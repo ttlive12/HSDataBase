@@ -48,7 +48,11 @@ Page({
     this.setData({ showCardImg: true, cardId: id });
   },
   onCloseImg() {
-    this.setData({ showCardImg: false });
+    // 关闭时重置状态
+    this.setData({
+      showCardImg: false,
+      cardId: '', // 重置cardId
+    });
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent) {
     this.setData({

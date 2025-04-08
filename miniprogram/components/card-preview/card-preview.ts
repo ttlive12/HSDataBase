@@ -21,6 +21,12 @@ Component({
         this.setData({ isLoading: true });
       }
     },
+    cardId: function (cardId) {
+      // 当cardId变化时重置加载状态
+      if (cardId) {
+        this.setData({ isLoading: true });
+      }
+    },
   },
 
   methods: {
@@ -28,7 +34,6 @@ Component({
       this.triggerEvent('close');
     },
     onImageLoad() {
-      // 高质量图片加载完成后，隐藏加载状态
       this.setData({ isLoading: false });
     },
   },

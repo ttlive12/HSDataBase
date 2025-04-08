@@ -23,7 +23,11 @@ Page({
     this.setData({ showCardImg: true, cardId: id });
   },
   onCloseImg() {
-    this.setData({ showCardImg: false });
+    // 关闭时重置状态
+    this.setData({
+      showCardImg: false,
+      cardId: '', // 重置cardId
+    });
   },
   async onLoad(options: Record<string, string>) {
     const rankBar = this.selectComponent('#rankBar');
