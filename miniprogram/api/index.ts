@@ -172,7 +172,7 @@ export const getModeData = async (): Promise<IGetModeResponse> => {
   return await request<IGetModeResponse>({
     url: 'https://webapi.blizzard.cn/hs-rank-api-server/api/v2/game/mode',
     method: 'GET',
-    showLoading: true,
+    showLoading: false,
     varLabs: {
       wxdata_perf_monitor_id: 'modeData',
       wxdata_perf_monitor_level: 1,
@@ -185,11 +185,42 @@ export const getModeData = async (): Promise<IGetModeResponse> => {
  * 获取玩家竞技场排名数据
  * @returns 玩家竞技场排名数据
  */
-export const getPlayerRank = async (params: IGetPlayerRequest): Promise<IGetPlayerResponse> => {
+export const getPlayerRank = async (
+  params: IGetPlayerRequest,
+  showLoading = false
+): Promise<IGetPlayerResponse> => {
   return await request<IGetPlayerResponse>({
     url: 'https://webapi.blizzard.cn/hs-rank-api-server/api/game/ranks',
     method: 'GET',
-    showLoading: false,
+    showLoading,
+    varLabs: {
+      wxdata_perf_monitor_id: 'playerRank',
+      wxdata_perf_monitor_level: 1,
+      wxdata_perf_extra_info1: 'arena',
+    },
     params,
+  });
+};
+
+interface IGetConfigResponse {
+  success: boolean;
+  data: {
+    update_time: string;
+    [key: string]: string;
+  };
+}
+
+/**
+ * 获取配置
+ */
+export const getConfig = async () => {
+  return await request<IGetConfigResponse>({
+    url: '/getConfigData',
+    method: 'GET',
+    varLabs: {
+      wxdata_perf_monitor_id: 'config',
+      wxdata_perf_monitor_level: 1,
+      wxdata_perf_extra_info1: 'config',
+    },
   });
 };

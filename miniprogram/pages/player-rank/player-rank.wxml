@@ -73,7 +73,11 @@
           class="loading-spinner"
           wx:if="{{isLoadMore}}"
         ></view>
-        <text wx:if="{{!isLoadMore && hasMore}}">上拉加载更多</text>
+        <text
+          wx:if="{{!isLoadMore && hasMore}}"
+          bindtap="handleScrollToBottom"
+          >点击加载更多</text
+        >
         <text wx:if="{{!isLoadMore && !hasMore}}">没有更多数据了</text>
       </view>
     </view>

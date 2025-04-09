@@ -75,9 +75,21 @@
           data-id="{{item.id}}"
         />
       </view>
-      <text style="grid-column: 2">{{item.included_winrate}}%</text>
-      <text style="grid-column: 3">{{item.included_popularity}}%</text>
-      <text style="grid-column: 4">{{item.winrate_when_played}}%</text>
+      <text
+        class="cards-item-text"
+        style="grid-column: 2"
+        >{{item.included_winrate}}%</text
+      >
+      <text
+        class="cards-item-text"
+        style="grid-column: 3"
+        >{{item.included_popularity}}%</text
+      >
+      <text
+        class="cards-item-text"
+        style="grid-column: 4"
+        >{{item.winrate_when_played}}%</text
+      >
     </view>
   </view>
 </scroll-view>

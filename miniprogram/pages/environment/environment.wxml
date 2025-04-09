@@ -1,6 +1,6 @@
 <navigation-bar
   back="{{true}}"
-  title="{{wild ? '环境图表: 狂野模式' : '环境图表: 标准模式'}}"
+  title="今日环境"
 />
 <view
   class="scrollarea"

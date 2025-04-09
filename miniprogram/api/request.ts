@@ -10,7 +10,7 @@ const ENV = {
 };
 
 const wxRequest = WxRequest.create({
-  baseURL: ENV.TEST,
+  baseURL: ENV.PROD,
   timeout: TIMEOUT,
   returnData: true,
 });

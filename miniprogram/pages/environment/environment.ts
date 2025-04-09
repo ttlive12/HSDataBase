@@ -29,9 +29,11 @@ Page({
     wild: false,
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent<{ currentType: rankType }>) {
-    this.setData({
-      currentType: e.detail.currentType,
-    });
+    if (e.detail.currentType !== this.data.currentType) {
+      this.setData({
+        currentType: e.detail.currentType,
+      });
+    }
   },
   onShareAppMessage() {},
   onShareTimeline() {},

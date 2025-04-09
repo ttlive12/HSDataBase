@@ -147,48 +147,51 @@ Component({
         .select('.ec-canvas')
         .fields({ node: true, size: true })
         .exec(res => {
-          const canvasNode = res[0].node
-          this.canvasNode = canvasNode
+          if (res[0] && res[0].node) {
+            const canvasNode = res[0].node
+            this.canvasNode = canvasNode
 
-          const canvasDpr = wx.getSystemInfoSync().pixelRatio
-          const canvasWidth = res[0].width
-          const canvasHeight = res[0].height
+            const canvasDpr = wx.getSystemInfoSync().pixelRatio
+            const canvasWidth = res[0].width
+            const canvasHeight = res[0].height
 
-          const ctx = canvasNode.getContext('2d')
+            const ctx = canvasNode.getContext('2d')
 
-          const canvas = new WxCanvas(ctx, this.data.canvasId, true, canvasNode)
-          if (echarts.setPlatformAPI) {
-            echarts.setPlatformAPI({
-              createCanvas: () => canvas,
-              loadImage: (src, onload, onerror) => {
-                if (canvasNode.createImage) {
-                  const image = canvasNode.createImage();
-                  image.onload = onload;
-                  image.onerror = onerror;
-                  image.src = src;
-                  return image;
+            const canvas = new WxCanvas(ctx, this.data.canvasId, true, canvasNode)
+            if (echarts.setPlatformAPI) {
+              echarts.setPlatformAPI({
+                createCanvas: () => canvas,
+                loadImage: (src, onload, onerror) => {
+                  if (canvasNode.createImage) {
+                    const image = canvasNode.createImage();
+                    image.onload = onload;
+                    image.onerror = onerror;
+                    image.src = src;
+                    return image;
+                  }
+                  console.error('加载图片依赖 `Canvas.createImage()` API，要求小程序基础库版本在 2.7.0 及以上。');
+                  // PENDING fallback?
                 }
-                console.error('加载图片依赖 `Canvas.createImage()` API，要求小程序基础库版本在 2.7.0 及以上。');
-                // PENDING fallback?
-              }
-            })
-          } else {
-            echarts.setCanvasCreator(() => canvas)
-          }
+              })
+            } else {
+              echarts.setCanvasCreator(() => canvas)
+            }
 
-          if (typeof callback === 'function') {
-            this.chart = callback(canvas, canvasWidth, canvasHeight, canvasDpr)
-          } else if (this.data.ec && typeof this.data.ec.onInit === 'function') {
-            this.chart = this.data.ec.onInit(canvas, canvasWidth, canvasHeight, canvasDpr)
-          } else {
-            this.triggerEvent('init', {
-              canvas: canvas,
-              width: canvasWidth,
-              height: canvasHeight,
-              dpr: canvasDpr
-            })
+            if (typeof callback === 'function') {
+              this.chart = callback(canvas, canvasWidth, canvasHeight, canvasDpr)
+            } else if (this.data.ec && typeof this.data.ec.onInit === 'function') {
+              this.chart = this.data.ec.onInit(canvas, canvasWidth, canvasHeight, canvasDpr)
+            } else {
+              this.triggerEvent('init', {
+                canvas: canvas,
+                width: canvasWidth,
+                height: canvasHeight,
+                dpr: canvasDpr
+              })
+            }
           }
         })
+
     },
     canvasToTempFilePath(opt) {
       if (this.data.isUseNewCanvas) {
@@ -198,9 +201,11 @@ Component({
           .select('.ec-canvas')
           .fields({ node: true, size: true })
           .exec(res => {
-            const canvasNode = res[0].node
-            opt.canvas = canvasNode
-            wx.canvasToTempFilePath(opt)
+            if (res[0] && res[0].node) {
+              const canvasNode = res[0].node
+              opt.canvas = canvasNode
+              wx.canvasToTempFilePath(opt)
+            }
           })
       } else {
         // 旧的
@@ -220,16 +225,16 @@ Component({
         handler.dispatch('mousedown', {
           zrX: touch.x,
           zrY: touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
+          preventDefault: () => { },
+          stopImmediatePropagation: () => { },
+          stopPropagation: () => { }
         });
         handler.dispatch('mousemove', {
           zrX: touch.x,
           zrY: touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
+          preventDefault: () => { },
+          stopImmediatePropagation: () => { },
+          stopPropagation: () => { }
         });
         handler.processGesture(wrapTouch(e), 'start');
       }
@@ -242,9 +247,9 @@ Component({
         handler.dispatch('mousemove', {
           zrX: touch.x,
           zrY: touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
+          preventDefault: () => { },
+          stopImmediatePropagation: () => { },
+          stopPropagation: () => { }
         });
         handler.processGesture(wrapTouch(e), 'change');
       }
@@ -257,16 +262,16 @@ Component({
         handler.dispatch('mouseup', {
           zrX: touch.x,
           zrY: touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
+          preventDefault: () => { },
+          stopImmediatePropagation: () => { },
+          stopPropagation: () => { }
         });
         handler.dispatch('click', {
           zrX: touch.x,
           zrY: touch.y,
-          preventDefault: () => {},
-          stopImmediatePropagation: () => {},
-          stopPropagation: () => {}
+          preventDefault: () => { },
+          stopImmediatePropagation: () => { },
+          stopPropagation: () => { }
         });
         handler.processGesture(wrapTouch(e), 'end');
       }

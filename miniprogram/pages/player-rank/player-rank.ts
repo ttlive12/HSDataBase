@@ -95,7 +95,7 @@ Page({
         page_size: 25,
       };
 
-      const res = await getPlayerRank(params);
+      const res = await getPlayerRank(params, !isLoadMore);
       if (res.code === 0) {
         const newList = isLoadMore ? [...this.data.playerList, ...res.data.list] : res.data.list;
 
