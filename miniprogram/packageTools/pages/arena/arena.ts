@@ -43,7 +43,7 @@ Page({
   onClassTap(e: WechatMiniprogram.TouchEvent) {
     const { className } = e.currentTarget.dataset;
     wx.navigateTo({
-      url: `/pages/arenaCards/arenaCards?class=${className}`,
+      url: `/packageTools/pages/arenaCards/arenaCards?class=${className}`,
     });
   },
 });

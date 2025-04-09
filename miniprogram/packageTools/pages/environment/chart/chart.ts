@@ -1,17 +1,20 @@
-import * as echarts from '../../../ec-canvas/echarts';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+import * as echarts from '../../../../ec-canvas/echarts';
 
 const app = getApp();
 
 function generatePieChartOptions(rankArray, topN = 20) {
   // 排序并获取前N项数据
-  let sortedRankArray = rankArray.sort((a, b) => b.popularityPercent - a.popularityPercent);
-  let topItems = sortedRankArray.slice(0, topN);
+  const sortedRankArray = rankArray.sort((a, b) => b.popularityPercent - a.popularityPercent);
+  const topItems = sortedRankArray.slice(0, topN);
 
   // 计算前N项的总百分比
-  let topPercentSum = topItems.reduce((sum, item) => sum + item.popularityPercent, 0);
+  const topPercentSum = topItems.reduce((sum, item) => sum + item.popularityPercent, 0);
 
   // 准备饼图数据
-  let pieData = topItems.map((item) => ({
+  const pieData = topItems.map((item) => ({
     name: item.zhName,
     value: item.popularityPercent,
     itemStyle: {

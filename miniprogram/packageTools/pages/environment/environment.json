@@ -2,6 +2,6 @@
   "usingComponents": {
     "rank-bar": "/components/rank-bar/rank-bar",
     "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "chart": "/pages/environment/chart/chart"
+    "chart": "./chart/chart"
   }
 }

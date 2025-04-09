@@ -5,11 +5,19 @@
     "pages/deck-stats/deck-stats",
     "pages/deck-detail/deck-detail",
     "pages/my/my",
-    "pages/environment/environment",
-    "pages/arena/arena",
-    "pages/fail/fail",
-    "pages/arenaCards/arenaCards",
-    "pages/player-rank/player-rank"
+    "pages/fail/fail"
+  ],
+  "subpackages": [
+    {
+      "root": "packageTools",
+      "name": "tools",
+      "pages": [
+        "pages/environment/environment",
+        "pages/arena/arena",
+        "pages/arenaCards/arenaCards",
+        "pages/player-rank/player-rank"
+      ]
+    }
   ],
   "usingComponents": {},
   "window": {
