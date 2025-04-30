@@ -1,10 +1,10 @@
 import { getDeckStatsAndRankDetails } from '@/api/index';
 import { getDeckDetails } from '@/api/index';
 import { rankType } from '@/api/type';
+import { dust } from '@/assets/index';
 import { class2Img } from '@/constants';
 import { CardInfo } from '@/modal/deckCardStats';
 import { Deck } from '@/modal/decksData';
-import { dust } from '@/assets/index'
 
 Page({
   data: {

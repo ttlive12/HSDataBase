@@ -1,17 +1,50 @@
-<card-preview show="{{showCardImg}}" card-id="{{cardId}}" bind:close="onCloseImg" />
-<navigation-bar back="{{true}}" title="{{zhName ? zhName : ''}}" />
-<scroll-view class="scrollarea" scroll-y>
-  <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
-  <title-bar icon="/assets/menu.svg" title="相关卡组" cstyle="margin-top: -20rpx">
+<card-preview
+  show="{{showCardImg}}"
+  card-id="{{cardId}}"
+  bind:close="onCloseImg"
+/>
+<navigation-bar
+  back="{{true}}"
+  title="{{zhName ? zhName : ''}}"
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+>
+  <rank-bar
+    id="rankBar"
+    bind:rankChange="handleRankChange"
+  />
+  <title-bar
+    icon="/assets/menu.svg"
+    title="相关卡组"
+    cstyle="margin-top: -20rpx"
+  >
     <text>该体系下卡组的推荐构筑</text>
     <text>点击后可查看卡组具体构筑和卡组代码</text>
   </title-bar>
-  <scroll-view wx:if="{{decksData[currentType].length}}" class="decks" scroll-x enable-flex enhanced :show-scrollbar="false">
+  <scroll-view
+    wx:if="{{decksData[currentType].length}}"
+    class="decks"
+    scroll-x
+    enable-flex
+    enhanced
+    :show-scrollbar="false"
+  >
     <view style="display: inline-block; margin-right: 30rpx" />
-    <view class="decks-item {{item.class}}" wx:for="{{decksData[currentType]}}" wx:key="deckId" data-data="{{item}}" bind:tap="handleJump">
+    <view
+      class="decks-item {{item.class}}"
+      wx:for="{{decksData[currentType]}}"
+      wx:key="deckId"
+      data-data="{{item}}"
+      bind:tap="handleJump"
+    >
       <view class="decks-item-inner">
         <view class="decks-item-inner-header">
-          <image class="class-icon" src="{{class2Img[item.class]}}" />
+          <image
+            class="class-icon"
+            src="{{class2Img[item.class]}}"
+          />
           <text class="deck-name">
             <text>{{item.zhName}}</text>
             <text class="games">({{item.games}}场)</text>
@@ -20,7 +53,10 @@
         <view class="decks-item-inner-stats">
           <text class="decks-item-inner-stats-winrate">{{item.winrate}}</text>
           <view class="decks-item-inner-stats-dust">
-            <image class="dust-icon" src="{{ dust }}" />
+            <image
+              class="dust-icon"
+              src="{{ dust }}"
+            />
             <text>{{item.dust}}</text>
           </view>
         </view>
@@ -28,52 +64,119 @@
     </view>
     <view style="display: inline-block; color: transparent; font-size: 1rpx">0</view>
   </scroll-view>
-  <view wx:if="{{!loading && !decksData[currentType].length}}" style="width: 100%; text-align: center; padding: 40rpx 0; font-size: 40rpx">
+  <view
+    wx:if="{{!loading && !decksData[currentType].length}}"
+    style="width: 100%; text-align: center; padding: 40rpx 0; font-size: 40rpx"
+  >
     暂无数据
-    <view wx:if="{{decksDataLength}}" style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)">
+    <view
+      wx:if="{{decksDataLength}}"
+      style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)"
+    >
       您可以选择切换分段查看相关数据
     </view>
-    <view wx:else style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)">
+    <view
+      wx:else
+      style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)"
+    >
       当前卡组样本量小，以后再来查看吧
     </view>
   </view>
-  <title-bar icon="/assets/schedule.svg" title="卡牌调度">
+  <title-bar
+    icon="/assets/schedule.svg"
+    title="卡牌调度"
+  >
     <text>各卡牌的携带，抽到，保留对胜率的影响</text>
     <text>仅展示在该分段有一定携带数量的卡牌</text>
     <text>保留数据样本小的卡牌数据可信度低</text>
   </title-bar>
-  <view wx:if="{{!loading && !data[currentType].length}}" style="width: 100%; text-align: center; padding: 100rpx 0; font-size: 40rpx">
+  <view
+    wx:if="{{!loading && !data[currentType].length}}"
+    style="width: 100%; text-align: center; padding: 100rpx 0; font-size: 40rpx"
+  >
     暂无数据
-    <view wx:if="{{dataLength}}" style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)">
+    <view
+      wx:if="{{dataLength}}"
+      style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)"
+    >
       您可以选择切换分段查看相关数据
     </view>
-    <view wx:else style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)">
+    <view
+      wx:else
+      style="font-size: 28rpx; color: rgba(0, 0, 0, 0.8)"
+    >
       当前卡组样本量小，以后再来查看吧
     </view>
   </view>
-  <view wx:else class="cards">
+  <view
+    wx:else
+    class="cards"
+  >
     <view class="cards-header">
-      <view class="sort-header" style="grid-column: 1">
+      <view
+        class="sort-header"
+        style="grid-column: 1"
+      >
         <text>卡牌</text>
       </view>
-      <view class="sort-header" style="grid-column: 2" bind:tap="handleSort" data-type="mulliganImpact">
+      <view
+        class="sort-header"
+        style="grid-column: 2"
+        bind:tap="handleSort"
+        data-type="mulliganImpact"
+      >
         <text>携带影响</text>
-        <image class="sort-icon {{sortType === 'mulliganImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
+        <image
+          class="sort-icon {{sortType === 'mulliganImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
       </view>
-      <view class="sort-header" style="grid-column: 3" bind:tap="handleSort" data-type="drawnImpact">
+      <view
+        class="sort-header"
+        style="grid-column: 3"
+        bind:tap="handleSort"
+        data-type="drawnImpact"
+      >
         <text>抽到影响</text>
-        <image class="sort-icon {{sortType === 'drawnImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
+        <image
+          class="sort-icon {{sortType === 'drawnImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
       </view>
-      <view class="sort-header" style="grid-column: 4" bind:tap="handleSort" data-type="keptImpact">
+      <view
+        class="sort-header"
+        style="grid-column: 4"
+        bind:tap="handleSort"
+        data-type="keptImpact"
+      >
         <text>保留影响</text>
-        <image class="sort-icon {{sortType === 'keptImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}" src="/assets/sort.svg" />
+        <image
+          class="sort-icon {{sortType === 'keptImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          src="/assets/sort.svg"
+        />
       </view>
     </view>
-    <view class="cards-item" wx:for="{{data[currentType]}}" wx:key="id">
-      <view class="cards-item-card" style="grid-column: 1">
-        <card-frame card-id="{{item.id}}" cost="{{item.cost}}" name="{{item.name}}" rarity="{{item.rarity}}" bind:tap="showCardImg" data-id="{{item.id}}" />
+    <view
+      class="cards-item"
+      wx:for="{{data[currentType]}}"
+      wx:key="id"
+    >
+      <view
+        class="cards-item-card"
+        style="grid-column: 1"
+      >
+        <card-frame
+          card-id="{{item.id}}"
+          cost="{{item.cost}}"
+          name="{{item.name}}"
+          rarity="{{item.rarity}}"
+          bind:tap="showCardImg"
+          data-id="{{item.id}}"
+        />
       </view>
-      <text style="grid-column: 2; color: {{item.mulliganImpactColor}}">{{item.mulliganImpact}}</text>
+      <text style="grid-column: 2; color: {{item.mulliganImpactColor}}"
+        >{{item.mulliganImpact}}</text
+      >
       <text style="grid-column: 3; color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
       <text style="grid-column: 4; color: {{item.keptImpactColor}}">{{item.keptImpact}}</text>
     </view>

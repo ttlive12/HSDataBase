@@ -1,10 +1,9 @@
 import { getDeckDetails } from '@/api/index';
 import { rankType } from '@/api/type';
+import { dust } from '@/assets/index';
 import { class2Img } from '@/constants';
 import { OpponentInfo } from '@/modal/deckDetails';
 import { Deck } from '@/modal/decksData';
-import { dust } from '@/assets/index'
-
 
 interface VisitInfo {
   lastVisitDate: string; // 上次访问日期
