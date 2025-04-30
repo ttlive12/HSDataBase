@@ -109,15 +109,15 @@ Component({
             : ``,
       });
 
-      wx.nextTick(() => {
-        setTimeout(() => {
+      setTimeout(() => {
+        wx.nextTick(() => {
           getConfig().then((res) => {
             this.setData({
               updateTime: calculateShowTime(res.data.updateTime),
             });
           });
-        }, 1000);
-      });
+        });
+      }, 500);
     },
   },
   /**

@@ -1,5 +1,5 @@
 import { ClassTypes, rankType } from './api/type';
-import { url_diamond1, url_legend } from './assets/index';
+import { url_diamond1, url_diamond5, url_legend } from './assets/index';
 
 export const dataTypes: Array<{
   name: string;
@@ -24,7 +24,7 @@ export const dataTypes: Array<{
   {
     name: '钻石-传说',
     id: 'diamond_to_legend' as rankType,
-    url: url_diamond1,
+    url: url_diamond5,
   },
 ];
 

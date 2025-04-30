@@ -4,9 +4,11 @@ import { rankType } from '@/api/type';
 import { class2Img } from '@/constants';
 import { CardInfo } from '@/modal/deckCardStats';
 import { Deck } from '@/modal/decksData';
+import { dust } from '@/assets/index'
 
 Page({
   data: {
+    dust,
     data: {} as Record<rankType, CardInfo[]>,
     decksData: {} as Record<rankType, Deck[]>,
     currentType: 'top_legend' as rankType,

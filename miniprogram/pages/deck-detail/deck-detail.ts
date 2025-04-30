@@ -3,6 +3,8 @@ import { rankType } from '@/api/type';
 import { class2Img } from '@/constants';
 import { OpponentInfo } from '@/modal/deckDetails';
 import { Deck } from '@/modal/decksData';
+import { dust } from '@/assets/index'
+
 
 interface VisitInfo {
   lastVisitDate: string; // 上次访问日期
@@ -14,6 +16,7 @@ let videoAd: WechatMiniprogram.RewardedVideoAd;
 
 Page({
   data: {
+    dust,
     deckData: {} as Deck,
     deckDetails: {} as Record<rankType, OpponentInfo[]>,
     id: '',

@@ -1,9 +1,12 @@
+@import "../../common.scss";
+
 .type {
   width: 100vw;
   white-space: nowrap;
   position: relative;
   padding-top: 15rpx;
   height: 125rpx;
+
   &-item {
     display: inline-block;
     border-radius: 40rpx;
