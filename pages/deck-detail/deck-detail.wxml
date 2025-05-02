@@ -45,7 +45,7 @@
           cost="{{item.cost}}"
           name="{{item.name}}"
           rarity="{{item.rarity}}"
-          back="{{item.back}}"
+          num="{{item.num}}"
           data-id="{{item.id}}"
           bind:tap="showCardImg"
         />

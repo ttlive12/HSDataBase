@@ -5,7 +5,7 @@
 />
 <navigation-bar
   back="{{true}}"
-  title="{{zhName ? zhName : ''}}"
+  title="{{name ? name : ''}}"
 />
 <scroll-view
   class="scrollarea"
@@ -46,8 +46,8 @@
             src="{{class2Img[item.class]}}"
           />
           <text class="deck-name">
-            <text>{{item.zhName}}</text>
-            <text class="games">({{item.games}}场)</text>
+            <text>{{item.name}}</text>
+            <text class="games">({{item.totalGames}}场)</text>
           </text>
         </view>
         <view class="decks-item-inner-stats">
@@ -123,11 +123,11 @@
         class="sort-header"
         style="grid-column: 2"
         bind:tap="handleSort"
-        data-type="mulliganImpact"
+        data-type="keep_percentage"
       >
-        <text>携带影响</text>
+        <text>保留率</text>
         <image
-          class="sort-icon {{sortType === 'mulliganImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          class="sort-icon {{sortType === 'keep_percentage' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
           src="/assets/sort.svg"
         />
       </view>
@@ -135,11 +135,11 @@
         class="sort-header"
         style="grid-column: 3"
         bind:tap="handleSort"
-        data-type="drawnImpact"
+        data-type="opening_hand_winrate"
       >
-        <text>抽到影响</text>
+        <text>起手胜率</text>
         <image
-          class="sort-icon {{sortType === 'drawnImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          class="sort-icon {{sortType === 'opening_hand_winrate' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
           src="/assets/sort.svg"
         />
       </view>
@@ -147,11 +147,11 @@
         class="sort-header"
         style="grid-column: 4"
         bind:tap="handleSort"
-        data-type="keptImpact"
+        data-type="winrate_when_played"
       >
-        <text>保留影响</text>
+        <text>打出胜率</text>
         <image
-          class="sort-icon {{sortType === 'keptImpact' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
+          class="sort-icon {{sortType === 'winrate_when_played' ? (sortOrder === 'asc' ? 'asc' : 'desc') : ''}}"
           src="/assets/sort.svg"
         />
       </view>
@@ -174,11 +174,11 @@
           data-id="{{item.id}}"
         />
       </view>
-      <text style="grid-column: 2; color: {{item.mulliganImpactColor}}"
-        >{{item.mulliganImpact}}</text
+      <text style="grid-column: 2;"
+        >{{item.keep_percentage}}</text
       >
-      <text style="grid-column: 3; color: {{item.drawnImpactColor}}">{{item.drawnImpact}}</text>
-      <text style="grid-column: 4; color: {{item.keptImpactColor}}">{{item.keptImpact}}</text>
+      <text style="grid-column: 3;">{{item.opening_hand_winrate}}</text>
+      <text style="grid-column: 4;">{{item.winrate_when_played}}</text>
     </view>
   </view>
   <view style="height: 100rpx" />

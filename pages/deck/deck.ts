@@ -13,6 +13,7 @@ Page({
     wild: false,
     period: 'default',
     value: '',
+    source: 'cn',
   },
 
   onLoad() {
@@ -22,18 +23,21 @@ Page({
     eventBus.on('setting', async () => {
       if (
         this.data.wild !== (wx.getStorageSync('wild') || false) ||
-        this.data.period !== (wx.getStorageSync('period') || 'default')
+        this.data.period !== (wx.getStorageSync('period') || 'default') ||
+        this.data.source !== (wx.getStorageSync('source') || 'cn')
       ) {
         await this.getData();
         this.setData({
           wild: wx.getStorageSync('wild') || false,
           period: wx.getStorageSync('period') || 'default',
+          source: wx.getStorageSync('source') || 'cn',
         });
       }
     });
     this.setData({
       wild: wx.getStorageSync('wild') || false,
       period: wx.getStorageSync('period') || 'default',
+      source: wx.getStorageSync('source') || 'cn',
     });
   },
 
@@ -68,15 +72,14 @@ Page({
     });
   },
 
-  sortDecksByRank(decksByRank: Record<rankType, Deck[]>): Record<rankType, Deck[]> {
+  sortDecksByRank(decksByRank: Record<rankType, { data: Deck[] }>): Record<rankType, Deck[]> {
     const sortedDecks: Record<rankType, Deck[]> = {} as Record<rankType, Deck[]>;
 
-    (Object.entries(decksByRank) as [rankType, Deck[]][]).forEach(([rank, decks]) => {
+    (Object.entries(decksByRank) as [rankType, { data: Deck[] }][]).forEach(([rank, decks]) => {
       const columns: [Deck[], Deck[]] = [[], []];
       const heights: [number, number] = [0, 0];
-
-      decks.forEach((deck: Deck) => {
-        const height = deck.legendaryCardNum * 26 + 61.67;
+      decks.data.forEach((deck: Deck) => {
+        const height = deck.cards.filter((card) => card.rarity === 'LEGENDARY').length * 26 + 61.67;
         const columnIndex = heights[0] <= heights[1] ? 0 : 1;
 
         columns[columnIndex].push(deck);
@@ -95,6 +98,4 @@ Page({
       url: `/pages/deck-detail/deck-detail?currentType=${this.data.currentType}`,
     });
   },
-  onShareAppMessage() {},
-  onShareTimeline() {},
 });

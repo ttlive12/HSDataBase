@@ -55,7 +55,7 @@ export function computeCompositeScores(
 
   // 提取胜率和出场率数组
   const winRates = decks.map((deck) => deck.winrate);
-  const pickRates = decks.map((deck) => deck.popularityPercent);
+  const pickRates = decks.map((deck) => deck.pct_of_total);
 
   // 标准化胜率和出场率
   let winRateNormalized: number[];

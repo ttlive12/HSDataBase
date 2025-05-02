@@ -8,22 +8,27 @@ export const dataTypes: Array<{
 }> = [
   {
     name: '传说 Top1000',
-    id: 'top_legend' as rankType,
+    id: 'TOP_1000_LEGEND' as rankType,
     url: url_legend,
   },
   {
     name: '钻石 4-1',
-    id: 'diamond_4to1' as rankType,
+    id: 'DIAMOND_FOUR_THROUGH_DIAMOND_ONE' as rankType,
     url: url_diamond1,
   },
   {
-    name: '传说 Top5000' as rankType,
-    id: 'top_5k',
+    name: '传说',
+    id: 'LEGEND' as rankType,
     url: url_legend,
   },
   {
     name: '钻石-传说',
-    id: 'diamond_to_legend' as rankType,
+    id: 'DIAMOND_THROUGH_LEGEND' as rankType,
+    url: url_diamond5,
+  },
+  {
+    name: '铂金',
+    id: 'PLATINUM' as rankType,
     url: url_diamond5,
   },
 ];

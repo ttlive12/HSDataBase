@@ -70,24 +70,20 @@
       >
         <view class="header">
           <image
-            src="/assets/rank_black.svg"
-            style="width: 40rpx; height: 40rpx"
+            src="/assets/deck_black.svg"
+            style="width: 35rpx; height: 35rpx"
           />
-          <text>排行榜设置</text>
-          <alert title="排行榜设置">
-            <text>综合排行：根据不同的分段给予热度一定的权重</text>
-            <text>注：仅影响排行榜页数据</text>
-          </alert>
+          <text>服务器</text>
         </view>
 
         <view class="body">
           <van-radio-group
-            value="{{ radio }}"
-            bind:change="onChange"
+            value="{{ source }}"
+            bind:change="onChangeSource"
             direction="horizontal"
           >
-            <van-radio name="1">综合排行</van-radio>
-            <van-radio name="2">胜率排行</van-radio>
+            <van-radio name="cn">国服</van-radio>
+            <van-radio name="all">全部服务器</van-radio>
           </van-radio-group>
         </view>
       </view>
@@ -101,12 +97,8 @@
             src="/assets/deck_black.svg"
             style="width: 35rpx; height: 35rpx"
           />
-          <text>卡组推荐设置</text>
-          <alert title="卡组推荐设置">
-            <text>默认数据：补丁后的数据或近一周的数据</text>
-            <text>近一天数据：一天内数据，样本量小，时效性高</text>
-            <text>注：仅影响卡组推荐页数据</text>
-          </alert>
+          <text>数据源</text>
+
         </view>
 
         <view class="body">
@@ -115,8 +107,8 @@
             bind:change="onChangePeriod"
             direction="horizontal"
           >
-            <van-radio name="default">默认数据</van-radio>
-            <van-radio name="past_day">近一天数据</van-radio>
+            <van-radio name="default">最近补丁</van-radio>
+            <van-radio name="past_day">最近三天</van-radio>
           </van-radio-group>
         </view>
       </view>

@@ -6,11 +6,11 @@ const LOADING_DELAY = 200;
 // 环境配置
 const ENV = {
   PROD: 'https://tlumbbmnnlhg.sealosgzg.site',
-  TEST: 'https://enhjvirnfvlm.sealosgzg.site',
+  TEST: 'https://loxlsydsuyxu.sealosgzg.site/api/',
 };
 
 const wxRequest = WxRequest.create({
-  baseURL: ENV.PROD,
+  baseURL: ENV.TEST,
   timeout: TIMEOUT,
   returnData: true,
 });

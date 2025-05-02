@@ -1,74 +1,31 @@
 <view class="container">
   <!-- 排名类型选择 -->
-  <rank-bar
-    id="rankBar"
-    bind:rankChange="handleRankChange"
-  />
+  <rank-bar id="rankBar" bind:rankChange="handleRankChange" />
   <view class="rank">
-    <view
-      class="rank-top"
-      wx:if="{{firstDeckData.name && secondDeckData.name}}"
-    >
-      <view
-        class="rank-top-item {{firstDeckData.class}}"
-        bind:tap="handleJump"
-        data-data="{{firstDeckData}}"
-      >
+    <view class="rank-top" wx:if="{{firstDeckData.name && secondDeckData.name}}">
+      <view class="rank-top-item {{firstDeckData.class}}" bind:tap="handleJump" data-data="{{firstDeckData}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
-            <image
-              class="image"
-              src="{{class2Img[firstDeckData.class]}}"
-            />
-            <text>{{firstDeckData.zhName}}</text>
+            <image class="image" src="{{class2Img[firstDeckData.class]}}" />
+            <text>{{firstDeckData.name}}</text>
           </view>
-          <image
-            class="image"
-            src="{{images.No1}}"
-          />
+          <image class="image" src="{{images.No1}}" />
         </view>
         <view class="rank-top-item-body">
           <view class="rank-top-item-body-left">
             <view class="rank-top-item-body-left-item">
-              <image
-                wx:if="{{firstDeckData.class === 'priest' || firstDeckData.class === 'rogue'}}"
-                class="image"
-                src="/assets/hand.svg"
-              />
-              <image
-                wx:else
-                class="image"
-                src="/assets/hand_white.svg"
-              />
+              <image wx:if="{{firstDeckData.class === 'priest' || firstDeckData.class === 'rogue'}}" class="image" src="/assets/hand.svg" />
+              <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
                 <text class="light">热度</text>
-                <text>{{firstDeckData.popularityPercent}}%</text>
-              </view>
-            </view>
-            <view class="rank-top-item-body-left-item">
-              <image
-                wx:if="{{firstDeckData.class === 'priest' || firstDeckData.class === 'rogue'}}"
-                class="image"
-                src="/assets/up.svg"
-              />
-              <image
-                wx:else
-                class="image"
-                src="/assets/up_white.svg"
-              />
-              <view>
-                <text class="light">上分速度</text>
-                <text>{{firstDeckData.ClimbingSpeed}}⭐</text>
+                <text>{{firstDeckData.pct_of_total}}%</text>
               </view>
             </view>
           </view>
           <view class="rank-top-item-body-right">
             <view>
               <view style="display: flex; align-items: center; gap: 10rpx">
-                <image
-                  class="image"
-                  src="{{images.win}}"
-                />
+                <image class="image" src="{{images.win}}" />
                 <text class="light">胜率</text>
               </view>
               <text>{{firstDeckData.winrate}}%</text>
@@ -76,66 +33,29 @@
           </view>
         </view>
       </view>
-      <view
-        class="rank-top-item {{secondDeckData.class}}"
-        bind:tap="handleJump"
-        data-data="{{secondDeckData}}"
-      >
+      <view class="rank-top-item {{secondDeckData.class}}" bind:tap="handleJump" data-data="{{secondDeckData}}">
         <view class="rank-top-item-header">
           <view class="rank-top-item-header-left">
-            <image
-              class="image"
-              src="{{class2Img[secondDeckData.class]}}"
-            />
-            <text>{{secondDeckData.zhName}}</text>
+            <image class="image" src="{{class2Img[secondDeckData.class]}}" />
+            <text>{{secondDeckData.name}}</text>
           </view>
-          <image
-            class="image"
-            src="{{images.No2}}"
-          />
+          <image class="image" src="{{images.No2}}" />
         </view>
         <view class="rank-top-item-body">
           <view class="rank-top-item-body-left">
             <view class="rank-top-item-body-left-item">
-              <image
-                wx:if="{{secondDeckData.class === 'priest' || secondDeckData.class === 'rogue'}}"
-                class="image"
-                src="/assets/hand.svg"
-              />
-              <image
-                wx:else
-                class="image"
-                src="/assets/hand_white.svg"
-              />
+              <image wx:if="{{secondDeckData.class === 'priest' || secondDeckData.class === 'rogue'}}" class="image" src="/assets/hand.svg" />
+              <image wx:else class="image" src="/assets/hand_white.svg" />
               <view class="col">
                 <text class="light">热度</text>
-                <text>{{secondDeckData.popularityPercent}}%</text>
-              </view>
-            </view>
-            <view class="rank-top-item-body-left-item">
-              <image
-                wx:if="{{secondDeckData.class === 'priest' || secondDeckData.class === 'rogue'}}"
-                class="image"
-                src="/assets/up.svg"
-              />
-              <image
-                wx:else
-                class="image"
-                src="/assets/up_white.svg"
-              />
-              <view>
-                <text class="light">上分速度</text>
-                <text>{{secondDeckData.ClimbingSpeed}}⭐</text>
+                <text>{{secondDeckData.pct_of_total}}%</text>
               </view>
             </view>
           </view>
           <view class="rank-top-item-body-right">
             <view>
               <view style="display: flex; align-items: center; gap: 10rpx">
-                <image
-                  class="image"
-                  src="{{images.win}}"
-                />
+                <image class="image" src="{{images.win}}" />
                 <text class="light">胜率</text>
               </view>
               <text>{{secondDeckData.winrate}}%</text>
@@ -144,44 +64,20 @@
         </view>
       </view>
     </view>
-    <view
-      wx:for="{{ showData }}"
-      wx:key="_id"
-      class="rank-container"
-    >
-      <view
-        wx:if="{{index >= 2}}"
-        class="rank-item"
-        bind:tap="handleJump"
-        data-data="{{item}}"
-      >
+    <view wx:for="{{ showData }}" wx:key="_id" class="rank-container">
+      <view wx:if="{{index >= 2}}" class="rank-item" bind:tap="handleJump" data-data="{{item}}">
         <text class="rank-item-index">{{ index + 1 }}</text>
-        <text class="rank-item-name {{ item.class }}">{{ item.zhName }}</text>
+        <text class="rank-item-name {{ item.class }}">{{ item.name }}</text>
         <view class="rank-item-container">
           <text class="rank-item-subtitle">热度</text>
-          <text class="rank-item-text {{item.popularityPercent < 1 ? 'gray' : ''}}"
-            >{{ item.popularityPercent }}%</text
-          >
-        </view>
-        <view
-          class="rank-item-container"
-          style="margin-left: 15rpx"
-        >
-          <text class="rank-item-subtitle">上分速度/时</text>
-          <text class="rank-item-text {{item.ClimbingSpeed < 0 ? 'gray' : ''}}"
-            >{{ item.ClimbingSpeed }}⭐</text
-          >
+          <text class="rank-item-text {{item.pct_of_total < 1 ? 'gray' : ''}}">{{ item.pct_of_total }}%</text>
         </view>
         <view class="rank-item-container">
           <text class="rank-item-subtitle">胜率</text>
-          <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}"
-            >{{ item.winrate }}%
+          <text class="rank-item-text {{item.winrate < 50 ? 'gray' : ''}}">{{ item.winrate }}%
           </text>
         </view>
-        <image
-          class="rank-item-img"
-          src="/assets/point.svg"
-        />
+        <image class="rank-item-img" src="/assets/point.svg" />
       </view>
     </view>
   </view>

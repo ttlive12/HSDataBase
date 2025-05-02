@@ -14,6 +14,8 @@ Page({
         this.setData({
           rankData: data.data,
           wild: wx.getStorageSync('wild') || false,
+          source: wx.getStorageSync('source') || 'cn',
+          period: wx.getStorageSync('period') || 'default',
         });
       }
     });
@@ -21,12 +23,16 @@ Page({
     this.setData({
       rankData: data.data,
       wild: wx.getStorageSync('wild') || false,
+      source: wx.getStorageSync('source') || 'cn',
+      period: wx.getStorageSync('period') || 'default',
     });
   },
   data: {
     rankData: {} as RankData,
     currentType: 'top_legend' as rankType,
     wild: false,
+    source: 'cn',
+    period: 'default',
   },
   handleRankChange(e: WechatMiniprogram.CustomEvent<{ currentType: rankType }>) {
     if (e.detail.currentType !== this.data.currentType) {

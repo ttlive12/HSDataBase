@@ -7,22 +7,22 @@ const app = getApp();
 
 function generatePieChartOptions(rankArray, topN = 20) {
   // 排序并获取前N项数据
-  const sortedRankArray = rankArray.sort((a, b) => b.popularityPercent - a.popularityPercent);
+  const sortedRankArray = rankArray.sort((a, b) => b.pct_of_total - a.pct_of_total);
   const topItems = sortedRankArray.slice(0, topN);
 
   // 计算前N项的总百分比
-  const topPercentSum = topItems.reduce((sum, item) => sum + item.popularityPercent, 0);
+  const topPercentSum = topItems.reduce((sum, item) => sum + item.pct_of_total, 0);
 
   // 准备饼图数据
   const pieData = topItems.map((item) => ({
-    name: item.zhName,
-    value: item.popularityPercent,
+    name: item.name,
+    value: item.pct_of_total,
     itemStyle: {
       color: class2Color[item.class],
       borderColor: '#ffffff', // 设置分割线颜色为白色
       borderWidth: 2, // 设置分割线宽度
     },
-    popularityNum: item.popularityNum,
+    popularityNum: item.total_games,
   }));
 
   // 如果总百分比小于100，添加“其他”项
@@ -55,7 +55,7 @@ function generatePieChartOptions(rankArray, topN = 20) {
         if (params.name === '其他') {
           return `${params.name} : ${params.value.toFixed(1)}%`;
         } else {
-          return `${params.name} : ${params.value}% (${params.data.popularityNum})`;
+          return `${params.name} : ${params.value}% (${params.data.total_games})`;
         }
       },
     },
@@ -84,8 +84,8 @@ function generateClassPieChartOptions(rankArray) {
         totalNum: 0,
       };
     }
-    classDataMap[item.class].totalPercent += item.popularityPercent;
-    classDataMap[item.class].totalNum += item.popularityNum;
+    classDataMap[item.class].totalPercent += item.pct_of_total;
+    classDataMap[item.class].totalNum += item.total_games;
   });
 
   // 准备饼图数据

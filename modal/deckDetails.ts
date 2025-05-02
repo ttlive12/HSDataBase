@@ -8,5 +8,15 @@ export interface OpponentInfo {
 
 export interface IGetDeckDetailData {
   success: boolean;
-  data: Record<rankType, OpponentInfo[]>;
+  data: Record<
+    rankType,
+    {
+      matchups: {
+        [key: string]: {
+          win_rate: number;
+          total_games: number;
+        };
+      };
+    }
+  >;
 }

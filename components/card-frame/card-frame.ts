@@ -4,6 +4,7 @@ interface _CardFrameData {
   name: string;
   rarity: string;
   back?: string;
+  num?: number;
 }
 
 Component({
@@ -12,9 +13,9 @@ Component({
     cost: Number,
     name: String,
     rarity: String,
-    back: {
-      type: String,
-      value: '',
+    num: {
+      type: Number,
+      value: 0,
     },
   },
 

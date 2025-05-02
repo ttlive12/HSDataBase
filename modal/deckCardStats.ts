@@ -1,16 +1,16 @@
 import { rankType } from '../api/type';
 
 export interface CardInfo {
-  id: string;
+  dbfId: number;
   cost: number;
-  name: string;
+  id: string;
   rarity: string;
-  mulliganImpact: string;
-  drawnImpact: string;
-  keptImpact: string;
-  mulliganImpactColor: string;
-  drawnImpactColor: string;
-  keptImpactColor: string;
+  name: string;
+  keep_percentage: number;
+  opening_hand_winrate: number;
+  winrate_when_drawn: number;
+  winrate_when_played: number;
+  rank: number;
 }
 
 export interface IGetDeckCardStatsData {

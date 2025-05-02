@@ -11,7 +11,12 @@ export type ClassTypes =
   | 'deathknight'
   | 'demonhunter';
 
-export type rankType = 'diamond_4to1' | 'diamond_to_legend' | 'top_5k' | 'top_legend';
+export type rankType =
+  | 'TOP_1000_LEGEND'
+  | 'DIAMOND_FOUR_THROUGH_DIAMOND_ONE'
+  | 'LEGEND'
+  | 'DIAMOND_THROUGH_LEGEND'
+  | 'PLATINUM';
 
 export interface varLabs {
   wxdata_perf_monitor_id?: string;

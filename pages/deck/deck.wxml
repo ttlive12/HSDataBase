@@ -39,11 +39,11 @@
             mode="aspectFill"
             lazy-load
           />
-          <text>{{item.zhName}}</text>
+          <text>{{item.name}}</text>
         </view>
         <view class="waterfall-item-body">
           <text>{{item.winrate}}%</text>
-          <text>{{item.games}}场</text>
+          <text>{{item.totalGames}}场</text>
         </view>
         <view
           wx:for="{{item.cards}}"

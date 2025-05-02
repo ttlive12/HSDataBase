@@ -2,30 +2,37 @@ import { rankType } from '../api/type';
 
 export interface Card {
   dbfId: number;
-  cost: number;
   id: string;
   rarity: string;
   name: string;
-  back: string;
+  cost: number;
+  num: number;
 }
 
 export interface Deck {
-  deckId: string;
-  rank: string;
+  deck_id: string;
+  archetype_id: number;
   cards: Card[];
   class: string;
-  createdAt: string;
-  deckcode: string;
   dust: number;
-  games: number;
-  name: string;
+  totalGames: number;
   winrate: number;
-  legendaryCardNum: number;
-  zhName: string;
-  order: number;
+  name: string;
+  deckcode: string;
 }
 
 export interface IGetDecksData {
   success: boolean;
-  data: Record<rankType, Deck[]>;
+  data: Record<
+    rankType,
+    {
+      data: Deck[];
+      pagination: {
+        page: number;
+        pageSize: number;
+        totalCount: number;
+        totalPages: number;
+      };
+    }
+  >;
 }

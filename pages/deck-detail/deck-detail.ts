@@ -1,9 +1,10 @@
 import { getDeckDetails } from '@/api/index';
-import { rankType } from '@/api/type';
+import { ClassTypes, rankType } from '@/api/type';
 import { dust } from '@/assets/index';
 import { class2Img } from '@/constants';
 import { OpponentInfo } from '@/modal/deckDetails';
 import { Deck } from '@/modal/decksData';
+// import { encode, decode, FormatType } from 'deckstrings';
 
 interface VisitInfo {
   lastVisitDate: string; // 上次访问日期
@@ -34,10 +35,27 @@ Page({
     }
     const deckData = wx.getStorageSync<Deck>('deckData');
 
-    const deckDetails = await getDeckDetails(deckData.deckId);
+    const deckDetails = await getDeckDetails(deckData.deck_id);
+
+    const rarityNum = {
+      COMMON: 0,
+      RARE: 1,
+      EPIC: 2,
+      LEGENDARY: 3,
+    };
 
     this.setData({
-      deckData,
+      deckData: {
+        ...deckData,
+        cards: deckData.cards.sort(
+          (a, b) =>
+            a.cost - b.cost ||
+            (a.cost === b.cost
+              ? rarityNum[a.rarity as keyof typeof rarityNum] -
+                rarityNum[b.rarity as keyof typeof rarityNum]
+              : 0)
+        ),
+      },
       deckDetails: enhanceOpponentInfo(deckDetails.data),
       currentType: options.currentType as rankType,
     });
@@ -63,9 +81,10 @@ Page({
   },
   handleCopy() {
     wx.reportEvent('copy_code', {});
-    const { deckcode, zhName } = this.data.deckData;
+    const { deckcode } = this.data.deckData;
     wx.setClipboardData({
-      data: `###${zhName}\n${deckcode}`,
+      // data: fullDeckCode,
+      data: deckcode,
       success: () => {
         wx.showToast({
           title: '复制成功',
@@ -190,8 +209,6 @@ Page({
       showAdModal: true,
     });
   },
-  onShareAppMessage() {},
-  onShareTimeline() {},
 });
 
 function getColor(valueParam: number): string {
@@ -209,21 +226,34 @@ function getColor(valueParam: number): string {
 }
 
 function enhanceOpponentInfo(
-  opponents: Record<rankType, OpponentInfo[]>
+  opponents: Record<
+    rankType,
+    {
+      matchups: {
+        [key: string]: {
+          win_rate: number;
+          total_games: number;
+        };
+      };
+    }
+  >
 ): Record<rankType, (OpponentInfo & { color: string })[]> {
   const enhanced: Record<rankType, (OpponentInfo & { color: string })[]> = {
-    diamond_4to1: [],
-    diamond_to_legend: [],
-    top_5k: [],
-    top_legend: [],
+    DIAMOND_FOUR_THROUGH_DIAMOND_ONE: [],
+    DIAMOND_THROUGH_LEGEND: [],
+    LEGEND: [],
+    TOP_1000_LEGEND: [],
+    PLATINUM: [],
   };
 
   for (const rank of Object.keys(opponents) as rankType[]) {
-    enhanced[rank] = opponents[rank].map((opponent) => ({
-      ...opponent,
-      color: getColor(opponent.winrate),
+    const matchups = opponents[rank].matchups;
+    enhanced[rank] = Object.keys(matchups || {}).map((className) => ({
+      color: getColor(matchups[className].win_rate),
+      class: className.toLowerCase() as ClassTypes,
+      winrate: matchups[className].win_rate,
+      total: matchups[className].total_games,
     }));
   }
-
   return enhanced;
 }

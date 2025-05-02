@@ -10,13 +10,22 @@ Page({
   data: {
     dust,
     data: {} as Record<rankType, CardInfo[]>,
-    decksData: {} as Record<rankType, Deck[]>,
+    decksData: {} as Record<
+      rankType,
+      {
+        data: Deck[];
+        pagination: { page: number; pageSize: number; totalCount: number; totalPages: number };
+      }
+    >,
     currentType: 'top_legend' as rankType,
     popularityNum: '0',
     class2Img,
     showCardImg: false,
     cardId: '',
-    sortType: 'mulliganImpact' as 'mulliganImpact' | 'drawnImpact' | 'keptImpact',
+    sortType: 'keep_percentage' as
+      | 'keep_percentage'
+      | 'opening_hand_winrate'
+      | 'winrate_when_played',
     sortOrder: 'desc' as 'asc' | 'desc',
     loading: true,
   },
@@ -42,25 +51,25 @@ Page({
       dataLength: Object.values(result.deckCardStats.data).flat().length,
       decksData: result.rankDetails.data,
       decksDataLength: Object.values(result.rankDetails.data).flat().length,
-      zhName: options.zhName,
+      name: options.name,
       currentType: options.currentType as rankType,
       loading: false,
     });
 
-    this.preloadFirstDeckDetails();
+    // this.preloadFirstDeckDetails();
   },
 
   // 预加载第一个可能会被点击的卡组详情
   preloadFirstDeckDetails() {
     const { currentType, decksData } = this.data;
     // 如果当前类型的卡组数据不存在或为空，则不执行预加载
-    if (!decksData[currentType] || decksData[currentType].length === 0) {
+    if (!decksData[currentType] || decksData[currentType].data.length === 0) {
       return;
     }
     // 获取第一个卡组作为预加载目标
-    const firstDeck = decksData[currentType][0];
+    const firstDeck = decksData[currentType].data[0];
     setTimeout(() => {
-      getDeckDetails(firstDeck.deckId, true);
+      getDeckDetails(firstDeck.deck_id, true);
     }, 50);
   },
 
@@ -70,7 +79,7 @@ Page({
     });
 
     // 当排行变化时，也预加载新类型下的第一个卡组
-    this.preloadFirstDeckDetails();
+    // this.preloadFirstDeckDetails();
   },
   handleJump(e: WechatMiniprogram.TouchEvent) {
     const deckData = e.currentTarget.dataset.data;
@@ -80,7 +89,10 @@ Page({
     });
   },
   handleSort(e: WechatMiniprogram.TouchEvent) {
-    const type = e.currentTarget.dataset.type as 'mulliganImpact' | 'drawnImpact' | 'keptImpact';
+    const type = e.currentTarget.dataset.type as
+      | 'keep_percentage'
+      | 'opening_hand_winrate'
+      | 'winrate_when_played';
     const { currentType, sortType, sortOrder } = this.data;
 
     const getValue = (item: CardInfo, key: keyof CardInfo): number => {
@@ -115,6 +127,4 @@ Page({
       });
     }
   },
-  onShareAppMessage() {},
-  onShareTimeline() {},
 });

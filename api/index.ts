@@ -10,20 +10,40 @@ import { IGetRanksData } from '../modal/rankData';
 
 const { request, all } = wxRequest;
 
+const getMode = () => {
+  return wx.getStorageSync('wild') ? 'RANKED_WILD' : 'RANKED_STANDARD';
+};
+
+const getSource = () => {
+  return (wx.getStorageSync('source') || 'cn') === 'cn' ? 'REGION_CN' : 'ALL';
+};
+
+const getPeriod = () => {
+  return (wx.getStorageSync('period') || 'default') === 'default' ? 'CURRENT_PATCH' : 'LAST_3_DAYS';
+};
+
+const generateUrl = (
+  baseUrl: string,
+  gameType = getMode(),
+  source = getSource(),
+  period = getPeriod()
+) => {
+  return `${baseUrl}?${gameType ? `GameType=${gameType}&` : ''}${period ? `TimeRange=${period}&` : ''}${source ? `Region=${source}` : ''}`;
+};
+
 /***
  * 获取排行数据
  * @returns RankDataResponse
  */
 export const getRankDatas = async () => {
-  const wild = wx.getStorageSync('wild') || false;
   return await request<IGetRanksData>({
-    url: `/getRanksData?wild=${wild}`,
+    url: generateUrl('/decks/archetype-rankings'),
     method: 'GET',
     showLoading: true,
     varLabs: {
       wxdata_perf_monitor_id: 'rank',
       wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      wxdata_perf_extra_info1: getMode(),
     },
   });
 };
@@ -32,15 +52,14 @@ export const getRankDatas = async () => {
  * 获取具体卡组数据
  */
 export const getDeckCardStatsData = async (deckName: string) => {
-  const wild = wx.getStorageSync('wild') || false;
   return await request<IGetDeckCardStatsData>({
-    url: `/getDeckCardStats?deckName=${deckName}&wild=${wild}`,
+    url: `/decks/getDeckCardStats?deckName=${deckName}&wild=${getMode()}`,
     method: 'GET',
     showLoading: true,
     varLabs: {
       wxdata_perf_monitor_id: 'stats',
       wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      wxdata_perf_extra_info1: getMode(),
     },
   });
 };
@@ -49,17 +68,14 @@ export const getDeckCardStatsData = async (deckName: string) => {
  * 获取推荐卡组数据
  */
 export const getDecksData = async () => {
-  const wild = wx.getStorageSync('wild') || false;
-  const period = wx.getStorageSync('period') === 'past_day' ? '&period=past_day' : '';
   return await request<IGetDecksData>({
-    url: `/getDecksData?wild=${wild}${period}`,
+    url: generateUrl(`/decks/rankings`),
     method: 'GET',
     showLoading: true,
     varLabs: {
       wxdata_perf_monitor_id: 'rank',
       wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
-      wxdata_perf_extra_info2: period ? 'past_day' : 'default',
+      wxdata_perf_extra_info1: getMode(),
     },
   });
 };
@@ -68,15 +84,14 @@ export const getDecksData = async () => {
  * 获取推荐卡组数据详情
  */
 export const getDeckDetails = async (deckId: string, pre = false) => {
-  const wild = wx.getStorageSync('wild') || false;
   return await request<IGetDeckDetailData>({
-    url: `/getDeckDetails?deckId=${deckId}&wild=${wild}`,
+    url: generateUrl(`/decks/details/${deckId}`),
     method: 'GET',
     showLoading: !pre,
     varLabs: {
       wxdata_perf_monitor_id: 'details',
       wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      wxdata_perf_extra_info1: getMode(),
     },
   });
 };
@@ -85,40 +100,41 @@ export const getDeckDetails = async (deckId: string, pre = false) => {
  * 获取排行卡组数据详情
  */
 export const getRankDetails = async (name: string) => {
-  const wild = wx.getStorageSync('wild') || false;
   return await request<IGetDecksData>({
-    url: `/getRankDetails?name=${name}&wild=${wild}`,
+    url: `/decks/getRankDetails?name=${name}&wild=${getMode()}`,
     method: 'GET',
     showLoading: true,
     varLabs: {
       wxdata_perf_monitor_id: 'rankData',
       wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+      wxdata_perf_extra_info1: getMode(),
     },
   });
 };
 
 /**
  * 批量获取卡组统计和排行详情
- * @param deckName 卡组名称
+ * @param id 卡组类型id
  */
-export const getDeckStatsAndRankDetails = async (deckName: string) => {
-  const wild = wx.getStorageSync('wild') || false;
+export const getDeckStatsAndRankDetails = async (id: string) => {
   const [deckCardStats, rankDetails] = await all([
-    wxRequest.get<IGetDeckCardStatsData>(`/getDeckCardStats?deckName=${deckName}&wild=${wild}`, {
-      showLoading: true,
-      varLabs: {
-        wxdata_perf_monitor_id: 'stats',
-        wxdata_perf_monitor_level: 1,
-        wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
-      },
-    }),
-    wxRequest.get<IGetDecksData>(`/getRankDetails?name=${deckName}&wild=${wild}`, {
+    wxRequest.get<IGetDeckCardStatsData>(
+      generateUrl(`/decks/archetype/${id}/mulligan`),
+      {
+        showLoading: true,
+        varLabs: {
+          wxdata_perf_monitor_id: 'stats',
+          wxdata_perf_monitor_level: 1,
+          wxdata_perf_extra_info1: getMode(),
+        },
+      }
+    ),
+    wxRequest.get<IGetDecksData>(generateUrl(`/decks/archetype/${id}/decks`), {
       showLoading: true,
       varLabs: {
         wxdata_perf_monitor_id: 'rankData',
         wxdata_perf_monitor_level: 1,
-        wxdata_perf_extra_info1: wild ? 'wild' : 'standard',
+        wxdata_perf_extra_info1: getMode(),
       },
     }),
   ]);
@@ -135,7 +151,7 @@ export const getDeckStatsAndRankDetails = async (deckName: string) => {
  */
 export const getJJCRank = async (): Promise<IGetArenaData> => {
   return await request<IGetArenaData>({
-    url: '/getJJCRank',
+    url: '/arena/class-ranking',
     method: 'GET',
     showLoading: true,
     varLabs: {
@@ -153,7 +169,7 @@ export const getJJCRank = async (): Promise<IGetArenaData> => {
  */
 export const getJJCCardRank = async (className: string): Promise<IGetArenaCardRank> => {
   return await request<IGetArenaCardRank>({
-    url: `/getJJCCardRank?class=${className}`,
+    url: `/arena/card-ranking?class=${className}`,
     method: 'GET',
     showLoading: true,
     varLabs: {
@@ -199,28 +215,5 @@ export const getPlayerRank = async (
       wxdata_perf_extra_info1: 'arena',
     },
     params,
-  });
-};
-
-interface IGetConfigResponse {
-  success: boolean;
-  data: {
-    update_time: string;
-    [key: string]: string;
-  };
-}
-
-/**
- * 获取配置
- */
-export const getConfig = async () => {
-  return await request<IGetConfigResponse>({
-    url: '/getConfigData',
-    method: 'GET',
-    varLabs: {
-      wxdata_perf_monitor_id: 'config',
-      wxdata_perf_monitor_level: 1,
-      wxdata_perf_extra_info1: 'config',
-    },
   });
 };

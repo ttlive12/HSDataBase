@@ -1,13 +1,19 @@
 import { ClassTypes, rankType } from '../api/type';
 
 export interface Rank {
-  ClimbingSpeed: number;
+  archetype_id: number;
   class: ClassTypes;
+  createdAt: string;
+  gameType: string;
+  leagueRankRange: rankType;
   name: string;
-  popularityNum: number;
-  popularityPercent: number;
+  pct_of_class: number;
+  pct_of_total: number;
+  region: string;
+  timeRange: string;
+  total_games: number;
+  updatedAt: string;
   winrate: number;
-  zhName: string;
   compositeScore?: number;
 }
 
