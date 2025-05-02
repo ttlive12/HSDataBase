@@ -1,0 +1,177 @@
+@import "../../common.scss";
+
+.weui-navigation-bar {
+  --weui-FG-0: rgba(0, 0, 0, 0.9);
+  --height: 44px;
+  --left: 16px;
+}
+.weui-navigation-bar .android {
+  --height: 48px;
+  height: calc(var(--height) + 40px);
+  padding-top: 40px;
+}
+
+.weui-navigation-bar .devtools {
+  --height: 48px;
+  height: calc(var(--height) + 40px);
+  padding-top: 40px;
+}
+
+.weui-navigation-bar {
+  overflow: hidden;
+  color: var(--weui-FG-0);
+  flex: none;
+}
+
+.weui-navigation-bar__inner {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: calc(var(--height) + env(safe-area-inset-top));
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: env(safe-area-inset-top);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.weui-navigation-bar__center {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  flex: 1;
+  height: 100%;
+  padding-left: 30rpx;
+  gap: 15rpx;
+}
+.back-icon {
+  height: 65%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB0PSIxNzMyNjk3NDU4MTk0IiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjEzMzcyIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PHBhdGggZD0iTTUzOC4yODggMTk4LjYyNGwtMTEuMzEyLTExLjMxMmExNiAxNiAwIDAgMC0yMi42NCAwTDE4Ny4zMTIgNTA0LjMzNmExNiAxNiAwIDAgMCAwIDIyLjY0TDUwNC4zMzYgODQ0YTE2IDE2IDAgMCAwIDIyLjY0IDBsMTEuMzEyLTExLjMxMmExNiAxNiAwIDAgMCAwLTIyLjYyNGwtMjk0LjQtMjk0LjQgMjk0LjQtMjk0LjRhMTYgMTYgMCAwIDAgMC0yMi42NHoiIGZpbGw9IiMwMDAwMDAiIHAtaWQ9IjEzMzczIj48L3BhdGg+PC9zdmc+");
+}
+.hs-icon {
+  height: 100%;
+  aspect-ratio: 1;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAxIDQ4IDQ4Ij48cGF0aCBmaWxsPSIjNTkzODEwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yNCAxMi4xN2M3IDAgMTIuOCA1LjggMTIuOCAxMi44UzMxIDM3Ljc3IDI0IDM3Ljc3cy0xMi44LTUuOC0xMi44LTEyLjhTMTcgMTIuMTcgMjQgMTIuMTciIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjxwYXRoIGZpbGw9IiNGRjlDMDAiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0ibTM3LjQgMzAuMTcgOC42LTUuMi04LjYtNS4yYy0uNC0xLjItMS0yLTEuNi0zbDItNS40LTUuNCAyYy0xLS42LTItMS4yLTMtMS42TDI0IDIuOTdsLTUuMiA4LjZjLTEuMi40LTIgMS0zIDEuNmwtNS40LTIgMiA1LjRjLS42IDEtMS4yIDItMS42IDNMMiAyNC45N2w4LjYgNS4yYy40IDEuMiAxIDIgMS42IDNsLTIgNS4zOTkgNS40LTJjMSAuNiAyIDEuMiAzIDEuNmw1LjQgOC44IDUuMi04LjZjMS4yLS40IDItMSAzLTEuNmw1LjQgMi0yLTUuNGMuOC0xIDEuNC0yLjIgMS44LTMuMk0yNCAzNi43N2MtNi42IDAtMTEuOC01LjItMTEuOC0xMS44czUuNC0xMS44IDExLjgtMTEuOGM2LjYgMCAxMS44IDUuNCAxMS44IDExLjggMCA2LjYtNS4yIDExLjgtMTEuOCAxMS44IiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48cGF0aCBmaWxsPSIjMzlDQ0ZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zMiAyNC41NjljMCAuMi0uMi40LS40LjYtLjIuNC4yLjQuMi42IDAgLjQgMCAxLS4yIDEuNCAwIC40LS4yLjgtLjQgMS4ycy0uNC42LS42IDFjMCAuNC0uMi44LS40IDEuMi0uNC40LS42LjYtMSAuOHMtLjQuNi0uOCAxbC0xLjIuNmMtLjQuMi0uOC4yLTEuMi40cy0xIC4yLTEuNC40Yy0uNCAwLTEgMC0xLjQuMi0uNCAwLS44LjQtMS4yLjRzLS44LS40LTEuMi0uNC0uOC0uMi0xLjItLjQtLjgtLjItMS4yLS40Yy0uNCAwLS44LS40LTEtLjggMC0uNCAxLjItLjQgMS42LS42LjYtLjQgMS40LS4yIDItLjYuMi0uMi40LS40LjYtLjQuMi0uMi40LS4yLjgtLjIuNC0uMiAxLS4yIDEuNi0uNGwxLjItLjZjLjQtLjIuNi0uNCAxLS44LjQtLjIuNi0uNiAxLTFsLjYtMS4yYy40LS40LjgtLjQuNi0uOHMtLjItMS0uMi0xLjRjMC0xIC4yLTItLjQtMi44LS40LS40LS42LS44LS44LTEuMi0uMi0uMi0uMi0uNC0uMi0uNiAwLS40LjItLjQtLjItLjQtLjIgMC0uNC4yLS42LjJoLS44Yy0uNiAwLTEuMiAwLTEuNi4ycy0xIC40LTEuMi42Yy0uNC4yLS42LjYtMSAuOC0uMiAwLS40LjItLjYuNCAwIC4yLS4yLjQtLjIuNi0uMi40LS4yIDEgMCAxLjYuMi44LjggMiAxLjggMS42cy0uOC0xLjggMC0yLjJjLjQtLjIgMS0uMiAxLjQgMCAuNiAwIDEgLjIgMS40LjRzLjIuOC40IDEuMmMuNC40LjQuOC40IDEuNCAwIDEtLjYgMS44LTEuNCAyLjItLjQuMi0xIDAtMS40LjJzLS44LjQtMS4yLjRjLS4yIDAtLjQtLjItLjYtLjJoLS42Yy0uNCAwLS42LS42LTEtLjYgMC0uNC0uNi0uOC0uOC0xLS40LS40LS42LS44LTEtMS4ycy0uNi0uOC0uOC0xLjIgMC0uOC0uMi0xLjJjMC0uMi0uMi0uNC0uMi0uNnYtLjhjMC0uNC0uMi0uOC0uMi0xLjJzMC0uNC40LS40Yy4yLS4yLjQtLjQuNi0uNC0uMi0uOCAwLTEgLjQtMS40IDAtLjIuMi0uNC40LS42cy4yLS40LjQtLjRjLjQtLjQuOC0uNiAxLjItMSAuOC0uNiAxLjYtMS4yIDIuOC0uOC42LjIuOC0uMiAxLjItLjJzLjguNCAxLjIuNGMuNC4yLjguMiAxLjIuNHMxIC40IDEuNC42YzEgLjQgMS4yIDEuMiAxLjggMS44LjQuNiAxLjYgMS40IDEuMiAyLjIgMCAuMiAwIC42LjIuOC4yLjQuMi42LjIgMSAuMi42LjggMS4yLjggMS42IiBjbGlwLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=");
+}
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40rpx;
+  font-family: serif;
+  .main {
+    font-size: 38rpx;
+    line-height: 38rpx;
+    letter-spacing: 1rpx;
+  }
+  .sub {
+    font-size: 24rpx;
+    transform: translateY(6rpx);
+  }
+}
+.popup-container {
+  box-sizing: border-box;
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to right bottom,
+    white,
+    rgba($color: $orange, $alpha: 0.05),
+    rgba($color: $orange, $alpha: 0.1),
+    rgba($color: $orange, $alpha: 0.2)
+  );
+  gap: 20rpx;
+  .mode {
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+    &-name {
+      font-size: 50rpx;
+      font-family: "Ifont";
+      letter-spacing: 5rpx;
+    }
+    &-switch {
+      border: 1rpx solid;
+      padding: 6rpx 20rpx;
+      border-radius: 10rpx;
+      font-size: 24rpx;
+    }
+  }
+  .modeCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10rpx;
+  }
+}
+
+.setting {
+  gap: 5rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 26rpx;
+  padding: 20rpx;
+  z-index: 300;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* 允许换行 */
+  justify-content: space-between;
+  &:first-child {
+    margin-right: 30rpx;
+  }
+  .item {
+    border-radius: 20rpx;
+    width: 48%;
+    box-sizing: border-box;
+    padding: 20rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 10rpx;
+    border: 1rpx solid #9695917a;
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10rpx;
+      font-size: 32rpx;
+      line-height: 32rpx;
+      position: relative;
+    }
+    .body {
+      font-size: 26rpx;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10rpx;
+      text-align: center;
+    }
+  }
+}
+
+.icon {
+  width: 80rpx;
+  height: 90rpx;
+  transition: transform 0.4s;
+}
+
+.icon.rotate {
+  transform: rotateY(90deg);
+}

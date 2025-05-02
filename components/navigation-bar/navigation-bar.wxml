@@ -1,0 +1,177 @@
+<view class="weui-navigation-bar {{extClass}}">
+  <view
+    class="weui-navigation-bar__inner {{ios ? 'ios' : 'android'}} {{isDevtools ? 'devtools' : ''}}"
+    style="{{displayStyle}}; {{innerPaddingRight}}; {{safeAreaTop}}"
+  >
+    <!-- 标题 -->
+    <view class="weui-navigation-bar__center">
+      <view
+        wx:if="{{back}}"
+        class="back-icon"
+        bind:tap="handleBack"
+      />
+      <view
+        wx:else
+        class="hs-icon"
+        bind:tap="handleBackHome"
+      />
+      <view class="title">
+        <text class="main">{{title}}</text>
+        <view
+          id="setting"
+          class="setting"
+          wx:if="{{setting}}"
+          bind:tap="onShow"
+        >
+          <image
+            src="/assets/setting.svg"
+            style="width: 35rpx; height: 35rpx; margin-top: 3rpx"
+          />
+          <text>{{wild ? '狂野模式' : '标准模式'}}</text>
+        </view>
+        <text
+          wx:if="{{subTitle}}"
+          class="sub"
+          >{{subTitle}}</text
+        >
+        <!-- <text wx:else class="sub">{{currentMouth}}月{{currentDay}}日更新</text> -->
+      </view>
+    </view>
+  </view>
+</view>
+
+<van-popup
+  show="{{ show }}"
+  closeable
+  bind:close="onClose"
+  round
+  custom-style="width: 80%"
+  z-index="10000"
+>
+  <view class="popup-container">
+    <view class="mode">
+      <image
+        src="{{wild ? 'https://hs.res.netease.com/pc/zt/20241031162506/assets/wild_3a6668c1.png' : 'https://hs.res.netease.com/pc/zt/20241031162506/assets/standard_887a616e.png'}}"
+        class="icon {{rotate ? 'rotate' : ''}}"
+        bind:tap="handleSwitch"
+      />
+      <text class="mode-name">{{wild ? '狂野模式' : '标准模式'}}</text>
+      <image
+        src="/assets/switch.svg"
+        style="width: 40rpx; height: 40rpx; padding: 15rpx; transform: translateX(-10rpx)"
+        bind:tap="handleSwitch"
+      />
+    </view>
+
+    <view class="card-container">
+      <view
+        class="item"
+        style="width: 100%; margin-bottom: 20rpx"
+      >
+        <view class="header">
+          <image
+            src="/assets/rank_black.svg"
+            style="width: 40rpx; height: 40rpx"
+          />
+          <text>排行榜设置</text>
+          <alert title="排行榜设置">
+            <text>综合排行：根据不同的分段给予热度一定的权重</text>
+            <text>注：仅影响排行榜页数据</text>
+          </alert>
+        </view>
+
+        <view class="body">
+          <van-radio-group
+            value="{{ radio }}"
+            bind:change="onChange"
+            direction="horizontal"
+          >
+            <van-radio name="1">综合排行</van-radio>
+            <van-radio name="2">胜率排行</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+
+      <view
+        class="item"
+        style="width: 100%; margin-bottom: 20rpx"
+      >
+        <view class="header">
+          <image
+            src="/assets/deck_black.svg"
+            style="width: 35rpx; height: 35rpx"
+          />
+          <text>卡组推荐设置</text>
+          <alert title="卡组推荐设置">
+            <text>默认数据：补丁后的数据或近一周的数据</text>
+            <text>近一天数据：一天内数据，样本量小，时效性高</text>
+            <text>注：仅影响卡组推荐页数据</text>
+          </alert>
+        </view>
+
+        <view class="body">
+          <van-radio-group
+            value="{{ period }}"
+            bind:change="onChangePeriod"
+            direction="horizontal"
+          >
+            <van-radio name="default">默认数据</van-radio>
+            <van-radio name="past_day">近一天数据</van-radio>
+          </van-radio-group>
+        </view>
+      </view>
+
+      <view class="item">
+        <view class="header">
+          <image
+            src="/assets/clock.svg"
+            style="width: 40rpx; height: 40rpx"
+          />
+          <text>数据更新</text>
+        </view>
+        <view class="body">
+          <text>{{updateTime ? '最近更新时间' : '自动剔除老数据'}}</text>
+          <text>{{updateTime ? updateTime : '每日自动更新'}}</text>
+        </view>
+      </view>
+
+      <view class="item">
+        <view class="header">
+          <image
+            src="/assets/feedback.svg"
+            style="width: 40rpx; height: 40rpx"
+          />
+          <text>意见反馈</text>
+        </view>
+        <view class="body">
+          <text>欢迎分享，评分</text>
+          <button
+            size="mini"
+            plain="true"
+            open-type="feedback"
+            style="line-height: 45rpx"
+          >
+            前往反馈
+          </button>
+        </view>
+      </view>
+
+      <view
+        class="item"
+        style="width: 100%; margin-top: 20rpx"
+      >
+        <view class="header">
+          <image
+            src="/assets/update.svg"
+            style="width: 40rpx; height: 40rpx"
+          />
+          <text>更新日志</text>
+        </view>
+        <view class="body">
+          <text>当前版本：2.0.0</text>
+          <text>更新内容：新增竞技场，玩家排行等</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>

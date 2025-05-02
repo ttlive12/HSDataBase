@@ -1,0 +1,162 @@
+@import '../../../common.scss';
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.container {
+  width: 100%;
+  padding: 15rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx 40rpx;
+  gap: 20rpx;
+
+  .image {
+    width: 50rpx;
+    height: 50rpx;
+  }
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+  }
+
+  &-item {
+    position: relative;
+    border: 1rpx solid rgba($orange, 0.4);
+    border-radius: 20rpx;
+    display: flex;
+    align-items: center;
+    padding: 10rpx 20rpx;
+    transition: all 0.3s ease;
+
+    @each $class, $color in $classColors {
+      &.#{$class} {
+        border-color: mix(black, $color, 30%);
+      }
+      &.#{$class} &-index {
+        background-color: mix(black, $color, 30%);
+      }
+    }
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
+    }
+
+    &-index {
+      position: absolute;
+      left: 0;
+      transform: translateX(-50%);
+      font-size: 28rpx;
+      text-align: center;
+      width: 40rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      margin-right: 20rpx;
+      color: white;
+      border-radius: 50%;
+    }
+
+    &-content {
+      display: flex;
+      align-items: center;
+      gap: 20rpx;
+      margin-left: 30rpx;
+    }
+
+    &-img {
+      width: 60rpx;
+      height: 60rpx;
+    }
+
+    &-name {
+      font-size: 32rpx;
+      font-weight: 500;
+    }
+
+    &-stats {
+      margin-left: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4rpx;
+    }
+
+    &-winrate {
+      font-size: 32rpx;
+      font-weight: 500;
+    }
+
+    &-label {
+      font-size: 22rpx;
+      color: $gray-6;
+    }
+
+    &-arrow {
+      width: 40rpx;
+      height: 40rpx;
+      margin-left: 30rpx;
+      transition: transform 0.3s ease;
+    }
+
+    &:active &-arrow {
+      transform: translateX(10rpx);
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  gap: 20rpx;
+
+  .loading-spinner {
+    width: 60rpx;
+    height: 60rpx;
+    border: 4rpx solid $gray-3;
+    border-top-color: $orange;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  text {
+    font-size: 28rpx;
+    color: $gray-6;
+  }
+}
+
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+
+  text {
+    font-size: 28rpx;
+    color: $gray-6;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,222 @@
+@import "../../../../common.scss";
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 100rpx; // tabbar 占位
+}
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx 40rpx;
+  gap: 20rpx;
+
+  .image {
+    width: 50rpx;
+    height: 50rpx;
+  }
+  .rank-container {
+    margin: 0 25rpx;
+  }
+  .rank-container:nth-child(even) {
+    border-radius: 20rpx;
+  }
+  .rank-container:nth-child(odd) {
+    border-radius: 20rpx;
+  }
+
+  &-item {
+    position: relative;
+    border: 1rpx solid rgba($orange, 0.4);
+    border-radius: 20rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10rpx 20rpx;
+
+    @each $class, $color in $classColors {
+      .#{$class} {
+        color: mix(black, $color, 30%);
+      }
+    }
+
+    .gray {
+      color: $gray-6;
+    }
+
+    &-index {
+      position: absolute;
+      left: 0;
+      transform: translateX(-50%);
+      font-size: 28rpx;
+      text-align: center;
+      width: 40rpx;
+      height: 40rpx;
+      line-height: 40rpx;
+      margin-right: 20rpx;
+      background-color: $orange;
+      color: white;
+      border-radius: 50%;
+    }
+
+    &-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4rpx;
+    }
+
+    &-name {
+      width: 140rpx;
+      text-align: center;
+      transform: translateX(30rpx);
+    }
+
+    &-subtitle {
+      font-size: 20rpx;
+      font-weight: 300;
+    }
+
+    &-text {
+      flex: 1;
+      text-align: center;
+      font-size: 32rpx;
+      line-height: 32rpx;
+    }
+
+    &-img {
+      width: 40rpx;
+      height: 40rpx;
+      margin-left: 40rpx;
+      transition: transform 0.3s ease;
+    }
+
+    &:active &-img {
+      transform: translateX(100%);
+    }
+  }
+
+  &-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 40rpx;
+
+    @each $class, $color in $classColors {
+      .#{$class} {
+        background: $color;
+        color: contrast-color($color);
+      }
+    }
+
+    &-item {
+      width: 50%;
+      padding: 10rpx 20rpx;
+      border-radius: 20rpx;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      &:active {
+        transform: scale(0.98);
+        box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.15);
+
+        &::after {
+          opacity: 1;
+        }
+      }
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10rpx;
+        &-left {
+          display: flex;
+          align-items: center;
+          gap: 10rpx;
+        }
+      }
+
+      &-body {
+        display: flex;
+        justify-content: space-between;
+
+        &-left {
+          flex: 1;
+
+          .image {
+            width: 40rpx;
+            height: 40rpx;
+          }
+
+          font-size: 32rpx;
+          display: flex;
+          flex-direction: column;
+
+          .light {
+            font-size: 20rpx;
+            line-height: 26rpx;
+            font-weight: 300;
+          }
+
+          &-item {
+            display: flex;
+            align-items: center;
+            gap: 15rpx;
+            line-height: 34rpx;
+
+            :nth-child(1) {
+              flex: 2;
+            }
+
+            :nth-child(2) {
+              flex: 7;
+            }
+          }
+        }
+
+        &-right {
+          font-size: 45rpx;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: 1;
+
+          .image {
+            width: 35rpx;
+            height: 35rpx;
+          }
+
+          .light {
+            font-size: 30rpx;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+}

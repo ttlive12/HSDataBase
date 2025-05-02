@@ -1,0 +1,14 @@
+@import "./common.scss";
+page {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica,
+    Segoe UI, Arial, Roboto, "PingFang SC", "miui", "Hiragino Sans GB",
+    "Microsoft Yahei", sans-serif;
+  background: linear-gradient(
+    to bottom,
+    rgba($orange, 0.4),
+    rgba($orange, 0.05),
+    rgba($orange, 0.05),
+    rgba($orange, 0.05),
+    rgba($orange, 0.1)
+  );
+}

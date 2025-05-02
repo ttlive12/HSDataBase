@@ -1,0 +1,162 @@
+/* pages/player-rank/player-rank.wxss */
+@import '../../../common.scss';
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.container {
+  width: 100%;
+  padding: 15rpx 0;
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.selectors {
+  display: flex;
+  gap: 20rpx;
+  margin: 20rpx 30rpx;
+  margin-bottom: 40rpx;
+
+  .selector {
+    flex: 1;
+  }
+
+  .selector-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8rpx;
+    padding: 20rpx;
+    background-color: rgba(white, 0.4);
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  }
+
+  .selector-label {
+    font-size: 24rpx;
+    color: $gray-6;
+  }
+
+  .selector-value {
+    font-size: 32rpx;
+    font-weight: 500;
+    color: $gray-8;
+  }
+}
+
+.rank {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30rpx;
+  gap: 20rpx;
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+  }
+
+  &-header {
+    display: flex;
+    padding: 20rpx;
+    border-radius: 16rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+
+    &-item {
+      font-size: 28rpx;
+      color: $gray-6;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+  &-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20rpx;
+    transition: all 0.3s ease;
+    &:nth-child(even) {
+      background-color: rgba($orange, 0.08);
+    }
+
+    &:active {
+      transform: scale(0.98);
+      box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.1);
+    }
+
+    &-position {
+      width: 100rpx;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10rpx;
+
+      &-text {
+        font-size: 32rpx;
+        font-weight: 500;
+        color: $gray-8;
+      }
+
+      &-crown {
+        width: 40rpx;
+        height: 40rpx;
+
+        &-img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    &-name {
+      flex: 1;
+      font-size: 32rpx;
+      font-weight: 500;
+      color: $gray-8;
+      text-align: center;
+    }
+  }
+}
+
+.load-more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30rpx;
+  gap: 20rpx;
+
+  .loading-spinner {
+    width: 40rpx;
+    height: 40rpx;
+    border: 4rpx solid $gray-3;
+    border-top-color: $orange;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  text {
+    font-size: 24rpx;
+    color: $gray-6;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

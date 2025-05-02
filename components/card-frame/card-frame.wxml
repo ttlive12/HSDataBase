@@ -1,0 +1,23 @@
+<view
+  class="card"
+  bind:tap="onTap"
+>
+  <view class="card-name">
+    <text>{{cost}}</text>
+    <text>{{name}}</text>
+    <text
+      wx:if="{{back}}"
+      class="card-name-back {{back === '⋆' ? 'legend' : ''}}"
+      >{{back}}</text
+    >
+  </view>
+  <view class="card-frame">
+    <view class="card-frame-countbox {{rarity}}" />
+    <image
+      class="card-frame-image"
+      src="https://art.hearthstonejson.com/v1/tiles/{{cardId}}.webp"
+      mode="aspectFill"
+      lazy-load
+    />
+  </view>
+</view>

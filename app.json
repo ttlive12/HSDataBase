@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/deck/deck",
+    "pages/deck-stats/deck-stats",
+    "pages/deck-detail/deck-detail",
+    "pages/my/my",
+    "pages/fail/fail"
+  ],
+  "subpackages": [
+    {
+      "root": "packageTools",
+      "name": "tools",
+      "pages": [
+        "pages/environment/environment",
+        "pages/arena/arena",
+        "pages/arenaCards/arenaCards",
+        "pages/player-rank/player-rank"
+      ]
+    }
+  ],
+  "usingComponents": {},
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
+  },
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "disableABTest": true,
+      "sdkVersionBegin": "3.0.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
+  "tabBar": {
+    "custom": true,
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/deck/deck",
+        "text": "推荐卡组"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "工具"
+      }
+    ]
+  },
+  "resolveAlias": {
+    "@/*": "/*"
+  },
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

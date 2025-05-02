@@ -1,0 +1,74 @@
+@import '../../common.scss';
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.container {
+  width: 100%;
+  padding: 30rpx 40rpx;
+  box-sizing: border-box;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40rpx;
+}
+
+.card {
+  background-color: rgba($orange-light, 0.2);
+  border-radius: 24rpx;
+  padding: 50rpx 40rpx;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2.5rpx 12rpx rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 1rpx 6rpx rgba(0, 0, 0, 0.2);
+  }
+}
+
+.card-icon {
+  font-size: 60rpx;
+  margin-right: 30rpx;
+  width: 120rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  .card-icon-image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 6rpx;
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.card-arrow {
+  color: #ccc;
+  font-size: 32rpx;
+}

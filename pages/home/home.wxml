@@ -1,0 +1,14 @@
+<navigation-bar
+  id="nav-bar"
+  title="排行榜"
+  setting
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="home">
+    <rank id="rank" />
+  </view>
+</scroll-view>

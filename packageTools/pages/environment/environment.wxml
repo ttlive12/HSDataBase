@@ -1,0 +1,17 @@
+<navigation-bar
+  back="{{true}}"
+  title="今日环境"
+/>
+<view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    <rank-bar
+      id="rankBar"
+      bind:rankChange="handleRankChange"
+    />
+  </view>
+  <chart data="{{rankData[currentType]}}" />
+</view>

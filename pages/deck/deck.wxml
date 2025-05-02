@@ -1,0 +1,76 @@
+<navigation-bar
+  title="推荐卡组"
+  setting
+  id="nav-bar"
+/>
+<scroll-view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    <rank-bar
+      id="rankBar"
+      bind:rankChange="handleRankChange"
+    />
+  </view>
+  <!-- 近一天数据时，如果无数据，推荐用户切换模式 -->
+  <view
+    wx:if="{{data[currentType].length === 0 && period === 'past_day'}}"
+    class="no-data"
+  >
+    <text class="no-data-text">暂无数据，请切换至默认数据</text>
+  </view>
+  <view class="waterfall">
+    <view
+      wx:for="{{data[currentType]}}"
+      wx:key="id"
+      class="waterfall-item-container"
+    >
+      <view
+        class="waterfall-item  {{item.class}}"
+        data-data="{{item}}"
+        bind:tap="handleJump"
+      >
+        <view class="waterfall-item-header">
+          <image
+            class="image"
+            src="{{class2Img[item.class]}}"
+            mode="aspectFill"
+            lazy-load
+          />
+          <text>{{item.zhName}}</text>
+        </view>
+        <view class="waterfall-item-body">
+          <text>{{item.winrate}}%</text>
+          <text>{{item.games}}场</text>
+        </view>
+        <view
+          wx:for="{{item.cards}}"
+          wx:key="id"
+          wx:for-item="card"
+        >
+          <view
+            wx:if="{{card.rarity === 'LEGENDARY'}}"
+            class="card"
+          >
+            <view class="card-name">
+              <text>{{card.cost}}</text>
+              <text>{{card.name}}</text>
+            </view>
+            <view class="card-frame">
+              <view class="card-frame-countbox" />
+              <image
+                class="card-frame-image"
+                src="https://art.hearthstonejson.com/v1/tiles/{{card.id}}.webp"
+                mode="aspectFill"
+                lazy-load
+              />
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="height: 200rpx" />
+</scroll-view>

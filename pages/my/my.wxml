@@ -1,0 +1,62 @@
+<navigation-bar title="工具" />
+<view
+  class="scrollarea"
+  scroll-y
+  type="list"
+>
+  <view class="container">
+    <view class="card-list">
+      <!-- 环境卡片 -->
+      <view
+        class="card"
+        bindtap="navigateToEnvironment"
+      >
+        <view class="card-icon environment-icon">
+          <image
+            class="card-icon-image"
+            src="/assets/piechart.svg"
+          />
+        </view>
+        <view class="card-content">
+          <view class="card-title">环境图表</view>
+          <view class="card-desc">直观查看当前天梯环境</view>
+        </view>
+        <view class="card-arrow">></view>
+      </view>
+      <!-- 竞技场卡片 -->
+      <view
+        class="card"
+        bindtap="navigateToArena"
+      >
+        <view class="card-icon arena-icon">
+          <image
+            class="card-icon-image"
+            src="{{arenaIcon}}"
+          />
+        </view>
+        <view class="card-content">
+          <view class="card-title">竞技场</view>
+          <view class="card-desc">查看竞技场职业和卡牌数据</view>
+        </view>
+        <view class="card-arrow">></view>
+      </view>
+      <!-- 玩家排行卡片 -->
+      <view
+        class="card"
+        bindtap="navigateToPlayerRank"
+      >
+        <view class="card-icon awards-icon">
+          <image
+            class="card-icon-image"
+            src="/assets/awards.svg"
+          />
+        </view>
+        <view class="card-content">
+          <view class="card-title">玩家排行</view>
+          <view class="card-desc">查看实时的玩家排行数据</view>
+        </view>
+        <view class="card-arrow">></view>
+      </view>
+    </view>
+  </view>
+</view>

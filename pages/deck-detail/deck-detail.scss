@@ -1,0 +1,107 @@
+@import "../../common.scss";
+
+page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea {
+  flex: 1;
+  overflow-y: hidden;
+  padding-top: 15rpx;
+  gap: 40rpx;
+}
+
+.container {
+  margin: 20rpx 40rpx 40rpx;
+  display: flex;
+  gap: 50rpx;
+}
+
+.support {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx 40rpx;
+  color: #797a7a;
+  font-size: 30rpx;
+  line-height: 40rpx;
+  text-align: center;
+  gap: 30rpx;
+}
+
+.deck {
+  &-cards {
+    width: 320rpx;
+    height: fit-content;
+    border-radius: 20rpx;
+    overflow: hidden;
+  }
+
+  &-dust {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20rpx;
+    gap: 10rpx;
+  }
+}
+
+.details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+
+  .image {
+    width: 70rpx;
+    height: 70rpx;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10rpx;
+  }
+
+  &-item {
+    line-height: 70rpx;
+    display: flex;
+    gap: 20rpx;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+  }
+}
+
+.fab-button {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  right: 50rpx;
+  bottom: 80rpx;
+  padding: 5rpx 30rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  border: none;
+  border-radius: 30rpx;
+  font-family: sans-serif;
+  background-color: rgba($color: $orange, $alpha: 0.8);
+  color: white;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 2;
+
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.2);
+  }
+}

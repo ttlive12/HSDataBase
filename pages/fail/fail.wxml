@@ -1,0 +1,13 @@
+<view
+  style="width: 100%; text-align: center; margin-top: 15vh; display: flex; flex-direction: column"
+>
+  <van-empty description="{{message}}">
+    <van-button
+      bind:tap="reload"
+      round
+      type="warning"
+      custom-style="padding: 0 100rpx;line-height: 85rpx;height: 85rpx"
+      >重新加载</van-button
+    >
+  </van-empty>
+</view>

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "tour-guide": "/components/tour-guide/tour-guide"
+  }
+}
